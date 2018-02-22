@@ -638,7 +638,7 @@
                 back: function (options) {
                     return app.router.back(view, options);  
                 },
-                // Shortcuts
+                // Shortcuts.
                 loadPage: function (options) {
                     options = options || {};
                     if (typeof options === 'string') {
@@ -3453,6 +3453,7 @@
         };
         app.popover = function (modal, target, removeOnClose) {
             if (typeof removeOnClose === 'undefined') removeOnClose = true;
+			console.log("entro 1");
             if (typeof modal === 'string' && modal.indexOf('<') >= 0) {
                 var _modal = document.createElement('div');
                 _modal.innerHTML = modal.trim();
@@ -3463,8 +3464,11 @@
                 }
                 else return false; //nothing found
             }
+			console.log(modal.indexOf('<'));
             modal = $(modal);
             target = $(target);
+			console.log(modal.length);
+			console.log(target.length);
             if (modal.length === 0 || target.length === 0) return false;
             if (modal.find('.popover-angle').length === 0 && !app.params.material) {
                 modal.append('<div class="popover-angle"></div>');
@@ -6656,8 +6660,10 @@
         app.accordionToggle = function (item) {
             item = $(item);
             if (item.length === 0) return;
-            if (item.hasClass('accordion-item-expanded')) app.accordionClose(item);
-            else app.accordionOpen(item);
+            if (item.hasClass('accordion-item-expanded')) 
+				app.accordionClose(item);
+            else
+				app.accordionOpen(item);
         };
         app.accordionOpen = function (item) {
             item = $(item);
@@ -6681,8 +6687,10 @@
                     item.trigger('closed');
                 }
             });
-            item.trigger('open');
+			
+			item.trigger('open');
             item.addClass('accordion-item-expanded');
+				
         };
         app.accordionClose = function (item) {
             item = $(item);
@@ -7495,6 +7503,11 @@
                         $('.speed-dial-opened').removeClass('speed-dial-opened');
                     }
                 }
+
+                /*if (clicked.hasClass('icon-form-new') && clicked.parent().hasClass('speed-dial-buttons'))
+                {
+                    clicked.trigger('nuegoReg');
+                }*/
         
                 // Load Page
                 if (app.params.ajaxLinks && !clicked.is(app.params.ajaxLinks) || !isLink || !app.params.router) {

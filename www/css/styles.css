@@ -14,6 +14,10 @@
     background: #000000;
 }
 
+.HidenParams{
+	display: none;
+}
+
 .navbar {
 	background-color: #1a9e40;
 	box-shadow: 0px 0px 35px #545454;
@@ -32,4 +36,63 @@
 	text-indent:8px;
 	margin-bottom:-8px;
 	color: #787878;
+}
+
+.MargenMenu{
+	background-color: #43b766;
+	/*margin-left: 10px;*/
+	padding-left: 20px;
+	color: #FFFFFF;
+}
+
+.contenido{
+	margin-top:80px;
+}
+
+.MenuModulos{
+	background-color: #1a9e40;
+	color: #FFFFFF;
+	font-weight: bold;
+	margin-top:80px;
+}
+
+.MenuModulos .accordion-item-expanded{
+	box-shadow: 0px 0px 20px #545454;
+}
+
+.speed-dial-buttons a{
+	/*background-color: #43b766;*/
+	background-color:#FFF;
+}
+
+.speed-dial a{
+	background-color: #1a9e40;
+}
+
+.icon-form-new {
+  background-image: url("img/newIco.png");
+  background-repeat: no-repeat;
+  background-position:center;
+  background-size: 24px 24px;
+}
+
+.icon-form-search {
+  background-image: url("img/bar_search.gif");
+  background-repeat: no-repeat;
+  background-position:center;
+  background-size: 24px 24px;
+}
+
+.icon-form-exit {
+  background-image: url("img/bar_exit.png");
+  background-repeat: no-repeat;
+  background-position:center;
+  background-size: 24px 24px;
+}
+
+.icon-form-help {
+  background-image: url("img/bar_help.gif");
+  background-repeat: no-repeat;
+  background-position:center;
+  background-size: 24px 24px;
 }
