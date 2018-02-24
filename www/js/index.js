@@ -72,6 +72,12 @@ $$(document).on('pageInit', function (e) {
 			break;
 		case 'about':
 			break;
+		case 'FormDataI':
+			var code = $$("#ObjSpeedIU").html();
+			code = "<div class=\"speed-dial\">" + code + "</div>";
+			$$("#ObjSpeedIU").remove();
+			$$("div[data-page='FormDataI']").append(code);
+			break;
 	}
     /*if (page.name === 'about') {
         // Following code will be executed for page with data-page attribute equal to "about"
@@ -87,8 +93,9 @@ function CallMantenimiento(p, o, url)
 	
 	$$.get(FullUrl,{},function(data)
 	{
+		//console.log(data);
 		mainView.router.loadContent(data);
-		myApp.hidePreloader();
+		myApp.hidePreloader();		
 	});
 }
 
@@ -129,8 +136,11 @@ function enviarMetodo(tipo)
 		enviar: tipo
 	},function (data)
 	{
-		//console.log(data);
-		mainView.router.loadContent(data);
+		console.log(data);
+		mainView.router.load({
+			content: data,
+			animatePages: true
+		});
 		//myApp.alert(data.length);
 		myApp.hidePreloader();
 	});
