@@ -73,10 +73,12 @@ $$(document).on('pageInit', function (e) {
 		case 'about':
 			break;
 		case 'FormDataI':
-			var code = $$("#ObjSpeedIU").html();
+			$$("#ObjSpeedIU").appendTo("div[data-page='FormDataI']");
+			/*var code = $$("#ObjSpeedIU").html();
 			code = "<div class=\"speed-dial\">" + code + "</div>";
 			$$("#ObjSpeedIU").remove();
-			$$("div[data-page='FormDataI']").append(code);
+			$$("div[data-page='FormDataI']").append(code);*/
+			//console.log($$("div[data-page='FormDataI']").html());
 			break;
 	}
     /*if (page.name === 'about') {
@@ -88,7 +90,7 @@ $$(document).on('pageInit', function (e) {
 function CallMantenimiento(p, o, url)
 {
 	var FullUrl = URLBASE.replace("Sistema","") + url;
-	console.log(FullUrl);
+	//console.log(FullUrl);
 	myApp.showPreloader();
 	
 	$$.get(FullUrl,{},function(data)
@@ -136,7 +138,7 @@ function enviarMetodo(tipo)
 		enviar: tipo
 	},function (data)
 	{
-		console.log(data);
+		//console.log(data);
 		mainView.router.load({
 			content: data,
 			animatePages: true
