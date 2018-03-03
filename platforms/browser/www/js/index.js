@@ -73,12 +73,8 @@ $$(document).on('pageInit', function (e) {
 		case 'about':
 			break;
 		case 'FormDataI':
-			$$("#ObjSpeedIU").appendTo("div[data-page='FormDataI']");
-			/*var code = $$("#ObjSpeedIU").html();
-			code = "<div class=\"speed-dial\">" + code + "</div>";
-			$$("#ObjSpeedIU").remove();
-			$$("div[data-page='FormDataI']").append(code);*/
-			//console.log($$("div[data-page='FormDataI']").html());
+			//$$("#ObjSpeedIU .icon-form-save").click(Motor("buscar"));
+			//$$("#ObjSpeedIU").appendTo("div[data-page='FormDataI']");
 			break;
 	}
     /*if (page.name === 'about') {
@@ -99,6 +95,39 @@ function CallMantenimiento(p, o, url)
 		mainView.router.loadContent(data);
 		myApp.hidePreloader();		
 	});
+}
+
+function MotorMovil(a)
+{
+	var playload = {};
+	switch(a)
+	{
+		case "Buscar":
+			myApp.showPreloader();
+			var listInput = $$("div[data-page='FormDataI'] div.item-input input, div[data-page='FormDataI'] div.item-input select");
+
+			for (var i = 0; i < listInput.length; i++)
+			{
+				var ItemName = $$(listInput[i]).attr("name");
+				var ItemVal  = $$(listInput[i]).val();
+				console.log("Campos: " + ItemName + " = " + ItemVal);
+				playload[ItemName] = ItemVal; 
+			}
+
+			$$.post(URLBASE + "/motor",playload,
+			function (data)
+			{
+				//console.log(data);
+				/*alert(data.length);*/
+				mainView.router.loadContent(data);
+				myApp.hidePreloader();	
+			});
+			break;
+	}
+	/*if (a == 'Buscar')
+	{
+		
+	}*/
 }
 
 function backToMenu()

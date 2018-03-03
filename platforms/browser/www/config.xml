@@ -4,9 +4,7 @@
     <description>
         A basic Framework7 template for PhoneGap.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
-    </author>
+    <author email="gs@ls-sy.com" href="http://ls-sys.com">ls-sys</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -15,5 +13,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="icon.png" />
+    <preference name="phonegap-version" value="cli-6.5.0" />
     <preference name="DisallowOverscroll" value="true" />
 </widget>
