@@ -72,9 +72,8 @@ $$(document).on('pageInit', function (e) {
 			break;
 		case 'about':
 			break;
-		case 'FormDataI':
-			//$$("#ObjSpeedIU .icon-form-save").click(Motor("buscar"));
-			//$$("#ObjSpeedIU").appendTo("div[data-page='FormDataI']");
+		case 'SearchTable':
+			$$(".card-content").css("overflow","scroll");
 			break;
 	}
     /*if (page.name === 'about') {
@@ -117,18 +116,29 @@ function MotorMovil(a)
 			$$.post(URLBASE + "/motor",playload,
 			function (data)
 			{
-				//console.log(data);
-				/*alert(data.length);*/
 				mainView.router.loadContent(data);
 				myApp.hidePreloader();	
 			});
 			break;
 	}
-	/*if (a == 'Buscar')
-	{
-		
-	}*/
 }
+
+function CallModRegTable(sWhere)
+{
+	alert(sWhere);
+}
+
+function checkAll(sender)
+{
+	alert("holaasd");
+	//alert($$(sender).attr('checked'));
+	$$(".form-checkbox input[type='checkbox']").each(function(i)
+	{
+		var t = $$(this).attr('checked');
+		$$(this).attr('checked',!t);
+	});
+}
+
 
 function backToMenu()
 {

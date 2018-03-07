@@ -97,3 +97,15 @@
   background-size: 24px 24px;
 }
 
+
+.espacioCB{
+    width: 150px;
+    height: 150px;
+    margin-left: 15px;
+    background-color: #1a9e40;
+    border: #000000 1px solid;
+    border-radius: 80px;
+    color: #FFFFFF;
+    
+}
+
