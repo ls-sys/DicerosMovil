@@ -75,6 +75,14 @@ $$(document).on('pageInit', function (e) {
 		case 'SearchTable':
 			$$(".card-content").css("overflow","scroll");
 			break;
+		case "FormDataU":
+			$$("div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select").each(function(i, ele)
+			{
+				var PrimaryKey = $$(ele).attr("name");
+				if (PrimaryKey.indexOf("P") == 4)
+					$$(ele).attr('disabled','disabled');
+			});
+			break;
 	}
     /*if (page.name === 'about') {
         // Following code will be executed for page with data-page attribute equal to "about"
@@ -109,14 +117,30 @@ function MotorMovil(a)
 			{
 				var ItemName = $$(listInput[i]).attr("name");
 				var ItemVal  = $$(listInput[i]).val();
-				console.log("Campos: " + ItemName + " = " + ItemVal);
 				playload[ItemName] = ItemVal; 
 			}
 
-			$$.post(URLBASE + "/motor",playload,
+			$$.post(URLBASE + "/motor", playload,
 			function (data)
 			{
 				mainView.router.loadContent(data);
+				myApp.hidePreloader();	
+			});
+			break;
+		case "Save":
+			myApp.showPreloader();
+
+			$$("div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select").each(function(i, ele)
+			{
+				var ItemName = $$(ele).attr("name");
+				var ItemValue = $$(ele).val();
+				playload[ItemName] = ItemValue;
+			});
+
+			$$.post(URLBASE + "/motor", playload,
+			function (data)
+			{
+				//mainView.router.loadContent(data);
 				myApp.hidePreloader();	
 			});
 			break;
@@ -125,7 +149,21 @@ function MotorMovil(a)
 
 function CallModRegTable(sWhere)
 {
-	alert(sWhere);
+	var valorBusqueda = $$("#"+sWhere).val();
+
+	myApp.showPreloader();
+
+	$$.post(URLBASE + "/motor",
+	{
+		SubComando: "Modificar",
+		cmd: "PForm",
+		where: valorBusqueda,
+		nueva: "B"
+	},function (data)
+	{
+		mainView.router.loadContent(data);
+		myApp.hidePreloader();
+	});
 }
 
 function checkAll(sender)
@@ -187,8 +225,8 @@ function enviarMetodo(tipo)
 	});
 }
 
-$$("#btnLogIn").click(function ()
-//function btn_click_btnLogIn()
+//$$("#btnLogIn").click(function ()
+function btn_click_btnLogIn()
 {
 	myApp.showPreloader();
 	var nombreUser = $$("#fLogin input[name='name']").val();
@@ -232,6 +270,6 @@ $$("#btnLogIn").click(function ()
 			myApp.hidePreloader();
 		});
     }	
-});
+};
 
 
