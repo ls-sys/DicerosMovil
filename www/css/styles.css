@@ -113,3 +113,12 @@
   font-size: 20px;
 }
 
+.closeRed{
+  /*background-color: rgb(187, 42, 42);*/
+  border-radius:30px;
+  padding:17px 23px;
+}
+
+a.floating-button .closeRed{
+  background-color: rgb(187, 42, 42);
+}
