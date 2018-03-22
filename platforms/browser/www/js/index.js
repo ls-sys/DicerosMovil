@@ -13,7 +13,7 @@ var myApp = new Framework7
 
 var $$ = Dom7;
 
-var histo = [];
+var histo = {};
 
 var URLBASE = "http://192.168.20.250/Sistema";
 
@@ -27,9 +27,7 @@ $$(document).on('pageInit', function (e)
 {
 	var page = e.detail.page;
 	
-	histo.push(page.url);
-
-	//console.log($$(page.container).html())
+	histo[page.url] = page.pageElement;
 
 	switch(page.name)
 	{
@@ -97,49 +95,12 @@ $$(document).on('pageInit', function (e)
 	}
 });
 
-/*function ForceBack(namePage)
+function ForceBack(namePageURL)
 { 
-	/*var temp = mainView.contentCache[namePage];
-	var pos = mainView.history.indexOf(namePage);
-	mainView.history.splice(pos, mainView.history.length - pos -1);
-
-	$$.each(DicerosHistory, function(i, ele)
-	{
-		console.log(i + " => " + ele);
+	mainView.router.back({
+		url: namePageURL
 	});
-
-	var last;
-	for (var i = 0; i < DicerosHistory.length; i++)
-	{
-		if (DicerosHistory[DicerosHistory.length - 1] !== namePage)
-			last = DicerosHistory.pop();
-		else
-		{
-			DicerosHistory.push(last);
-			break;
-		}
-	}
-	
-	var temp = mainView.history
-
-	temp.splice(1, temp.length);
-	mainView.history = temp.concat(DicerosHistory);
-
-	$$.each(mainView.history, function(i, ele)
-	{
-		console.log(i + " N= " + ele);
-	});
-
-	
-
-	mainView.router.back();/*{
-		url: namePage,//mainView.contentCache[namePage],
-		force: true
-	});
-
-	/*mainView.router.reloadContent(mainView.contentCache[namePage]);
-
-}*/
+}
 
 function CallMantenimiento(p, o, url)
 {
@@ -269,13 +230,9 @@ function checkAll(sender)
 
 function backToMenu()
 {
-	$$.each(mainView.history, function(i, ele)
-	{
-		console.log(i + " N= " + ele);
+	mainView.router.back({
+		url: "#Pantalla-MainMenu"
 	});
-
-	mainView.router.reloadPage("#Pantalla-MainMenu");
-	//mainView.router.back('MainMenu');
 }
 
 function LogOut()
