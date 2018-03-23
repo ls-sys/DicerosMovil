@@ -7,31 +7,63 @@ var myApp = new Framework7
     smartSelectPopupCloseText: "Cerrar",
     smartSelectPickerCloseText: "Hecho",
 	modalPreloaderTitle: "Cargando...",
-	dynamicPageUrl: 'Pantalla-{{name}}'
-	//uniqueHistory: true
+	dynamicPageUrl: 'Pantalla-{{name}}',
+	uniqueHistory: true
 });
 
 var $$ = Dom7;
-
-var histo = {};
 
 var URLBASE = "http://192.168.20.250/Sistema";
 
 var mainView = myApp.addView('.view-main');
 
+function savedPnU()
+{
+	var mp = window.localStorage.getItem("MP");
+
+	if (mp == 1)
+	{
+		$$("#fLogin input[name='passwd']").val(window.localStorage.getItem("pass"));
+		$$("#fLogin input[name='name']").val(window.localStorage.getItem("usr"));
+
+		$$("#fLogin input[name='passwd']").attr("disabled","disabled");
+		$$("#fLogin input[name='name']").attr("disabled","disabled");
+
+		$$("#cb_PASS").attr('checked','checked');
+	}
+}
+
+function QuitarPnU()
+{
+	var mp = window.localStorage.getItem("MP");
+
+	if (mp == 1 && !$$("#cb_PASS").is(":checked"))
+	{
+		$$("#fLogin input[name='passwd']").removeAttr("disabled");
+		$$("#fLogin input[name='name']").removeAttr("disabled");
+
+		$$("#fLogin input[name='passwd']").val("");
+		$$("#fLogin input[name='name']").val("");
+
+		window.localStorage.removeItem("pass");
+		window.localStorage.removeItem("usr");
+		window.localStorage.removeItem("MP");
+	}
+}
+
 $$(document).on('deviceready', function() {
-    console.log("Device is ready!");
+	console.log("Device is ready!");
+	savedPnU();
 });
 
 $$(document).on('pageInit', function (e) 
 {
 	var page = e.detail.page;
 	
-	histo[page.url] = page.pageElement;
-
 	switch(page.name)
 	{
 		case 'MainMenu':
+
 			$$.post( URLBASE + "/MovilDiceros",
 			{
 				cmd: "Menu"
@@ -63,23 +95,9 @@ $$(document).on('pageInit', function (e)
 			});
 			break;
 		case 'SearchTable':
-			$$(".card-content").css("overflow","scroll");
+			//$$(".card-content").css("overflow","scroll");
 			break;
 		case "FormDataI":
-			/*if (mainView.history[mainView.history.length - 1] === undefined)
-			{
-				$$("div.navbar div.navbar-inner div.left a.link").click ();
-
-				$$.each(mainView.history, function(i, ele)
-				{
-					console.log("*" + i + ": " + ele);
-				});
-
-				$$.each(mainView.contentCache, function(i, ele)
-				{
-					console.log(" * HistoCache: " + i)
-				});
-			}*/
 			break;
 		case "FormDataU":
 			$$("div[data-page='FormDataU'] div.item-input input[name*='_'], div[data-page='FormDataU'] div.item-input select[name*='_']").each(function(i, ele)
@@ -116,7 +134,6 @@ function CallMantenimiento(p, o, url)
 
 function MotorMovil(a)
 {
-	//alert("entra");
 	var playload = {};
 	switch(a)
 	{
@@ -207,7 +224,7 @@ function CallModRegTable(sWhere)
 	{
 		SubComando: "Modificar",
 		cmd: "PForm",
-		where: valorBusqueda,
+		where: encodeURIComponent(valorBusqueda),
 		nueva: "B"
 	},function (data)
 	{
@@ -218,8 +235,6 @@ function CallModRegTable(sWhere)
 
 function checkAll(sender)
 {
-	alert("holaasd");
-	//alert($$(sender).attr('checked'));
 	$$(".form-checkbox input[type='checkbox']").each(function(i)
 	{
 		var t = $$(this).attr('checked');
@@ -242,6 +257,7 @@ function LogOut()
 		state: "10"
 	},function (d)
 	{
+		savedPnU();
 		mainView.router.reloadPage('#index');
 	});
 }
@@ -264,12 +280,10 @@ function enviarMetodo(tipo, reload)
 		enviar: tipo
 	},function (data)
 	{
-		//console.log(data);
 		if (reload = 'R')
 			mainView.router.reloadContent(data);
 		else
 			mainView.router.loadContent(data);
-		//myApp.alert(data.length);
 		myApp.hidePreloader();
 	});
 }
@@ -283,7 +297,7 @@ function btn_click_btnLogIn()
 	
 	if (nombreUser == "" || pass == "")
 	{
-		myApp.alert("Usuario y Contraseña son requeridos! Verifique!");
+		myApp.alert("Usuario y Contrase"+String.fromCharCode(241)+"a son requeridos! Verifique!");
 		myApp.hidePreloader();
 	}
     else
@@ -313,6 +327,14 @@ function btn_click_btnLogIn()
 			}
 			else
 			{
+				var mp = window.localStorage.getItem("MP");
+
+				if ($$("#cb_PASS").is(":checked") && mp != 1)
+				{
+					window.localStorage.setItem("pass", $$("#fLogin input[name='passwd']").val());
+					window.localStorage.setItem("usr", $$("#fLogin input[name='name']").val());
+					window.localStorage.setItem("MP", 1);
+				}
 				mainView.router.loadContent(data);
 			}
 			
