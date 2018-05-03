@@ -1,27 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
     <meta charset="iso-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="theme-color" content="#2196f3">
 	
     <title>Diceros</title>
-
-    <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
-        http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
-    -->    
-    
     <link rel="stylesheet" href="lib/framework7/css/framework7.material.min.css">
     <link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">
     
     <link rel="stylesheet" href="css/framework7-icons.css">
     <link rel="stylesheet" href="css/styles.css">
+
 </head>
 
 <body>
     <!-- Panels overlay-->
+    <script type="text/template" id="TListU">
+        <div class="page" data-page="PListU">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="center">{{PageTitle}}</div>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class='item-input' style='display:none'>
+                    <input type="hidden" name="N_S_H_VO_ROW_STATUS" value="{{ROWStatusVal}}" tabindex=0>
+                    <input type="hidden" name="N_S_H_VO_INTERNAL_USER" value="{{USERVal}}">
+                    <input type="hidden" name="N_S_H_VO_PROJECT_ID" value="{{PROYVal}}">
+                    <input type="hidden" name="N_S_H_VO_OBJECT_ID" value="{{OBJVal}}">
+                </div>
+                <div class="list-block">
+                    <ul>
+                        {{#each DispObj}}
+                        {{this}}
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </script>
     <div class="panel-overlay"></div>
     <div class="panel panel-right panel-reveal">
         <div class="content-block">

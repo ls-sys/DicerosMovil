@@ -8,7 +8,9 @@ var myApp = new Framework7
     smartSelectPickerCloseText: "Hecho",
 	modalPreloaderTitle: "Cargando...",
 	dynamicPageUrl: 'Pantalla-{{name}}',
-	uniqueHistory: true
+	uniqueHistory: true,
+	template7Pages: true,
+	precompileTemplates: true
 });
 
 var $$ = Dom7;
@@ -62,8 +64,9 @@ $$(document).on('pageInit', function (e)
 	
 	switch(page.name)
 	{
+		case 'index':
+			break;
 		case 'MainMenu':
-
 			$$.post( URLBASE + "/MovilDiceros",
 			{
 				cmd: "Menu"
@@ -91,7 +94,6 @@ $$(document).on('pageInit', function (e)
 					});
 					
 				});
-				
 			});
 			break;
 		case 'SearchTable':
@@ -112,6 +114,48 @@ $$(document).on('pageInit', function (e)
 			break;
 	}
 });
+
+function ModificarAll()
+{
+	
+	var ObjList = $$(".form-checkbox input[type='checkbox']:checked");
+	var WL = "";
+
+	for (var i = 0; i < ObjList.length; i++)
+	{
+		WL += ObjList[i].value + "|";
+	}
+	alert (WL);
+
+	window.sessionStorage.setItem("LP", 1);
+	window.sessionStorage.setItem("Wlista", WL);
+	myApp.showPreloader();
+
+	$$.post(URLBASE + "/motor",
+	{
+		SubComando: "Modificar",
+		nueva: "B",
+		cmd: "MRes",
+		where: WL,
+		LP: 1
+	},function (data)
+	{
+		alert ("{" + data + "}");
+
+		console.log("{" + data + "}");
+
+		var obj = JSON.parse("{" + data + "}");
+		alert (obj);
+		/*mainView.router.load(
+			{
+				template: Template7.templates.TListU,
+				context: {}
+			});*/
+		
+		myApp.hidePreloader();
+	});
+
+}
 
 function ForceBack(namePageURL)
 { 
