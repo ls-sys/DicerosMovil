@@ -16,15 +16,18 @@
 </head>
 
 <body>
-    <!-- Panels overlay-->
-    <script type="text/template" id="TListU">
-        <div class="page" data-page="PListU">
+    <!-- Panels overlay <div class="page" data-page="PListU">-->
+    <script type="text/template7" id="TListU">
+        <div class="page" data-page="FormDataU">
             <div class="navbar">
                 <div class="navbar-inner">
+                    <div class"left">
+                        <a href="javascript:{backToMenu();}" class="link">Atras</a>
+                    </div>
                     <div class="center">{{PageTitle}}</div>
                 </div>
             </div>
-
+            
             <div class="page-content">
                 <div class='item-input' style='display:none'>
                     <input type="hidden" name="N_S_H_VO_ROW_STATUS" value="{{ROWStatusVal}}" tabindex=0>
@@ -38,6 +41,19 @@
                         {{this}}
                         {{/each}}
                     </ul>
+                </div>
+                <div class="speed-dial" id="ObjSpeedIU"> 
+                    <a href="#" class="floating-button">
+                        <i class="icon f7-icons">more_vertical</i>
+                        <i class="icon f7-icons closeRed">close</i>
+                    </a>
+                    <div class="speed-dial-buttons">
+                        <a href="javascript:{MotorMovil('SaveT');}" class="link"><i class="icon f7-icons">compose</i></a>
+                        <a href="javascript:{MotorMovil('Nuevo');}" class="link"><i class="icon f7-icons">document_text_fill</i></a>
+                        <a href="javascript:{MotorMovil('FReg');}" class="link"><i class="icon f7-icons">rewind</i></a>
+                        <a href="javascript:{MotorMovil('LReg');}" class="link"><i class="icon f7-icons">fastforward</i></a>
+                        <a href="javascript:{MotorMovil('Reload');}" class="link"><i class="icon f7-icons">reload</i></a>
+                    </div>
                 </div>
             </div>
         </div>

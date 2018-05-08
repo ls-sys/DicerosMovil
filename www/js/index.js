@@ -15,9 +15,50 @@ var myApp = new Framework7
 
 var $$ = Dom7;
 
+var xDown = null;                                                        
+var yDown = null;
+
+window.addEventListener('touchstart', handleTouchStart, false);        
+window.addEventListener('touchmove', handleTouchMove, false);
+
 var URLBASE = "http://192.168.20.250/Sistema";
 
 var mainView = myApp.addView('.view-main');
+
+function handleTouchStart(evt) 
+{                                         
+    xDown = evt.touches[0].clientX;                                      
+    yDown = evt.touches[0].clientY;                                      
+};
+
+function handleTouchMove(evt)
+{
+	if ( ! xDown || ! yDown ) 
+		return;
+		
+	var xUp = evt.touches[0].clientX;                                    
+	var yUp = evt.touches[0].clientY;
+
+	var xDiff = xDown - xUp;
+	var yDiff = yDown - yUp;
+
+	var swipeON = GetSValue("SWIPE_MODE");
+	
+	if ( (Math.abs( xDiff ) > Math.abs( yDiff )) && swipeON == 1 ) 
+	{
+		if (xDiff > 0) // from rigth to Left Swipe
+		{
+			MotorMovil('LReg');
+			MotorMovil('Reload');
+		}
+		else	// from left to  Rigth Swipe
+		{
+			MotorMovil('FReg'); 
+			MotorMovil('Reload');
+		}
+	}
+	/*else Up and down Swipe */
+}
 
 function savedPnU()
 {
@@ -61,7 +102,7 @@ $$(document).on('deviceready', function() {
 $$(document).on('pageInit', function (e) 
 {
 	var page = e.detail.page;
-	
+	SetSessionValue ("SWIPE_MODE", "0");
 	switch(page.name)
 	{
 		case 'index':
@@ -111,6 +152,7 @@ $$(document).on('pageInit', function (e)
 			
 			$$("div.navbar div.navbar-inner div.left a.link span").text("Busqueda");
 			//$$("div.navbar div.navbar-inner div.left a.link").attr("href", "javascript:{ForceBack('#Pantalla-FormDataI');}");
+			SetSessionValue ("SWIPE_MODE", "1");
 			break;
 	}
 });
@@ -127,7 +169,7 @@ function ModificarAll()
 	}
 	alert (WL);
 
-	window.sessionStorage.setItem("LP", 1);
+	window.sessionStorage.setItem("LP", 0);
 	window.sessionStorage.setItem("Wlista", WL);
 	myApp.showPreloader();
 
@@ -137,21 +179,27 @@ function ModificarAll()
 		nueva: "B",
 		cmd: "MRes",
 		where: WL,
-		LP: 1
+		LP: 0
 	},function (data)
 	{
-		alert ("{" + data + "}");
+		data =  data.replace(/\r?\n|\r/g, "") ;
+		var obj;
+		try
+		{
+			obj = JSON.parse(data);
+			
+			mainView.router.load(
+				{
+					template: Template7.templates.TListU,
+					context: obj
+				});
 
-		console.log("{" + data + "}");
-
-		var obj = JSON.parse("{" + data + "}");
-		alert (obj);
-		/*mainView.router.load(
-			{
-				template: Template7.templates.TListU,
-				context: {}
-			});*/
-		
+			//SetSessionValue ("SWIPE_MODE", "1");
+		}
+		catch( err)
+		{
+			alert(err);
+		}
 		myApp.hidePreloader();
 	});
 
@@ -174,6 +222,17 @@ function CallMantenimiento(p, o, url)
 		mainView.router.loadContent(data);
 		myApp.hidePreloader();		
 	});
+}
+
+function valOverNUnderFlow()
+{
+	var wl = window.sessionStorage.getItem("Wlista");
+	var pl = window.sessionStorage.getItem("LP");
+	
+	wl = wl.slice(0, -1);
+	var s = wl.split("|");
+
+	return pl < s.length & pl > -1
 }
 
 function MotorMovil(a)
@@ -200,9 +259,10 @@ function MotorMovil(a)
 			});
 			break;
 		case "Save":
+		case "SaveT":
 			myApp.showPreloader();
 
-			$$("div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select").each(function(i, ele)
+			$$("div[data-page='FormDataU'] input.HidenParams, div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select").each(function(i, ele)
 			{
 				var ItemName = $$(ele).attr("name");
 				var ItemValue = $$(ele).val();
@@ -214,17 +274,57 @@ function MotorMovil(a)
 			{
 				if (data == "OK")
 				{
-					$$.post(URLBASE + "/motor",
+					var SW = "";
+					if (a == "SaveT")
 					{
-						SubComando: "Modificar",
-						cmd: "PForm",
-						where: window.sessionStorage.getItem("LWhere"),
-						nueva: "B"
-					},function (REdata)
+						SW = GetSValue("Wlista");
+						var pl = GetSValue("LP");
+
+						$$.post(URLBASE + "/motor",
+						{
+							SubComando: "Modificar",
+							nueva: "B",
+							cmd: "MRes",
+							where: SW,
+							LP: pl
+						},function (data) 
+						{
+							data =  data.replace(/\r?\n|\r/g, "") ;
+							var obj;
+							try
+							{
+								obj = JSON.parse(data);
+								
+								mainView.router.load(
+									{
+										template: Template7.templates.TListU,
+										reload: true,
+										context: obj
+									});
+							}
+							catch( err)
+							{
+								alert(err);
+							}
+							myApp.hidePreloader();
+						});
+					}
+					else
 					{
-						mainView.router.reloadContent(REdata);
-						myApp.hidePreloader();
-					});
+						SW = GetSValue("LWhere");
+					
+						$$.post(URLBASE + "/motor",
+						{
+							SubComando: "Modificar",
+							cmd: "PForm",
+							where: SW,
+							nueva: "B"
+						},function (REdata)
+						{
+							mainView.router.reloadContent(REdata);
+							myApp.hidePreloader();
+						});
+					}
 				}
 				else
 				{
@@ -236,7 +336,7 @@ function MotorMovil(a)
 		case "NewReg":
 			myApp.showPreloader();
 			
-			$$("div[data-page='FormDataI'] div.item-input input, div[data-page='FormDataI'] div.item-input select").each(function(i, ele)
+			$$("div[data-page='FormDataI'] input.HidenParams, div[data-page='FormDataI'] div.item-input input, div[data-page='FormDataI'] div.item-input select").each(function(i, ele)
 			{
 				var ItemName = $$(ele).attr("name");
 				var ItemValue = $$(ele).val();
@@ -251,7 +351,51 @@ function MotorMovil(a)
 			});
 			break;
 		case "Reload":
-		mainView.router.refreshPage();
+			mainView.router.refreshPage();
+			break;
+		case "LReg":
+		case "FReg":
+			var wl = GetSValue("Wlista");
+			var pl = GetSValue("LP");
+			myApp.showPreloader();
+
+			if ((wl == null || wl == '' || pl == null || pl == '') && valOverNUnderFlow())
+				myApp.alert("No mas registros");
+			else
+			{
+				pl = pl * 1;
+				pl += (a == "LReg")?1:-1;
+				$$.post(URLBASE + "/motor",
+				{
+					SubComando: "Modificar",
+					nueva: "B",
+					cmd: "MRes",
+					where: wl,
+					LP: pl
+				},function (data) 
+				{
+					data =  data.replace(/\r?\n|\r/g, "") ;
+					var obj;
+					try
+					{
+						obj = JSON.parse(data);
+						
+						mainView.router.load(
+							{
+								template: Template7.templates.TListU,
+								reload: true,
+								context: obj
+							});
+
+						SetSessionValue("LP", pl);
+					}
+					catch( err)
+					{
+						alert(err);
+					}
+					myApp.hidePreloader();
+				});
+			}
 			break;
 	}
 }
