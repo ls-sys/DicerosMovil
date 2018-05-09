@@ -217,10 +217,22 @@ function CallMantenimiento(p, o, url)
 	var FullUrl = URLBASE.replace("Sistema","") + url;
 	myApp.showPreloader();
 	
+	$$("#DyScript").remove();
+
 	$$.get(FullUrl,{},function(data)
 	{
-		mainView.router.loadContent(data);
-		myApp.hidePreloader();		
+		var url_JS = URLBASE + "/MovilDiceros?js=1";
+		var DyScript = document.createElement('script');
+		DyScript.onload = function ()
+		{
+			mainView.router.loadContent(data);
+			myApp.hidePreloader();	
+		};
+
+		DyScript.id = "DyScript";
+		DyScript.src = url_JS;
+
+		document.body.appendChild(DyScript);
 	});
 }
 
