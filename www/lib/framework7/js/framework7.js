@@ -4175,6 +4175,7 @@ return t7;
         app.get = function (url, view, ignoreCache, callback) {
             // should we ignore get params or not
             var _url = url;
+            
             if (app.params.cacheIgnoreGetParameters && url.indexOf('?') >= 0) {
                 _url = url.split('?')[0];
             }
@@ -5236,6 +5237,7 @@ return t7;
                 } catch (e) {}
                 return;
             }
+            
             if (app.router.preroute(view, options)) {
                 return false;
             }
@@ -5278,6 +5280,7 @@ return t7;
                 view.allowPageChange = true;
                 return;
             }
+            
             app.get(options.url, view, options.ignoreCache, function (content, error) {
                 if (error) {
                     view.allowPageChange = true;

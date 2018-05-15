@@ -10,6 +10,17 @@
    See https://github.com/apache/cordova-plugin-statusbar
 */
 
+div[class*="col-"] {
+  background: #fff;
+  text-align: center;
+  color: #000;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+.row {
+  margin-bottom: 5px;
+}    
+
 .statusbar-overlay {
     background: #000000;
 }

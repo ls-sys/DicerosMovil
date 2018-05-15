@@ -25,6 +25,172 @@ var URLBASE = "http://192.168.20.250/Sistema";
 
 var mainView = myApp.addView('.view-main');
 
+/*	Template7 Helper */
+
+var printWBObj = function(objList, index, options)
+{
+	var objP = objList[index]["name"].split("_");
+	var ID = objList[index]["col_name"];
+	var Enabled = (objP[1] == 'N')?'disabled="disabled"':'';
+	var dataType = objP[3];
+	var htmlF7 = "";
+	name = ' name="' + objList[index]["name"] + '" ';
+
+	var textCT = "KPHZ";
+	if (textCT.search(objList[index]["content_type"]) == -1)
+	{
+		if(objList[index]["visible"] == "S")
+		{
+			switch (objList[index]["content_type"]) 
+			{
+				case 'D':
+					var temp = "";
+					switch (dataType)
+					{
+						case "IN":
+						case "DE":
+							temp = "number";
+							break;
+						case "VA":
+							temp = "text";
+							break;
+						case "DA":
+							temp = "date";
+							break;
+						case "DT":
+							temp = "datetime-local";
+							break;
+						default:
+							temp = "text";
+							break;
+					}
+					htmlF7 = '<input type="'+ temp + '" ' + Enabled + ' id="' + ID + '" value="' + objList[index]["defValue"] + 
+										'" placeholder="' + objList[index]["label"] + '" ' + name + objList[index]["acction"] + ">";
+					break;
+				case 'C':
+					htmlF7 = '<label class="label-switch">'+
+								'<input type="checkbox" '+ Enabled +' id="' + ID + '" checked="' + (objList[index]["defValue"] == 1)?'true':'false' + 
+								'"' + name + objList[index]["acction"] + '><div class="checkbox"></div></label>';
+					break;
+				case 'Q':
+				case 'B':
+					htmlF7 = '<select id="' + ID + '" ' + Enabled + ' placeholder="Please choose..." ' + name + objList[index]["acction"] + ' >'+
+								'<option value="Empty">-- Vacio --</option>' + objList[index]["defValue"] + '</select>';
+					break;
+				default:
+					htmlF7 = '';
+					break;
+			}
+		}
+		else
+		{
+			htmlF7 = '<input class="HidenParams" type="hidden" value="' + objList[index]["defValue"] + '"' + name + objList[index]["acction"] + "/>";
+		}
+	}
+	else if (objList[index]["content_type"] == "H")
+	{
+		htmlF7 = objList[index]["data_s"];
+	}
+	
+	return htmlF7;
+}
+
+Template7.registerHelper('getObjectByColName', function(objList, name, options)
+{
+	var lenObjt = objList.length;
+	var index = 0;
+	
+	for (var i=0; i < lenObjt; i++)
+	{
+		var tempObj = objList[i]["col_name"];
+		if (name == tempObj)
+		{
+			index = i;
+			break;
+		}
+	}
+
+	return printWBObj (objList, index, null);
+});
+
+Template7.registerHelper('getObject',printWBObj);
+
+Template7.registerHelper('objectBuilder', function(name, content_type, visible, label, defValue, acction, data_s, col_name,options)
+{
+	var objP = name.split("_");
+	var ID = col_name;
+	var Enabled = (objP[1] == 'N')?'disabled="disabled"':'';
+	var dataType = objP[3];
+	var htmlF7 = "";
+	name = ' name="' + name + '" ';
+
+	var textCT = "KPHZ";
+
+	if (textCT.search(content_type) == -1) // Son objecto para construir
+	{
+		if (visible == "S")
+		{
+			htmlF7 = "<li class=\"item-content\">"+
+					"<div class=\"item-inner\">"+
+					"<div class=\"item-title label\">"+label+"</div>";
+
+			switch (content_type) 
+			{
+				case 'D':
+					var temp = "";
+					switch (dataType)
+					{
+						case "IN":
+						case "DE":
+							temp = "number";
+							break;
+						case "VA":
+							temp = "text";
+							break;
+						case "DA":
+							temp = "date";
+							break;
+						case "DT":
+							temp = "datetime-local";
+							break;
+						default:
+							temp = "text";
+							break;
+					}
+					htmlF7 += '<div class="item-input">'+
+										'<input type="'+ temp + '" ' + Enabled + ' id="' + ID + '" value="' + defValue + 
+										'" placeholder="' + label + '" ' + name + acction + "></div>";
+					break;
+				case 'C':
+					htmlF7 += '<div class="item-input"><label class="label-switch">'+
+								'<input type="checkbox" '+ Enabled +' id="' + ID + '" checked="' + (defValue == 1)?'true':'false' + 
+								'"' + name + acction + '><div class="checkbox"></div></label></div>';
+					break;
+				case 'Q':
+				case 'B':
+					htmlF7 += '<div class="item-input">'+
+								'<select id="' + ID + '" ' + Enabled + ' placeholder="Please choose..." ' + name + acction + ' >'+
+								'<option value="Empty">-- Vacio --</option>' + defValue + '</select></div>';
+					break;
+				default:
+					htmlF7 += '<div></div>';
+					break;
+			}
+
+			htmlF7 += '</div></li>';
+		}
+		else
+			htmlF7 += '<input class="HidenParams" type="hidden" value="' + defValue + '"' + name + acction + "/>";
+	}
+	else if (content_type == "H")
+	{
+		htmlF7 += data_s;
+	}
+	return htmlF7;
+});
+
+/*	Fin de Helper */
+
 function handleTouchStart(evt) 
 {                                         
     xDown = evt.touches[0].clientX;                                      
@@ -103,6 +269,7 @@ $$(document).on('pageInit', function (e)
 {
 	var page = e.detail.page;
 	SetSessionValue ("SWIPE_MODE", "0");
+	
 	switch(page.name)
 	{
 		case 'index':
@@ -225,7 +392,37 @@ function CallMantenimiento(p, o, url)
 		var DyScript = document.createElement('script');
 		DyScript.onload = function ()
 		{
-			mainView.router.loadContent(data);
+			try
+			{
+				var textVal = "*T7Forms*";
+				
+				if (data.indexOf(textVal) != -1)
+				{
+					
+					var tempData = data.split("~");
+					var urlTemplate = tempData[0];
+					var jsonDataTemplate = tempData[1];
+
+					urlTemplate = urlTemplate.replace("*T7Forms*", "");
+
+					urlTemplate = URLBASE + "/" + urlTemplate;
+
+					jsonDataTemplate = JSON.parse(jsonDataTemplate);
+					
+					mainView.router.load(
+						{
+							url: urlTemplate,
+							context: jsonDataTemplate
+						});				
+				}
+				else
+					mainView.router.loadContent(data);
+			}
+			catch( err)
+			{
+				alert(err);
+			}
+
 			myApp.hidePreloader();	
 		};
 
@@ -358,7 +555,7 @@ function MotorMovil(a)
 			$$.post(URLBASE + "/motor", playload,
 			function (data)
 			{
-				mainView.router.reloadContent(data);
+				reloadT7Page(data);
 				myApp.hidePreloader();	
 			});
 			break;
@@ -480,12 +677,41 @@ function enviarMetodo(tipo, reload)
 		enviar: tipo
 	},function (data)
 	{
-		if (reload = 'R')
+		/*if (reload == 'R')
 			mainView.router.reloadContent(data);
 		else
-			mainView.router.loadContent(data);
+		{*/
+			reloadT7Page(data);//mainView.router.loadContent(data);
+		//}
 		myApp.hidePreloader();
 	});
+}
+
+function reloadT7Page(data)
+{
+	var textVal = "*T7Forms*";
+			
+	if (data.indexOf(textVal) != -1)
+	{
+		var tempData = data.split("~");
+		var urlTemplate = tempData[0];
+		var jsonDataTemplate = tempData[1];
+
+		urlTemplate = urlTemplate.replace("*T7Forms*", "");
+
+		urlTemplate = URLBASE + "/" + urlTemplate;
+
+		jsonDataTemplate = JSON.parse(jsonDataTemplate);
+		
+		mainView.router.load(
+			{
+				url: urlTemplate,
+				reload: true,
+				context: jsonDataTemplate
+			});				
+	}
+	else
+		mainView.router.reloadContent(data);
 }
 
 //$$("#btnLogIn").click(function ()
