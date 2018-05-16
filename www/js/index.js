@@ -115,6 +115,7 @@ Template7.registerHelper('getObjectByColName', function(objList, name, options)
 
 Template7.registerHelper('getObject',printWBObj);
 
+
 Template7.registerHelper('objectBuilder', function(name, content_type, visible, label, defValue, acction, data_s, col_name,options)
 {
 	var objP = name.split("_");
@@ -681,7 +682,7 @@ function enviarMetodo(tipo, reload)
 			mainView.router.reloadContent(data);
 		else
 		{*/
-			reloadT7Page(data);//mainView.router.loadContent(data);
+		reloadT7Page(data);//mainView.router.loadContent(data);
 		//}
 		myApp.hidePreloader();
 	});
@@ -690,28 +691,34 @@ function enviarMetodo(tipo, reload)
 function reloadT7Page(data)
 {
 	var textVal = "*T7Forms*";
-			
-	if (data.indexOf(textVal) != -1)
+	try
 	{
-		var tempData = data.split("~");
-		var urlTemplate = tempData[0];
-		var jsonDataTemplate = tempData[1];
+		if (data.indexOf(textVal) != -1)
+		{
+			var tempData = data.split("~");
+			var urlTemplate = tempData[0];
+			var jsonDataTemplate = tempData[1];
 
-		urlTemplate = urlTemplate.replace("*T7Forms*", "");
+			urlTemplate = urlTemplate.replace("*T7Forms*", "");
+			urlTemplate = URLBASE + "/" + urlTemplate;
 
-		urlTemplate = URLBASE + "/" + urlTemplate;
-
-		jsonDataTemplate = JSON.parse(jsonDataTemplate);
-		
-		mainView.router.load(
-			{
-				url: urlTemplate,
-				reload: true,
-				context: jsonDataTemplate
-			});				
+			jsonDataTemplate =  jsonDataTemplate.replace(/\r?\n|\r/g, "");
+			jsonDataTemplate = JSON.parse(jsonDataTemplate);
+			
+			mainView.router.load(
+				{
+					url: urlTemplate,
+					reload: true,
+					context: jsonDataTemplate
+				});				
+		}
+		else
+			mainView.router.reloadContent(data);
 	}
-	else
-		mainView.router.reloadContent(data);
+	catch(err)
+	{
+		alert (err);
+	}
 }
 
 //$$("#btnLogIn").click(function ()
