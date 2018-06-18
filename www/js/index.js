@@ -46,7 +46,11 @@ var printWBObj = function(objList, index, options)
 		{
 			switch (objList[index]["content_type"]) 
 			{
+				case 'M':
+					htmlF7 = '<textarea class="resizable" id="' + ID + '" ' + name + objList[index]["acction"] + '>' + objList[index]["defValue"] + '</textarea>';
+					break;
 				case 'D':
+				case 'G':
 					var temp = "";
 					switch (dataType)
 					{
@@ -190,6 +194,10 @@ Template7.registerHelper('objectBuilder', function(name, content_type, visible, 
 
 			switch (content_type) 
 			{
+				case 'M':
+					htmlF7 = '<textarea class="resizable" id="' + ID + '" ' + name + acction + '>' + defValue + '</textarea>';
+					break;
+				case 'G':
 				case 'D':
 					var temp = "";
 					switch (dataType)
