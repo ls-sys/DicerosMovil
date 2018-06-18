@@ -13,7 +13,7 @@ var myApp = new Framework7
 	uniqueHistory: true,
 	template7Pages: true,
 	precompileTemplates: true,
-	cacheIgnore:[URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2"]
+	cacheIgnore:[URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2"]
 	//cache:false
 });
 
@@ -479,18 +479,10 @@ function ModificarAll()
 		LP: 0
 	},function (data)
 	{
-		data =  data.replace(/\r?\n|\r/g, "") ;
-		var obj;
+		data =  data.replace(/\r?\n|\r/g, " ") ;
 		try
 		{
-			obj = JSON.parse(data);
-			
-			mainView.router.load(
-				{
-					template: Template7.templates.TListU,
-					context: obj
-				});
-
+			reloadT7Page(data, 1);
 			//SetSessionValue ("SWIPE_MODE", "1");
 		}
 		catch( err)
@@ -548,7 +540,7 @@ function CallMantenimiento(p, o, url)
 			}
 			catch( err)
 			{
-				alert(err);
+				myApp.alert(err);
 			}
 
 			myApp.hidePreloader();	
@@ -696,7 +688,7 @@ function MotorMovil(a)
 			$$.post(URLBASE + "/motor", playload,
 			function (data)
 			{
-				reloadT7Page(data);
+				reloadT7Page(data, 0);
 				myApp.hidePreloader();	
 			});
 			break;
@@ -733,19 +725,10 @@ function MotorMovil(a)
 							LP: pl
 						},function (data) 
 						{
-							data =  data.replace(/\r?\n|\r/g, "") ;
-							var obj;
+							data =  data.replace(/\r?\n|\r/g, " ");
 							try
 							{
-								obj = JSON.parse(data);
-								
-								mainView.router.load(
-									{
-										template: Template7.templates.TListU,
-										reload: true,
-										context: obj
-									});
-
+								reloadT7Page(data, 2);
 								SetSessionValue("LP", pl);
 							}
 							catch( err)
@@ -786,12 +769,12 @@ function CallModRegTable(sWhere)
 		nueva: "B"
 	},function (data)
 	{
-		reloadT7Page(data);
+		reloadT7Page(data, 0);
 		myApp.hidePreloader();
 	});
 }
 
-function FillChild(sender, hijos) //TODO
+function FillChild(sender, hijos) 
 {
 	myApp.showPreloader();
 
@@ -837,7 +820,6 @@ function checkAll(sender)
 	});
 }
 
-
 function backToMenu()
 {
 	mainView.router.back({
@@ -879,41 +861,72 @@ function enviarMetodo(tipo, reload)
 			mainView.router.reloadContent(data);
 		else
 		{*/
-		reloadT7Page(data);//mainView.router.loadContent(data);
+		reloadT7Page(data, 0);//mainView.router.loadContent(data);
 		//}
 		myApp.hidePreloader();
 	});
 }
 
-function reloadT7Page(data)
+function reloadT7Page(data, type)
 {
 	var textVal = "*T7Forms*";
 	try
 	{
 		if (data.indexOf(textVal) != -1)
 		{
+			if (type == 1) console.log(data.split("~"));
 			var tempData = data.split("~");
+			console.log("awe", type);
 			var urlTemplate = tempData[0];
 			var jsonDataTemplate = tempData[1];
 
 			/*urlTemplate = urlTemplate.replace("*T7Forms*", "");
 			urlTemplate = URLBASE + "/" + urlTemplate;*/
-			jsonDataTemplate =  jsonDataTemplate.replace(/\r?\n|\r/g, "");
+			jsonDataTemplate =  jsonDataTemplate.replace(/\r?\n|\r/g, " ");
 			jsonDataTemplate = JSON.parse(jsonDataTemplate);
 		
 			urlTemplate = URLBASE + "/MovilDiceros?t7html=" + jsonDataTemplate.ROWStatusVal;
 
 			SetSessionValue("BTN_BUSQUEDA",jsonDataTemplate.ROWStatusVal);
 
-			mainView.router.load(
-				{
-					url: urlTemplate,
-					reload: true,
-					context: jsonDataTemplate
-				});				
+			switch(type)
+			{
+				case 0:
+				case 2:
+					mainView.router.load(
+						{
+							url: urlTemplate,
+							reload: true,
+							context: jsonDataTemplate
+						});
+					break;
+				case 1:
+					mainView.router.load(
+						{
+							url: urlTemplate,
+							context: jsonDataTemplate
+						});	
+					break;
+			}	
 		}
-		else
-			mainView.router.reloadContent(data);
+		else 
+		{
+			if (type > 0)
+			{
+				var obj = data.replace(/\r?\n|\r/g, " ");
+				obj = JSON.parse(obj);
+
+				mainView.router.load(
+					{
+						template: Template7.templates.TListU,
+						reload:((type == 1)?false:true),
+						context: obj
+					});
+			}
+			else
+				mainView.router.reloadContent(data);
+		}
+			
 	}
 	catch(err)
 	{
