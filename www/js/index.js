@@ -1,3 +1,5 @@
+var URLBASE = "http://192.168.20.250/Sistema";
+
 var myApp = new Framework7
 ({
     modalTitle: "Diceros",
@@ -10,7 +12,9 @@ var myApp = new Framework7
 	dynamicPageUrl: 'Pantalla-{{name}}',
 	uniqueHistory: true,
 	template7Pages: true,
-	precompileTemplates: true
+	precompileTemplates: true,
+	cacheIgnore:[URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2"]
+	//cache:false
 });
 
 var $$ = Dom7;
@@ -21,8 +25,6 @@ var yDown = null;
 window.addEventListener('touchstart', handleTouchStart, false);        
 window.addEventListener('touchmove', handleTouchMove, false);
 
-var URLBASE = "http://192.168.20.250/Sistema";
-
 var mainView = myApp.addView('.view-main');
 
 /*	Template7 Helper */
@@ -31,6 +33,7 @@ var printWBObj = function(objList, index, options)
 {
 	var objP = objList[index]["name"].split("_");
 	var ID = objList[index]["col_name"];
+	var rawval = objList[index]["RawVal"];
 	var Enabled = (objP[1] == 'N')?'disabled="disabled"':'';
 	var dataType = objP[3];
 	var htmlF7 = "";
@@ -68,13 +71,19 @@ var printWBObj = function(objList, index, options)
 										'" placeholder="' + objList[index]["label"] + '" ' + name + objList[index]["acction"] + ">";
 					break;
 				case 'C':
-					htmlF7 = '<label class="label-switch">'+
+					htmlF7 = '<div class="item-input">'+
+							'<label class="label-switch">'+
+								'<input type="checkbox" id="' + ID + '" checked="' + ((objList[index]["defValue"] == 1)?'true':'false') + '" '+ name +' >'+
+								'<div class="checkbox"></div>'+
+							'</label></div>';
+					/*htmlF7 = '<label class="label-switch">'+
 								'<input type="checkbox" '+ Enabled +' id="' + ID + '" checked="' + (objList[index]["defValue"] == 1)?'true':'false' + 
-								'"' + name + objList[index]["acction"] + '><div class="checkbox"></div></label>';
+								'"' + name + objList[index]["acction"] + '><div class="checkbox"></div></label>';*/
 					break;
 				case 'Q':
 				case 'B':
-					htmlF7 = '<select id="' + ID + '" ' + Enabled + ' placeholder="Please choose..." ' + name + objList[index]["acction"] + ' >'+
+				case 'E':
+					htmlF7 = '<select data-defval="' + rawval + '" id="' + ID + '" ' + Enabled + ' placeholder="Please choose..." ' + name + objList[index]["acction"] + ' >'+
 								'<option value="Empty">-- Vacio --</option>' + objList[index]["defValue"] + '</select>';
 					break;
 				default:
@@ -94,6 +103,50 @@ var printWBObj = function(objList, index, options)
 	
 	return htmlF7;
 }
+
+Template7.registerHelper('getBarUI', function(RowStatus, options)
+{
+	var salida = "";
+	if (RowStatus == 1)
+	{
+		salida = "<div class=\"speed-dial\" id=\"ObjSpeedIU\">"
+				+ "<a href=\"#\" class=\"floating-button\">"
+                + "<i class=\"icon f7-icons\">more_vertical</i>"
+                + "<i class=\"icon f7-icons closeRed\">close</i>"
+                + "</a><div class=\"speed-dial-buttons\">"
+                + "<a href=\"javascript:{MotorMovil('NewReg');}\" class=\"link\"><i class=\"icon f7-icons\">compose</i></a>"
+                + "<a href=\"javascript:{MotorMovil('Reload');}\" class=\"link\"><i class=\"icon f7-icons\">reload</i></div></div>";
+	}
+	else if( (RowStatus * 1) == -2)
+	{
+		salida = "<div class=\"speed-dial\" id=\"ObjSpeedIU\">"
+		+ "<a href=\"#\" class=\"floating-button\">"
+		+ "<i class=\"icon f7-icons\">more_vertical</i>"
+		+ "<i class=\"icon f7-icons closeRed\">close</i>"
+		+ "</a><div class=\"speed-dial-buttons\">"
+		+ "<a href=\"javascript:{MotorMovil('Save');}\" class=\"link\"><i class=\"icon f7-icons\">compose</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('Nuevo');}\" class=\"link\"><i class=\"icon f7-icons\">document_text_fill</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('FReg');}\" class=\"link\"><i class=\"icon f7-icons\">rewind</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('LReg');}\" class=\"link\"><i class=\"icon f7-icons\">fastforward</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('Reload');}\" class=\"link\"><i class=\"icon f7-icons\">reload</i></a></div></div>";
+	}
+	else if (RowStatus == 2)
+	{
+		salida = "<div class=\"speed-dial\" id=\"ObjSpeedIU\">"
+		+ "<a href=\"#\" class=\"floating-button\">"
+		+ "<i class=\"icon f7-icons\">more_vertical</i>"
+		+ "<i class=\"icon f7-icons closeRed\">close</i>"
+		+ "</a><div class=\"speed-dial-buttons\">"
+		+ "<a href=\"javascript:{MotorMovil('Buscar');}\" class=\"link\"><i class=\"icon f7-icons\">search</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('Nuevo');}\" class=\"link\"><i class=\"icon f7-icons\">document_text_fill</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('FReg');}\" class=\"link\"><i class=\"icon f7-icons\">rewind</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('LReg');}\" class=\"link\"><i class=\"icon f7-icons\">fastforward</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('Reload');}\" class=\"link\"><i class=\"icon f7-icons\">reload</i></a></div></div>";
+	}
+
+	return salida;
+
+});
 
 Template7.registerHelper('getObjectByColName', function(objList, name, options)
 {
@@ -116,7 +169,7 @@ Template7.registerHelper('getObjectByColName', function(objList, name, options)
 Template7.registerHelper('getObject',printWBObj);
 
 
-Template7.registerHelper('objectBuilder', function(name, content_type, visible, label, defValue, acction, data_s, col_name,options)
+Template7.registerHelper('objectBuilder', function(name, content_type, visible, label, defValue, acction, data_s, col_name, rawval ,options)
 {
 	var objP = name.split("_");
 	var ID = col_name;
@@ -163,14 +216,20 @@ Template7.registerHelper('objectBuilder', function(name, content_type, visible, 
 										'" placeholder="' + label + '" ' + name + acction + "></div>";
 					break;
 				case 'C':
-					htmlF7 += '<div class="item-input"><label class="label-switch">'+
+					htmlF7 += '<div class="item-input">'+
+								'<label class="label-switch">'+
+									'<input type="checkbox" id="' + ID + '" checked="' + ((defValue == 1)?'true':'false') + '" >'+
+									'<div class="checkbox"></div>'+
+								'</label></div>'
+					/*htmlF7 += '<div class="item-input"><label class="label-switch">'+
 								'<input type="checkbox" '+ Enabled +' id="' + ID + '" checked="' + (defValue == 1)?'true':'false' + 
-								'"' + name + acction + '><div class="checkbox"></div></label></div>';
+								'"' + name + acction + '><div class="checkbox"></div></label></div>';*/
 					break;
 				case 'Q':
 				case 'B':
+				case 'E':
 					htmlF7 += '<div class="item-input">'+
-								'<select id="' + ID + '" ' + Enabled + ' placeholder="Please choose..." ' + name + acction + ' >'+
+								'<select data-defval="'+ rawval +'" id="' + ID + '" ' + Enabled + ' placeholder="Please choose..." ' + name + acction + ' >'+
 								'<option value="Empty">-- Vacio --</option>' + defValue + '</select></div>';
 					break;
 				default:
@@ -210,18 +269,20 @@ function handleTouchMove(evt)
 	var yDiff = yDown - yUp;
 
 	var swipeON = GetSValue("SWIPE_MODE");
-	
-	if ( (Math.abs( xDiff ) > Math.abs( yDiff )) && swipeON == 1 ) 
+
+	//alert (swipeON + ", ")
+
+	if ( (Math.abs( xDiff ) > Math.abs( yDiff )) && swipeON == 1 )
 	{
 		if (xDiff > 0) // from rigth to Left Swipe
 		{
 			MotorMovil('LReg');
-			MotorMovil('Reload');
+			//MotorMovil('Reload');
 		}
 		else	// from left to  Rigth Swipe
 		{
 			MotorMovil('FReg'); 
-			MotorMovil('Reload');
+			//MotorMovil('Reload');
 		}
 	}
 	/*else Up and down Swipe */
@@ -270,10 +331,15 @@ $$(document).on('pageInit', function (e)
 {
 	var page = e.detail.page;
 	SetSessionValue ("SWIPE_MODE", "0");
+	window.sessionStorage.removeItem("ONCE_HIT");
 	
+	$$("#DyScriptAfter").remove();
+
 	switch(page.name)
 	{
 		case 'index':
+			savedPnU(); 
+			// ----------- 
 			break;
 		case 'MainMenu':
 			$$.post( URLBASE + "/MovilDiceros",
@@ -309,21 +375,76 @@ $$(document).on('pageInit', function (e)
 			//$$(".card-content").css("overflow","scroll");
 			break;
 		case "FormDataI":
+			//window.sessionStorage.clear();
+			//clearTempVal();
+			SetSessionValue ("SWIPE_MODE", "0");
+			$$("div[data-page='FormDataI'] div.item-input input[name*='_'], div[data-page='FormDataI'] div.item-input select[name*='_']").each(function(i, ele)
+			{
+				saveTempVal(ele, 0);
+				$$(ele).on("change", function(event){saveTempVal(this, 0);});
+			});
+
+			var url_JS = URLBASE + "/MovilDiceros?js=2";
+			var DyScript = document.createElement('script');
+			DyScript.id = "DyScriptAfter";
+			DyScript.src = url_JS;
+
+			document.body.appendChild(DyScript);
 			break;
 		case "FormDataU":
+			var modoBusqueda = GetSValue("BTN_BUSQUEDA");
+			
+			//window.sessionStorage.clear();
+			//clearTempVal();
 			$$("div[data-page='FormDataU'] div.item-input input[name*='_'], div[data-page='FormDataU'] div.item-input select[name*='_']").each(function(i, ele)
 			{
-				var PrimaryKey = $$(ele).attr("name");
-				if (PrimaryKey.indexOf("P") == 4)
-					$$(ele).attr('disabled','disabled');
+				saveTempVal(ele, 0);
+				$$(ele).on("change", function(event){saveTempVal(this, 0);});
+				if (modoBusqueda == null)
+				{
+					var PrimaryKey = $$(ele).attr("name");
+					if (PrimaryKey.indexOf("P") == 4)
+						$$(ele).attr('disabled','disabled');
+				}
+				else if (modoBusqueda == 2)
+				{
+					$$("div[data-page='FormDataU']").attr("data-page", "FormDataI");
+				}
 			});
 			
 			$$("div.navbar div.navbar-inner div.left a.link span").text("Busqueda");
 			//$$("div.navbar div.navbar-inner div.left a.link").attr("href", "javascript:{ForceBack('#Pantalla-FormDataI');}");
 			SetSessionValue ("SWIPE_MODE", "1");
+			$$("div[data-page='FormDataU'] div.item-input input[name*='_'], div[data-page='FormDataU'] div.item-input select[name*='_']").each(function (i,ele)
+			{
+				//saveTempVal(ele, 1);
+				$$(ele).trigger("change");
+			});
+
+			var url_JS = URLBASE + "/MovilDiceros?js=2";
+			var DyScript = document.createElement('script');
+			DyScript.id = "DyScriptAfter";
+			DyScript.src = url_JS;
+
+			document.body.appendChild(DyScript);
 			break;
 	}
+
+	
+
 });
+
+function clearTempVal()
+{
+	$$.each (Object.keys(window.sessionStorage), function (k, v)
+	{
+		console.log(k);
+		if (k.indexOf("#") > 0)
+		{
+			window.sessionStorage.removeItem(k);
+		}
+	});
+}
 
 function ModificarAll()
 {
@@ -335,7 +456,7 @@ function ModificarAll()
 	{
 		WL += ObjList[i].value + "|";
 	}
-	alert (WL);
+	//alert (WL);
 
 	window.sessionStorage.setItem("LP", 0);
 	window.sessionStorage.setItem("Wlista", WL);
@@ -396,18 +517,16 @@ function CallMantenimiento(p, o, url)
 			try
 			{
 				var textVal = "*T7Forms*";
-				
 				if (data.indexOf(textVal) != -1)
 				{
 					
 					var tempData = data.split("~");
 					var urlTemplate = tempData[0];
 					var jsonDataTemplate = tempData[1];
+					/*urlTemplate = urlTemplate.replace("*T7Forms*", "");
+					urlTemplate = URLBASE + "/" + urlTemplate;*/
 
-					urlTemplate = urlTemplate.replace("*T7Forms*", "");
-
-					urlTemplate = URLBASE + "/" + urlTemplate;
-
+					urlTemplate = URLBASE + "/MovilDiceros?t7html=1";
 					jsonDataTemplate = JSON.parse(jsonDataTemplate);
 					
 					mainView.router.load(
@@ -434,13 +553,21 @@ function CallMantenimiento(p, o, url)
 	});
 }
 
-function valOverNUnderFlow()
+function valOverNUnderFlow( x )
 {
 	var wl = window.sessionStorage.getItem("Wlista");
 	var pl = window.sessionStorage.getItem("LP");
+
+	pl = pl * 1;
+	pl += (x == "LReg")?1:-1;
 	
 	wl = wl.slice(0, -1);
 	var s = wl.split("|");
+	console.log(wl)
+	console.log(s)
+	console.log(pl + ", " + s.length )
+
+	console.log(pl < (s.length-1) & pl > -1);
 
 	return pl < s.length & pl > -1
 }
@@ -475,7 +602,12 @@ function MotorMovil(a)
 			$$("div[data-page='FormDataU'] input.HidenParams, div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select").each(function(i, ele)
 			{
 				var ItemName = $$(ele).attr("name");
+				var tipoInput = $$(ele).attr("type");
 				var ItemValue = $$(ele).val();
+
+				if (tipoInput == "checkbox")
+					ItemValue = ($$(ele).prop('checked'))?1:0;
+
 				playload[ItemName] = ItemValue;
 			});
 
@@ -567,45 +699,65 @@ function MotorMovil(a)
 		case "FReg":
 			var wl = GetSValue("Wlista");
 			var pl = GetSValue("LP");
-			myApp.showPreloader();
 
-			if ((wl == null || wl == '' || pl == null || pl == '') && valOverNUnderFlow())
-				myApp.alert("No mas registros");
-			else
+			if (GetSValue("ONCE_HIT") == null)
 			{
-				pl = pl * 1;
-				pl += (a == "LReg")?1:-1;
-				$$.post(URLBASE + "/motor",
+				SetSessionValue("ONCE_HIT", 1);
+				if (valOverNUnderFlow(a) > 0)
 				{
-					SubComando: "Modificar",
-					nueva: "B",
-					cmd: "MRes",
-					where: wl,
-					LP: pl
-				},function (data) 
-				{
-					data =  data.replace(/\r?\n|\r/g, "") ;
-					var obj;
-					try
+					if ((wl == null || pl == null))
 					{
-						obj = JSON.parse(data);
-						
-						mainView.router.load(
+						//if ((wl == null || wl == '' || pl == null || pl == '') && valOverNUnderFlow())
+						myApp.alert("No mas registros");
+						//myApp.hidePreloader();
+					}
+					else
+					{
+						myApp.showPreloader();
+						pl = pl * 1;
+						pl += (a == "LReg")?1:-1;
+						$$.post(URLBASE + "/motor",
+						{
+							SubComando: "Modificar",
+							nueva: "B",
+							cmd: "MRes",
+							where: wl,
+							LP: pl
+						},function (data) 
+						{
+							data =  data.replace(/\r?\n|\r/g, "") ;
+							var obj;
+							try
 							{
-								template: Template7.templates.TListU,
-								reload: true,
-								context: obj
-							});
+								obj = JSON.parse(data);
+								
+								mainView.router.load(
+									{
+										template: Template7.templates.TListU,
+										reload: true,
+										context: obj
+									});
 
-						SetSessionValue("LP", pl);
+								SetSessionValue("LP", pl);
+							}
+							catch( err)
+							{
+								alert(err);
+							}
+							//mainView.router.refreshPage();
+							window.sessionStorage.removeItem("ONCE_HIT");
+							myApp.hidePreloader();
+						});
 					}
-					catch( err)
-					{
-						alert(err);
-					}
-					myApp.hidePreloader();
-				});
+				}	
+				else
+				{
+					SetSessionValue("ONCE_HIT", 1);
+					myApp.alert("No mas registros");
+					window.sessionStorage.removeItem("ONCE_HIT");
+				}
 			}
+			
 			break;
 	}
 }
@@ -626,7 +778,44 @@ function CallModRegTable(sWhere)
 		nueva: "B"
 	},function (data)
 	{
-		mainView.router.loadContent(data);
+		reloadT7Page(data);
+		myApp.hidePreloader();
+	});
+}
+
+function FillChild(sender, hijos) //TODO
+{
+	myApp.showPreloader();
+
+	var valorPadre = $$(sender).val();
+	var Np = $$(sender).attr("name");
+	Np = Np.substring(6, Np.length);
+
+	$$.post(URLBASE + "/MovilDiceros",
+	{
+		"cmd":"GetHijos",
+		"NamePadre":Np,
+		"valPadre": valorPadre,
+		"idCKinde": hijos
+	},function(data)
+	{
+		var HijosList = data.split("~");
+		for (var i = 0; i < HijosList.length; i++)
+		{
+			if (HijosList[i].length > 0)
+			{
+				var temp = HijosList[i].split("|");
+				var IdHijo = temp[0];
+				var htmlHijo = temp[1];
+
+				if (GetSValue("#"+IdHijo) == "Empty")
+					SetSessionValue("#"+IdHijo, $$("#"+IdHijo).data("defval"));
+				
+				$$("#"+IdHijo).empty()
+							  .append(htmlHijo)
+							  .val(GetSValue("#"+IdHijo));
+			}
+		}
 		myApp.hidePreloader();
 	});
 }
@@ -699,12 +888,15 @@ function reloadT7Page(data)
 			var urlTemplate = tempData[0];
 			var jsonDataTemplate = tempData[1];
 
-			urlTemplate = urlTemplate.replace("*T7Forms*", "");
-			urlTemplate = URLBASE + "/" + urlTemplate;
-
+			/*urlTemplate = urlTemplate.replace("*T7Forms*", "");
+			urlTemplate = URLBASE + "/" + urlTemplate;*/
 			jsonDataTemplate =  jsonDataTemplate.replace(/\r?\n|\r/g, "");
 			jsonDataTemplate = JSON.parse(jsonDataTemplate);
-			
+		
+			urlTemplate = URLBASE + "/MovilDiceros?t7html=" + jsonDataTemplate.ROWStatusVal;
+
+			SetSessionValue("BTN_BUSQUEDA",jsonDataTemplate.ROWStatusVal);
+
 			mainView.router.load(
 				{
 					url: urlTemplate,
@@ -719,6 +911,14 @@ function reloadT7Page(data)
 	{
 		alert (err);
 	}
+}
+
+function saveTempVal(sender, raw)
+{
+	var id = "#"+$$(sender).attr('id');
+	var value = (raw === 1)?$$(sender).data("defval"):$$(sender).val();
+
+	SetSessionValue(id, value);
 }
 
 //$$("#btnLogIn").click(function ()

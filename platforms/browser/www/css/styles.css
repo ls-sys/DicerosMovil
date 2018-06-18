@@ -78,6 +78,12 @@ div[class*="col-"] {
 	background-color:#FFF;
 }
 
+#ObjSpeedIU
+{
+  float: right;
+  position: fixed;
+}
+
 .speed-dial a{
 	background-color: #1a9e40;
 }
