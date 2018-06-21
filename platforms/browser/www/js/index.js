@@ -31,6 +31,13 @@ var mainView = myApp.addView('.view-main');
 
 var printWBObj = function(objList, index, options)
 {
+	console.log(typeof(objList[index]) + "; " + index);
+	if (typeof(objList[index]) === "string")
+	{
+		objList[index] = JSON.parse(objList[index]);
+		console.log(objList[index]);
+	}
+	console.log(objList[index]["name"] + "; " + index); /// AQUI
 	var objP = objList[index]["name"].split("_");
 	var ID = objList[index]["col_name"];
 	var rawval = objList[index]["RawVal"];
@@ -874,15 +881,13 @@ function reloadT7Page(data, type)
 	{
 		if (data.indexOf(textVal) != -1)
 		{
-			if (type == 1) console.log(data.split("~"));
 			var tempData = data.split("~");
-			console.log("awe", type);
 			var urlTemplate = tempData[0];
 			var jsonDataTemplate = tempData[1];
 
 			/*urlTemplate = urlTemplate.replace("*T7Forms*", "");
 			urlTemplate = URLBASE + "/" + urlTemplate;*/
-			jsonDataTemplate =  jsonDataTemplate.replace(/\r?\n|\r/g, " ");
+			jsonDataTemplate =  jsonDataTemplate.replace(/\r?\n|\r/g, "");
 			jsonDataTemplate = JSON.parse(jsonDataTemplate);
 		
 			urlTemplate = URLBASE + "/MovilDiceros?t7html=" + jsonDataTemplate.ROWStatusVal;
