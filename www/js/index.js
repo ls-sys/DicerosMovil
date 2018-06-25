@@ -584,6 +584,7 @@ function MotorMovil(a)
 		case "Buscar":
 			myApp.showPreloader();
 			var listInput = $$("div[data-page='FormDataI'] div.item-input input[name*='_'], div[data-page='FormDataI'] div.item-input select[name*='_']");
+			console.log(listInput.length);
 
 			for (var i = 0; i < listInput.length; i++)
 			{
@@ -591,6 +592,8 @@ function MotorMovil(a)
 				var ItemVal  = $$(listInput[i]).val();
 				playload[ItemName] = ItemVal; 
 			}
+
+			console.log(playload);
 
 			$$.post(URLBASE + "/motor", playload,
 			function (data)
@@ -773,7 +776,7 @@ function CallModRegTable(sWhere)
 		nueva: "B"
 	},function (data)
 	{
-		reloadT7Page(data, 0);
+		reloadT7Page(data, 1);
 		myApp.hidePreloader();
 	});
 }
@@ -915,15 +918,22 @@ function reloadT7Page(data, type)
 		{
 			if (type > 0)
 			{
-				var obj = data.replace(/\r?\n|\r/g, " ");
-				obj = JSON.parse(obj);
+				try
+				{
+					var obj = data.replace(/\r?\n|\r/g, " ");
+					obj = JSON.parse(obj);
 
-				mainView.router.load(
-					{
-						template: Template7.templates.TListU,
-						reload:((type == 1)?false:true),
-						context: obj
-					});
+					mainView.router.load(
+						{
+							template: Template7.templates.TListU,
+							reload:((type == 1)?false:true),
+							context: obj
+						});
+				}
+				catch(er)
+				{
+					mainView.router.loadContent(data);
+				}
 			}
 			else
 				mainView.router.reloadContent(data);
