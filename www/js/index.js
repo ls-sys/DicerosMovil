@@ -1,3 +1,4 @@
+
 var URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
 	"://" + window.localStorage.getItem("URL_HOST") + "/Sistema";
 var _PW = "$marfil$";
@@ -28,6 +29,47 @@ window.addEventListener('touchstart', handleTouchStart, false);
 window.addEventListener('touchmove', handleTouchMove, false);
 
 var mainView = myApp.addView('.view-main');
+
+function PingServer()
+{
+
+	var p = new Ping();
+	var url = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + "://" + window.localStorage.getItem("URL_HOST");
+	p.ping(url, function(err, data)
+	{
+		if (err)
+		{
+			myApp.addNotification({
+				message: "Server NOT Reachable",
+				button:{
+					text: "close",
+					color: "red",
+					close: true
+				}
+			});
+			$$("#btnLogIn").addClass("disabled");
+			console.error('Could not ping remote URL', err);
+			SetSessionValue("SERVER_CONN", 0);
+		}
+		else
+		{
+			myApp.addNotification({
+				message: "Server Reachable",
+				hold: 3500,
+				button:{
+					text: "close",
+					color: "green",
+					close: true
+				}
+			});
+	
+			$$("#btnLogIn").removeClass("disabled");
+			console.log('Ping time was ' + String(data) + ' ms');
+			
+			SetSessionValue("SERVER_CONN", 1);
+		}
+	});
+}
 
 /*	Template7 Helper */
 
@@ -341,36 +383,7 @@ function QuitarPnU()
 
 $$(document).on('deviceready', function() {
 	console.log("Device is ready! " + URLBASE);
-	ping(URLBASE).then(function(delta) 
-	{
-		myApp.addNotification({
-			message: "Server Reachable",
-			hold: 3500,
-			button:{
-				text: "close",
-				color: "green",
-				close: true
-			}
-		});
-
-		$$("#btnLogIn").removeClass("disabled");
-		console.log('Ping time was ' + String(delta) + ' ms');
-		
-		SetSessionValue("SERVER_CONN", 1);
-	})
-	.catch(function(err) 
-	{
-		myApp.addNotification({
-			message: "Server NOT Reachable",
-			button:{
-				text: "close",
-				color: "red",
-				close: true
-			}
-		});
-		console.error('Could not ping remote URL', err);
-		SetSessionValue("SERVER_CONN", 0);
-	});
+	PingServer();
 	savedPnU();
 });
 
@@ -1087,7 +1100,7 @@ function btn_click_saveSettings()
 
 	myApp.params.cacheIgnore = [URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2"];
 
-	//$$(document).trigger("deviceready");
+	PingServer();
 
 	mainView.router.back();
 }

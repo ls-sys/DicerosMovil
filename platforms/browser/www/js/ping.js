@@ -1,46 +1,61 @@
-// See LICENSE for usage information
+/*
+ *  ping.js - v0.2.1
+ *  Ping Utilities in Javascript
+ *  http://github.com/alfg/ping.js
+ *
+ *  Made by Alfred Gutierrez
+ *  Under MIT License
+ */
+/**
+ * Creates a Ping instance.
+ * @returns {Ping}
+ * @constructor
+ */
+var Ping = function(opt) {
+    this.opt = opt || {};
+    this.favicon = this.opt.favicon || "/favicon.ico";
+    this.timeout = this.opt.timeout || 0;
+};
 
-// The following lines allow the ping function to be loaded via commonjs, AMD,
-// and script tags, directly into window globals.
-// Thanks to https://github.com/umdjs/umd/blob/master/templates/returnExports.js
-(function (root, factory) { if (typeof define === 'function' && define.amd) { define([], factory); } else if (typeof module === 'object' && module.exports) { module.exports = factory(); } else { root.ping = factory(); }
-}(this, function () {
+/**
+ * Pings source and triggers a callback when completed.
+ * @param source Source of the website or server, including protocol and port.
+ * @param callback Callback function to trigger when completed. Returns error and ping value.
+ * @param timeout Optional number of milliseconds to wait before aborting.
+ */
+Ping.prototype.ping = function(source, callback) {
+    this.img = new Image();
+    var timer;
+
+    var start = new Date();
+    this.img.onload = pingCheck;
+    this.img.onerror = pingCheck;
+    if (this.timeout) { timer = setTimeout(pingCheck, this.timeout); }
 
     /**
-     * Creates and loads an image element by url.
-     * @param  {String} url
-     * @return {Promise} promise that resolves to an image element or
-     *                   fails to an Error.
+     * Times ping and triggers callback.
      */
-    function request_image(url) {
-        return new Promise(function(resolve, reject) {
-            var img = new Image();
-            img.onload = function() { resolve(img); };
-            img.onerror = function() { reject(url); };
-            img.src = url + '?random-no-cache=' + Math.floor((1 + Math.random()) * 0x10000).toString(16);
-        });
+    function pingCheck(e) {
+        if (timer) { clearTimeout(timer); }
+        var pong = new Date() - start;
+
+        if (typeof callback === "function") {
+            if (e.type === "error") {
+                console.error("error loading resource");
+                return callback("error", pong);
+            }
+            return callback(null, pong);
+        }
     }
 
-    /**
-     * Pings a url.
-     * @param  {String} url
-     * @param  {Number} multiplier - optional, factor to adjust the ping by.  0.3 works well for HTTP servers.
-     * @return {Promise} promise that resolves to a ping (ms, float).
-     */
-    function ping(url, multiplier) {
-        return new Promise(function(resolve, reject) {
-            var start = (new Date()).getTime();
-            var response = function() { 
-                var delta = ((new Date()).getTime() - start);
-                delta *= (multiplier || 1);
-                resolve(delta); 
-            };
-            request_image(url).then(response).catch(response);
-            
-            // Set a timeout for max-pings, 5s.
-            setTimeout(function() { reject(Error('Timeout')); }, 5000);
-        });
+    this.img.src = source + this.favicon + "?" + (+new Date()); 
+    //console.log(this.img.src);// Trigger image load with cache buster
+};
+
+if (typeof exports !== "undefined") {
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = Ping;
     }
-    
-    return ping;
-}));
+} else {
+    window.Ping = Ping;
+}
