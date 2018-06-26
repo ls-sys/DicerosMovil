@@ -12,7 +12,8 @@
     
     <link rel="stylesheet" href="css/framework7-icons.css">
     <link rel="stylesheet" href="css/styles.css">
-    
+
+    <script type="text/javascript" src="js/ping.js"></script>   
 
 </head>
 
@@ -76,7 +77,10 @@
 				
                     <div class="navbar">
 					  <div class="navbar-inner">
-						<div class="center">Log In</div>
+                        <div class="center">Log In</div>
+                        <div class="right">
+                                <a href="configDiceros.html" class="link"><i class="icon f7-icons">gear_fill</i></a>
+                        </div>
 					  </div>
 					</div>
 					
@@ -92,7 +96,6 @@
 					
                     <div class="page-content">
                         <div class="content-block">
-						
                             <form id="fLogin" class="list-block">
 							  <ul>
 								<li>
@@ -131,12 +134,16 @@
                                 <li>
                                     <div class="item-content">
                                         <div class="item-inner">
-                                                <a href="javascript:{btn_click_btnLogIn();}" class="button" id="btnLogIn">Log In</a>
+                                                <a href="javascript:{btn_click_btnLogIn();}" class="button disabled" id="btnLogIn">Log In</a>
                                         </div>
                                     </div>
                                 </li>
                               </ul>
-							</form>
+                            </form>
+                            
+                        </div>
+                        <div class="chip" style="position: fixed; bottom: 5px; left: 5px;">
+                            <div class="chip-label">Ver: 0.9.8</div>
                         </div>
                     </div>
                 </div>

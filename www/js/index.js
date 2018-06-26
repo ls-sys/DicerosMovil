@@ -1,4 +1,6 @@
-var URLBASE = "http://192.168.20.250/Sistema";
+var URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
+	"://" + window.localStorage.getItem("URL_HOST") + "/Sistema";
+var _PW = "$marfil$";
 
 var myApp = new Framework7
 ({
@@ -315,7 +317,7 @@ function savedPnU()
 		$$("#fLogin input[name='passwd']").attr("disabled","disabled");
 		$$("#fLogin input[name='name']").attr("disabled","disabled");
 
-		$$("#cb_PASS").attr('checked','checked');
+		$$("#cb_PASS").prop('checked', true);
 	}
 }
 
@@ -338,7 +340,37 @@ function QuitarPnU()
 }
 
 $$(document).on('deviceready', function() {
-	console.log("Device is ready!");
+	console.log("Device is ready! " + URLBASE);
+	ping(URLBASE).then(function(delta) 
+	{
+		myApp.addNotification({
+			message: "Server Reachable",
+			hold: 3500,
+			button:{
+				text: "close",
+				color: "green",
+				close: true
+			}
+		});
+
+		$$("#btnLogIn").removeClass("disabled");
+		console.log('Ping time was ' + String(delta) + ' ms');
+		
+		SetSessionValue("SERVER_CONN", 1);
+	})
+	.catch(function(err) 
+	{
+		myApp.addNotification({
+			message: "Server NOT Reachable",
+			button:{
+				text: "close",
+				color: "red",
+				close: true
+			}
+		});
+		console.error('Could not ping remote URL', err);
+		SetSessionValue("SERVER_CONN", 0);
+	});
 	savedPnU();
 });
 
@@ -352,9 +384,42 @@ $$(document).on('pageInit', function (e)
 
 	switch(page.name)
 	{
+		case 'settings':
+			var sh = window.localStorage.getItem("URL_HOST");
+			var ss = window.localStorage.getItem("HOST_SSL");
+
+			$$("div[data-page='settings'] #hostURL").val(sh);
+			if (ss == 1)
+				$$("div[data-page='settings'] #SSLConn").prop('checked', true);
+			else
+				$$("div[data-page='settings'] #SSLConn").prop('checked', false);
+			
+
+
+			myApp.modalPassword('Administrator password:', 
+			function (password) 
+			{
+				if (password === _PW)
+				{
+					$$("div[data-page='settings'] #hostURL").removeClass("disabled");
+					$$("div[data-page='settings'] #SSLConn").removeClass("disabled");
+					$$("div[data-page='settings'] #btn_save").removeClass("disabled");
+				}
+				else
+				{
+					myApp.alert("Incorrect password");
+					mainView.router.back();
+				}
+			},
+			function ()
+			{
+				mainView.router.back();
+			});
+			break;
 		case 'index':
 			savedPnU(); 
-			// ----------- 
+			if(GetSValue("SERVER_CONN") == 1)
+				$$("#btnLogIn").removeClass("disabled");
 			break;
 		case 'MainMenu':
 			$$.post( URLBASE + "/MovilDiceros",
@@ -842,7 +907,10 @@ function LogOut()
 	},function (d)
 	{
 		savedPnU();
-		mainView.router.reloadPage('#index');
+		//mainView.router.reloadPage('#index');
+		mainView.router.back({
+			url:"#index"
+		});
 	});
 }
 
@@ -1007,6 +1075,21 @@ function btn_click_btnLogIn()
 			myApp.hidePreloader();
 		});
     }	
-};
+}
+
+function btn_click_saveSettings()
+{
+	window.localStorage.setItem("URL_HOST", $$("div[data-page='settings'] #hostURL").val());
+	window.localStorage.setItem("HOST_SSL", $$("div[data-page='settings'] #SSLConn").prop('checked')?"1":"0");
+
+	URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
+	"://" + window.localStorage.getItem("URL_HOST") + "/Sistema";
+
+	myApp.params.cacheIgnore = [URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2"];
+
+	//$$(document).trigger("deviceready");
+
+	mainView.router.back();
+}
 
 
