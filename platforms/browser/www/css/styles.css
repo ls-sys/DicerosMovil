@@ -32,12 +32,12 @@ div[class*="col-"] {
 }
 /*#1a9e40*/
 .navbar {
-	background-color: #1a9e40;
+	background-color: #2196f3; /*#1a9e40;*/
 	box-shadow: 0px 0px 35px #545454;
 }
 
 .toolbar {
-	background-color: #1a9e40;
+	background-color: #2196f3; /*#1a9e40;*/
 	font-family: Arial, sans-serif;
 	font-size: 18px;
 	box-shadow: 0px 0px 35px #545454;
@@ -52,7 +52,7 @@ div[class*="col-"] {
 }
 
 .MargenMenu{
-	background-color: #43b766;
+	background-color: #0073d1; /*#43b766;*/
 	/*margin-left: 10px;*/
 	padding-left: 20px;
 	color: #FFFFFF;
@@ -63,7 +63,7 @@ div[class*="col-"] {
 }
 
 .MenuModulos{
-	background-color: #1a9e40;
+	background-color: #2196f3; /*#1a9e40;*/
 	color: #FFFFFF;
 	font-weight: bold;
 	margin-top:80px;
@@ -85,7 +85,7 @@ div[class*="col-"] {
 }
 
 .speed-dial a{
-	background-color: #1a9e40;
+	background-color: #2196f3; /*#1a9e40;*/
 }
 
 .icon-form-new {
@@ -121,7 +121,7 @@ div[class*="col-"] {
   width: 30px;
   height: 30px;
   margin-left: 0px;
-  background-color: #1a9e40;
+  background-color: #2196f3; /*#1a9e40;*/
   border: #000000 1px solid;
   color: #FFFFFF;
   border-radius: 30px;
