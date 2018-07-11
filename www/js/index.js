@@ -39,9 +39,11 @@ function PingServer()
 	{
 		if (err)
 		{
-			myApp.addNotification({
+			myApp.addNotification(
+			{
 				message: "Server NOT Reachable",
-				button:{
+				button:
+				{
 					text: "close",
 					color: "red",
 					close: true
@@ -53,10 +55,12 @@ function PingServer()
 		}
 		else
 		{
-			myApp.addNotification({
+			myApp.addNotification(
+			{
 				message: "Server Reachable",
 				hold: 3500,
-				button:{
+				button:
+				{
 					text: "close",
 					color: "green",
 					close: true
@@ -170,7 +174,7 @@ Template7.registerHelper('getBarUI', function(RowStatus, options)
                 + "<i class=\"icon f7-icons closeRed\">close</i>"
                 + "</a><div class=\"speed-dial-buttons\">"
                 + "<a href=\"javascript:{MotorMovil('NewReg');}\" class=\"link\"><i class=\"icon f7-icons\">compose</i></a>"
-                + "<a href=\"javascript:{MotorMovil('Reload');}\" class=\"link\"><i class=\"icon f7-icons\">reload</i></div></div>";
+                + "<a href=\"javascript:{MotorMovil('Reload');}\" class=\"link\"><i class=\"icon f7-icons\">reload</i></a></div></div>";
 	}
 	else if( (RowStatus * 1) == -2)
 	{
@@ -607,8 +611,9 @@ function CallMantenimiento(p, o, url)
 					var jsonDataTemplate = tempData[1];
 					/*urlTemplate = urlTemplate.replace("*T7Forms*", "");
 					urlTemplate = URLBASE + "/" + urlTemplate;*/
+					var timestamp = Date.now();
 
-					urlTemplate = URLBASE + "/MovilDiceros?t7html=1";
+					urlTemplate = URLBASE + "/MovilDiceros?t7html=1&t=" + timestamp;
 					jsonDataTemplate = JSON.parse(jsonDataTemplate);
 					
 					mainView.router.load(
@@ -970,8 +975,10 @@ function reloadT7Page(data, type)
 			urlTemplate = URLBASE + "/" + urlTemplate;*/
 			jsonDataTemplate =  jsonDataTemplate.replace(/\r?\n|\r/g, "");
 			jsonDataTemplate = JSON.parse(jsonDataTemplate);
+
+			var timestamp = Date.now();
 		
-			urlTemplate = URLBASE + "/MovilDiceros?t7html=" + jsonDataTemplate.ROWStatusVal;
+			urlTemplate = URLBASE + "/MovilDiceros?t7html=" + jsonDataTemplate.ROWStatusVal + "&t=" + timestamp;
 
 			SetSessionValue("BTN_BUSQUEDA",jsonDataTemplate.ROWStatusVal);
 
