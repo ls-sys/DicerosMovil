@@ -163,6 +163,20 @@ var printWBObj = function(objList, index, options)
 	return htmlF7;
 }
 
+Template7.registerHelper('ReportBM', function(s, p, t, options)
+{
+	/*$$.post(URLBASE + "/" + s,
+	{
+		Template: p,
+		ContentType: t
+	},function(data)
+	{
+		
+	});*/
+	alert(s + " " + p + " "+ t );
+	return "";
+});
+
 Template7.registerHelper('getBarUI', function(RowStatus, options)
 {
 	var salida = "";
@@ -200,6 +214,16 @@ Template7.registerHelper('getBarUI', function(RowStatus, options)
 		+ "<a href=\"javascript:{MotorMovil('Nuevo');}\" class=\"link\"><i class=\"icon f7-icons\">document_text_fill</i></a>"
 		+ "<a href=\"javascript:{MotorMovil('FReg');}\" class=\"link\"><i class=\"icon f7-icons\">rewind</i></a>"
 		+ "<a href=\"javascript:{MotorMovil('LReg');}\" class=\"link\"><i class=\"icon f7-icons\">fastforward</i></a>"
+		+ "<a href=\"javascript:{MotorMovil('Reload');}\" class=\"link\"><i class=\"icon f7-icons\">reload</i></a></div></div>";
+	}
+	else if (RowStatus == 5)
+	{
+		salida = "<div class=\"speed-dial\" id=\"ObjSpeedIU\">"
+		+ "<a href=\"#\" class=\"floating-button\">"
+		+ "<i class=\"icon f7-icons\">more_vertical</i>"
+		+ "<i class=\"icon f7-icons closeRed\">close</i>"
+		+ "</a><div class=\"speed-dial-buttons\">"
+		+ "<a href=\"javascript:{MotorMovil('ViewReport');}\" class=\"link\"><i class=\"icon f7-icons\">list</i></a>"
 		+ "<a href=\"javascript:{MotorMovil('Reload');}\" class=\"link\"><i class=\"icon f7-icons\">reload</i></a></div></div>";
 	}
 
@@ -664,6 +688,32 @@ function MotorMovil(a)
 	var playload = {};
 	switch(a)
 	{
+		case "ViewReport":
+			myApp.showPreloader();
+			var listInput = $$("div[data-page='ReportForm'] div.item-input input[name*='_'], div[data-page='ReportForm'] div.item-input select[name*='_']");
+
+			for (var i = 0; i < listInput.length; i++)
+			{
+				var ItemName = $$(listInput[i]).attr("name");
+				var ItemVal  = $$(listInput[i]).val();
+				playload[ItemName] = ItemVal; 
+			}
+
+			playload["destino"] = "HTML";
+
+			$$.post(URLBASE + "/motor", playload,
+			function (data)
+			{
+				obj = JSON.parse(data);
+				mainView.router.load(
+					{
+						url: 'RHTML.html',
+						context: obj
+					});
+				myApp.hidePreloader();
+			});
+
+			break;
 		case "Buscar":
 			myApp.showPreloader();
 			var listInput = $$("div[data-page='FormDataI'] div.item-input input[name*='_'], div[data-page='FormDataI'] div.item-input select[name*='_']");
@@ -676,7 +726,7 @@ function MotorMovil(a)
 				playload[ItemName] = ItemVal; 
 			}
 
-			console.log(playload);
+			//console.log(playload);
 
 			$$.post(URLBASE + "/motor", playload,
 			function (data)

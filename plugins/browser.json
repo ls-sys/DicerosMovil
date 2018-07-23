@@ -15,6 +15,9 @@
         },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.lssys.dicerosand"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.ls-sys.dicerosmovil"
         }
     },
     "dependent_plugins": {}
