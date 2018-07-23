@@ -165,16 +165,16 @@ var printWBObj = function(objList, index, options)
 
 Template7.registerHelper('ReportBM', function(s, p, t, options)
 {
-	/*$$.post(URLBASE + "/" + s,
+	$$.post(URLBASE + "/" + s,
 	{
 		Template: p,
-		ContentType: t
+		ContentType: t,
+		d:10
 	},function(data)
 	{
-		
-	});*/
-	alert(s + " " + p + " "+ t );
-	return "";
+		$$("#divHolder").html(data);
+	});
+	return "<div id='divHolder'>Cargando Reporte...</div>";
 });
 
 Template7.registerHelper('getBarUI', function(RowStatus, options)
