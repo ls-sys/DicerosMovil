@@ -165,6 +165,15 @@ var printWBObj = function(objList, index, options)
 
 Template7.registerHelper('ReportBM', function(s, p, t, options)
 {
+	$$("#DyScriptReport").remove();
+
+	var url_JS = URLBASE + "/MovilDiceros?js=3";
+	var DyScript = document.createElement('script');
+	DyScript.id = "DyScriptReport";
+	DyScript.src = url_JS;
+
+	document.body.appendChild(DyScript);
+
 	$$.post(URLBASE + "/" + s,
 	{
 		Template: p,
@@ -505,6 +514,8 @@ $$(document).on('pageInit', function (e)
 				$$(ele).on("change", function(event){saveTempVal(this, 0);});
 			});
 
+			
+
 			var url_JS = URLBASE + "/MovilDiceros?js=2";
 			var DyScript = document.createElement('script');
 			DyScript.id = "DyScriptAfter";
@@ -531,6 +542,16 @@ $$(document).on('pageInit', function (e)
 				{
 					$$("div[data-page='FormDataU']").attr("data-page", "FormDataI");
 				}
+
+				if ($$(ele).attr("type") == "datetime-local")
+				{
+					$$(ele).val($$(ele).data("defval").replace(" ","T"));
+				}
+			});
+
+			$$("div[data-page='FormDataI'] div.item-input input[type*='date']").each(function(i,ele)
+			{
+				console.log($$(ele).val());
 			});
 			
 			$$("div.navbar div.navbar-inner div.left a.link span").text("Busqueda");
