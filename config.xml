@@ -6,7 +6,7 @@
     </description>
     <author href="http://ls-sys.com" email="gs@ls-sy.com">ls-sys</author>
     <content src="index.html" />
-    <preference name="phonegap-version" value="cli-6.5.0" />
+    <preference name="phonegap-version" value="cli-8.0.0" /><!--6.5.0-->
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -33,6 +33,6 @@
     <plugin name="cordova-plugin-console" spec="1.0.7" />
     <plugin name="cordova-plugin-statusbar" spec="1.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="1.2.2" />
-	<plugin name="cordova-plugin-camera" spec="~4.0.3" />
+	<plugin name="cordova-plugin-camera" source="npm" />  
     <icon src="icon.png"/>
 </widget>
