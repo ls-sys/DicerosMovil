@@ -420,6 +420,7 @@ function QuitarPnU()
 
 $$(document).on('deviceready', function() {
 	console.log("Device is ready! " + URLBASE);
+	console.log(navigator.camera);
 	PingServer();
 	savedPnU();
 });
@@ -623,6 +624,25 @@ function ModificarAll()
 		myApp.hidePreloader();
 	});
 
+}
+
+function TakePhotoMD(idImage)
+{
+	function onSuccess(imgData)
+	{
+		$$("#"+idImage).attr("src", imgData);
+		alert(imgData);
+	}
+	function onFail(data)
+	{
+		myApp.alert(data);
+	}
+	navigator.camera.getPicture(onSuccess, onFail, 
+		{
+			quality: 25,
+			destinationType: 1,
+			sourceType: 1
+		});
 }
 
 function ForceBack(namePageURL)
