@@ -24,6 +24,9 @@
         <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" />
     </platform>
     <platform name="ios">
+        <preference name="CameraUsesGeolocation" value="false" />
+        <preference name="iosPersistentFileLocation" value="Library" />
+        <preference name="permissions" value="true" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" platform="ios" src="www/res/icon/ios/icon.png" width="57" />
