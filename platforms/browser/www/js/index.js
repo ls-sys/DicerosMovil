@@ -639,9 +639,13 @@ function TakePhotoMD(idImage)
 	}
 	navigator.camera.getPicture(onSuccess, onFail, 
 		{
-			quality: 25,
-			destinationType: 1,
-			sourceType: 1
+			quality: 50,
+			destinationType: Camera.DestinationType.FILE_URI,
+			sourceType: Camera.PictureSourceType.CAMERA,
+			allowEdit: true,
+			encodingType: Camera.EncodingType.PNG,
+			correctOrientation: true,
+			saveToPhotoAlbum: false
 		});
 }
 
@@ -723,6 +727,18 @@ function valOverNUnderFlow( x )
 
 	return pl < s.length & pl > -1
 }
+
+function getBase64Image(img) 
+{
+	var canvas = document.createElement("canvas");
+	canvas.width = img.width;
+	canvas.height = img.height;
+	var ctx = canvas.getContext("2d");
+	ctx.drawImage(img, 0, 0);
+	var dataURL = canvas.toDataURL("image/png");
+
+	return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  }
 
 function MotorMovil(a)
 {
@@ -864,6 +880,12 @@ function MotorMovil(a)
 				var ItemName = $$(ele).attr("name");
 				var ItemValue = $$(ele).val();
 				playload[ItemName] = ItemValue;
+			});
+
+			$$("img.imgDiv").each(function (i, ele)
+			{
+				console.log(getBase64Image(ele));
+				playload["B64_" + $$(ele).attr("id")] = getBase64Image (ele);
 			});
 
 			$$.post(URLBASE + "/motor", playload,
