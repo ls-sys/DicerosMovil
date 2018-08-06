@@ -632,11 +632,14 @@ function TakePhotoMD(idImage)
 	{
 		$$("#"+idImage).attr("src", imgData);
 		alert(imgData);
+		myApp.hidePreloader();
 	}
 	function onFail(data)
 	{
 		myApp.alert(data);
+		myApp.hidePreloader();
 	}
+	myApp.showPreloader();
 	navigator.camera.getPicture(onSuccess, onFail, 
 		{
 			quality: 50,
