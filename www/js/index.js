@@ -644,9 +644,8 @@ function TakePhotoMD(idImage)
 			quality: 50,
 			destinationType: Camera.DestinationType.FILE_URI,
 			sourceType: Camera.PictureSourceType.CAMERA,
-			allowEdit: true,
-			encodingType: Camera.EncodingType.PNG,
-			correctOrientation: true,
+			allowEdit: false,
+			encodingType: Camera.EncodingType.JPEG,
 			saveToPhotoAlbum: false
 		});
 }
