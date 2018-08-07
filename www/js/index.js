@@ -632,6 +632,8 @@ function TakePhotoMD(idImage)
 	{
 		$$("#"+idImage).attr("src", imgData);
 		myApp.hidePreloader();
+		alert("F7: W=" + $$("#" + idImage).width() + ", H=" + $$("#" + idImage).height());
+		alert("H5: W=" + document.getElementById(idImage).naturalWidth + ", H=" + document.getElementById(idImage).naturalHeight );
 	}
 	function onFail(data)
 	{
