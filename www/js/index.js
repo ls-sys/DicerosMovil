@@ -736,6 +736,7 @@ function getBase64Image(img)
 	canvas.width = img.naturalWidth;
 	canvas.height = img.naturalHeight;
 	var ctx = canvas.getContext("2d");
+	ctx.scale(0.25,0.25);
 	ctx.drawImage(img, 0, 0);
 	var dataURL = canvas.toDataURL("image/png");
 
@@ -887,7 +888,7 @@ function MotorMovil(a)
 			$$("img.imgDiv").each(function (i, ele)
 			{
 				alert("F7: W=" + $$(ele).width() + ", H=" + $$(ele).height());
-				alert("H5: W=" + ele.naturalWidth + ", H=" + ele.naturalHeight );
+				alert("H5: W=" + ele.naturalWidth*0.25 + ", H=" + ele.naturalHeight*0.25 );
 				console.log(getBase64Image(ele));
 				playload["B64_" + $$(ele).attr("id")] = getBase64Image (ele);
 			});
