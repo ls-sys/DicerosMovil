@@ -733,8 +733,8 @@ function valOverNUnderFlow( x )
 function getBase64Image(img) 
 {
 	var canvas = document.createElement("canvas");
-	canvas.width = img.width;
-	canvas.height = img.height;
+	canvas.width = img.naturalWidth;
+	canvas.height = img.naturalHeight;
 	var ctx = canvas.getContext("2d");
 	ctx.drawImage(img, 0, 0);
 	var dataURL = canvas.toDataURL("image/png");
