@@ -632,8 +632,7 @@ function TakePhotoMD(idImage)
 	{
 		$$("#"+idImage).attr("src", imgData);
 		myApp.hidePreloader();
-		alert("F7: W=" + $$("#" + idImage).width() + ", H=" + $$("#" + idImage).height());
-		alert("H5: W=" + document.getElementById(idImage).naturalWidth + ", H=" + document.getElementById(idImage).naturalHeight );
+		
 	}
 	function onFail(data)
 	{
@@ -887,6 +886,8 @@ function MotorMovil(a)
 
 			$$("img.imgDiv").each(function (i, ele)
 			{
+				alert("F7: W=" + $$(ele).width() + ", H=" + $$(ele).height());
+				alert("H5: W=" + ele.naturalWidth + ", H=" + ele.naturalHeight );
 				console.log(getBase64Image(ele));
 				playload["B64_" + $$(ele).attr("id")] = getBase64Image (ele);
 			});
