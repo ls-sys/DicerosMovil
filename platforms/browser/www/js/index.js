@@ -631,8 +631,9 @@ function TakePhotoMD(idImage)
 	function onSuccess(imgData)
 	{
 		$$("#"+idImage).attr("src", imgData);
-		alert(imgData);
+		$$("#"+idImage.replace("IMG", "FILE")).val(imgData);
 		myApp.hidePreloader();
+		
 	}
 	function onFail(data)
 	{
@@ -645,9 +646,8 @@ function TakePhotoMD(idImage)
 			quality: 50,
 			destinationType: Camera.DestinationType.FILE_URI,
 			sourceType: Camera.PictureSourceType.CAMERA,
-			allowEdit: true,
-			encodingType: Camera.EncodingType.PNG,
-			correctOrientation: true,
+			allowEdit: false,
+			encodingType: Camera.EncodingType.JPEG,
 			saveToPhotoAlbum: false
 		});
 }
@@ -734,9 +734,10 @@ function valOverNUnderFlow( x )
 function getBase64Image(img) 
 {
 	var canvas = document.createElement("canvas");
-	canvas.width = img.width;
-	canvas.height = img.height;
+	canvas.width = img.naturalWidth;
+	canvas.height = img.naturalHeight;
 	var ctx = canvas.getContext("2d");
+	ctx.scale(0.25,0.25);
 	ctx.drawImage(img, 0, 0);
 	var dataURL = canvas.toDataURL("image/png");
 
@@ -761,10 +762,17 @@ function MotorMovil(a)
 
 			playload["destino"] = "HTML";
 
+			if (typeof BeforeAction === "function")
+				BeforeAction(a, playload);
+
 			$$.post(URLBASE + "/motor", playload,
 			function (data)
 			{
 				obj = JSON.parse(data);
+
+				if (typeof AfterAction === "function")
+					AfterAction(a, obj);
+					
 				mainView.router.load(
 					{
 						url: 'RHTML.html',
@@ -787,10 +795,15 @@ function MotorMovil(a)
 			}
 
 			//console.log(playload);
+			if (typeof BeforeAction === "function")
+				BeforeAction(a, playload);
 
 			$$.post(URLBASE + "/motor", playload,
 			function (data)
 			{
+				if (typeof AfterAction === "function")
+					AfterAction(a, data);
+
 				mainView.router.loadContent(data);
 				myApp.hidePreloader();	
 			});
@@ -810,6 +823,9 @@ function MotorMovil(a)
 
 				playload[ItemName] = ItemValue;
 			});
+
+			if (typeof BeforeAction === "function")
+				BeforeAction(a, playload);
 
 			$$.post(URLBASE + "/motor", playload,
 			function (data)
@@ -836,6 +852,9 @@ function MotorMovil(a)
 							try
 							{
 								obj = JSON.parse(data);
+
+								if (typeof AfterAction === "function")
+									AfterAction(a, obj);
 								
 								mainView.router.load(
 									{
@@ -863,6 +882,9 @@ function MotorMovil(a)
 							nueva: "B"
 						},function (REdata)
 						{
+							if (typeof AfterAction === "function")
+									AfterAction(a, REdata);
+
 							mainView.router.reloadContent(REdata);
 							myApp.hidePreloader();
 						});
@@ -884,16 +906,23 @@ function MotorMovil(a)
 				var ItemValue = $$(ele).val();
 				playload[ItemName] = ItemValue;
 			});
-
-			$$("img.imgDiv").each(function (i, ele)
+			/*$$("img.imgDiv").each(function (i, ele)
 			{
+				alert("F7: W=" + $$(ele).width() + ", H=" + $$(ele).height());
+				alert("H5: W=" + ele.naturalWidth*0.25 + ", H=" + ele.naturalHeight*0.25 );
 				console.log(getBase64Image(ele));
 				playload["B64_" + $$(ele).attr("id")] = getBase64Image (ele);
-			});
+			});*/
+
+			if (typeof BeforeAction === "function")
+				BeforeAction(a, playload);
 
 			$$.post(URLBASE + "/motor", playload,
 			function (data)
 			{
+				if (typeof AfterAction === "function")
+					AfterAction(a, data);
+
 				reloadT7Page(data, 0);
 				myApp.hidePreloader();	
 			});
