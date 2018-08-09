@@ -631,7 +631,8 @@ function TakePhotoMD(idImage)
 	function onSuccess(imgData)
 	{
 		$$("#"+idImage).attr("src", imgData);
-		$$("#"+idImage.replace("IMG", "FILE")).val(imgData);
+		alert(idImage.replace("IMG", "FILE"));
+		//$$("#"+idImage.replace("IMG", "FILE")).val(imgData);
 		myApp.hidePreloader();
 		
 	}
