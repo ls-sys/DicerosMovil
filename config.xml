@@ -76,6 +76,6 @@
     <plugin name="cordova-plugin-statusbar" spec="1.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="1.2.2" />
 	<plugin name="cordova-plugin-camera" source="npm" />  
-    <plugin name="cordova-plugin-file-transfer" source="npm">
+    <plugin name="cordova-plugin-file-transfer" source="npm"/>
     
 </widget>
