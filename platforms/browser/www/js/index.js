@@ -631,8 +631,6 @@ function TakePhotoMD(idImage)
 	function onSuccess(imgData)
 	{
 		$$("#"+idImage).attr("src", imgData);
-		//alert(idImage.replace("IMG", "FILE"));
-		//$$("#"+idImage.replace("IMG", "FILE")).val(imgData);
 		myApp.hidePreloader();
 		
 	}
@@ -644,10 +642,10 @@ function TakePhotoMD(idImage)
 	myApp.showPreloader();
 	navigator.camera.getPicture(onSuccess, onFail, 
 		{
-			quality: 50,
+			quality: 80,
 			destinationType: Camera.DestinationType.FILE_URI,
 			sourceType: Camera.PictureSourceType.CAMERA,
-			allowEdit: false,
+			allowEdit: true,
 			encodingType: Camera.EncodingType.JPEG,
 			saveToPhotoAlbum: false
 		});
@@ -907,13 +905,6 @@ function MotorMovil(a)
 				var ItemValue = $$(ele).val();
 				playload[ItemName] = ItemValue;
 			});
-			/*$$("img.imgDiv").each(function (i, ele)
-			{
-				alert("F7: W=" + $$(ele).width() + ", H=" + $$(ele).height());
-				alert("H5: W=" + ele.naturalWidth*0.25 + ", H=" + ele.naturalHeight*0.25 );
-				console.log(getBase64Image(ele));
-				playload["B64_" + $$(ele).attr("id")] = getBase64Image (ele);
-			});*/
 
 			if (typeof BeforeAction === "function")
 				BeforeAction(a, playload);
