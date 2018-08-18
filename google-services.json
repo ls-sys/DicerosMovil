@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:654560580377:android:54d06b230c806f4b",
+        "mobilesdk_app_id": "1:654560580377:android:0675243a76a341ba",
         "android_client_info": {
-          "package_name": "com.lssys.dicerosmovil"
+          "package_name": "com.ls_sys.dicerosmovil"
         }
       },
       "oauth_client": [
