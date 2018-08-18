@@ -81,6 +81,8 @@
     <plugin name="cordova-plugin-file-transfer" source="npm" />
     <plugin name="cordova-plugin-device" source="npm"/>
     <plugin name="cordova-plugin-dialogs" source="npm"/>
-    <plugin name="phonegap-plugin-push" source="npm"/>
+    <plugin name="phonegap-plugin-push" source="npm">
+        <param name="SENDER_ID" value="654560580377" />
+    </plugin>
     
 </widget>
