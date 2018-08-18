@@ -457,7 +457,7 @@ $$(document).on('deviceready', function() {
 
 	NoticeMeSempai.on('error', function(e) 
 	{
-		console.log("push error = " + e.message);
+		alert("push error = " + e.message);
 	});
 
 	NoticeMeSempai.on('notification', function(data) 
