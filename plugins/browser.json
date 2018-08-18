@@ -21,6 +21,24 @@
         },
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.ls-sys.dicerosmovil"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         }
     },
     "dependent_plugins": {

@@ -22,6 +22,8 @@ var myApp = new Framework7
 
 var $$ = Dom7;
 
+var NoticeMeSempai = null;
+
 var xDown = null;                                                        
 var yDown = null;
 
@@ -419,10 +421,58 @@ function QuitarPnU()
 }
 
 $$(document).on('deviceready', function() {
+	console.clear();
 	console.log("Device is ready! " + URLBASE);
-	console.log(navigator.camera);
 	PingServer();
 	savedPnU();
+	console.log("Init Push");
+	NoticeMeSempai = PushNotification.init(
+	{
+		android: {},
+		browser:
+		{
+			pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+		},
+		ios:
+		{
+			alert: "true",
+			badge: "true",
+			sound: "true"
+		},
+		windows: {}
+	});
+
+	NoticeMeSempai.on('registration', function(data)
+	{
+		console.log('registration event: ' + data.registrationId);
+		console.log("registration type: " + data.registrationType);
+
+		var SempaiName = window.localStorage.getItem("SNameID");
+		if (SempaiName !== data.registrationId)
+		{
+			window.localStorage.setItem("SNameID", data.registrationId);
+			window.localStorage.setItem("STypeID", data.registrationType);
+		}
+	});
+
+	NoticeMeSempai.on('error', function(e) 
+	{
+		console.log("push error = " + e.message);
+	});
+
+	NoticeMeSempai.on('notification', function(data) 
+	{
+		console.log('notification event');
+		navigator.notification.alert
+		(
+			data.message,         // message
+			null,                 // callback
+			data.title,           // title
+			'Ok'                  // buttonName
+		);
+   });
+
+
 });
 
 $$(document).on('pageInit', function (e) 

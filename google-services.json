@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "654560580377",
+    "firebase_url": "https://dicerosmovil.firebaseio.com",
+    "project_id": "dicerosmovil",
+    "storage_bucket": "dicerosmovil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654560580377:android:54d06b230c806f4b",
+        "android_client_info": {
+          "package_name": "com.lssys.dicerosmovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654560580377-q00thtvgaj50tma1far1onclcq6289cb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkmmv2GxSd-sQiFV5DqTiItXXqy7E5D84"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
