@@ -23,6 +23,7 @@ var myApp = new Framework7
 });
 
 var $$ = Dom7;
+var MAjax = null;
 
 var NoticeMeSempai = null;
 
@@ -436,6 +437,7 @@ $$(document).on('deviceready', function() {
 	console.log("Device is ready! " + URLBASE);
 	PingServer();
 	savedPnU();
+	MAjax = cordova.plugin.http;
 });
 
 $$(document).on('pageInit', function (e) 
@@ -486,10 +488,11 @@ $$(document).on('pageInit', function (e)
 				$$("#btnLogIn").removeClass("disabled");
 			break;
 		case 'MainMenu':
-			$$.post( URLBASE + "/MovilDiceros",
+			MAjax.post( URLBASE + "/MovilDiceros",
 			{
 				cmd: "Menu"
 			},
+			{"Access-Control-Allow-Origin":"*"},
 			function (data)
 			{
 				$$("#CuerpoMenu").html(data)
@@ -499,21 +502,21 @@ $$(document).on('pageInit', function (e)
 					var projectIDObj = $$(this).children('.accordion-item-content').attr('id');
 					var projectID = projectIDObj.replace("proy", "");
 					
-					$$.post(URLBASE + "/MovilDiceros",
+					MAjax.post(URLBASE + "/MovilDiceros",
 					{
 						cmd: "ItemsModulo",
 						proy: projectID
-					},
+					},{"Access-Control-Allow-Origin":"*"},
 					function (htmlData)
 					{
 						var idMod = "#"+projectIDObj
 						
 						$$(idMod).html(htmlData);
 						myApp.hidePreloader();
-					});
+					},function(error){alert (error)});
 					
 				});
-			});
+			},function(error){alert (error)});
 			break;
 		case 'SearchTable':
 			//$$(".card-content").css("overflow","scroll");

@@ -347,6 +347,55 @@ module.exports = [
         "clobbers": [
             "Ionic.WebView"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/www/lodash.js",
+        "id": "cordova-plugin-advanced-http.lodash",
+        "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
+        "id": "cordova-plugin-advanced-http.tough-cookie",
+        "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/www/messages.js",
+        "id": "cordova-plugin-advanced-http.messages",
+        "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/www/local-storage-store.js",
+        "id": "cordova-plugin-advanced-http.local-storage-store",
+        "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/www/cookie-handler.js",
+        "id": "cordova-plugin-advanced-http.cookie-handler",
+        "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/www/angular-integration.js",
+        "id": "cordova-plugin-advanced-http.angular-integration",
+        "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
+        "id": "cordova-plugin-advanced-http.helpers",
+        "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/www/advanced-http.js",
+        "id": "cordova-plugin-advanced-http.http",
+        "pluginId": "cordova-plugin-advanced-http",
+        "clobbers": [
+            "cordova.plugin.http"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-advanced-http/src/browser/cordova-http-plugin.js",
+        "id": "cordova-plugin-advanced-http.http-proxy",
+        "pluginId": "cordova-plugin-advanced-http",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -365,7 +414,8 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "1.3.0",
     "cordova-plugin-media": "2.2.0",
     "cordova-plugin-crosswalk-webview": "2.4.0",
-    "cordova-plugin-ionic-webview": "2.1.0"
+    "cordova-plugin-ionic-webview": "2.1.0",
+    "cordova-plugin-advanced-http": "1.11.1"
 }
 // BOTTOM OF METADATA
 });

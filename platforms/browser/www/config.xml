@@ -6,6 +6,9 @@
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
+    <feature name="CordovaHttpPlugin">
+        <param name="browser-package" value="CordovaHttpPlugin" />
+    </feature>
     <name>DicerosMovil</name>
     <description>
         Diceros ERP, version movil.
