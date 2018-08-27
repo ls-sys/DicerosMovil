@@ -73,6 +73,26 @@
 	<preference name="android-build-tool" value="gradle" />
 	<preference name="KeyboardShrinksView" value="true" />
 
+    <gap:config-file platform="android" parent="/manifest">  
+        <application android:hardwareAccelerated="true" />  
+        <supports-screens  
+            android:xlargeScreens="true"  
+            android:largeScreens="true"  
+            android:smallScreens="true" />  
+        <application android:theme="@style/Theme.Default"></application>  
+    </gap:config-file>  
+
+    <gap:config-file platform="android" parent="/manifest" mode="delete">  
+        <uses-permission android:name="android.permission.RECORD_AUDIO" />  
+        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />  
+        <uses-permission android:name="android.permission.READ_CONTACTS" />  
+        <uses-permission android:name="android.permission.GET_ACCOUNTS" />  
+    </gap:config-file>  
+
+    <gap:config-file platform="android" parent="/manifest/application">  
+        <activity android:launchMode="singleTask" />  
+    </gap:config-file>  
+
 	
     <plugin name="cordova-plugin-console" spec="1.0.7" />
     <plugin name="cordova-plugin-statusbar" spec="1.0.1" />
