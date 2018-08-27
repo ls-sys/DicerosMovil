@@ -396,6 +396,14 @@ module.exports = [
         "id": "cordova-plugin-advanced-http.http-proxy",
         "pluginId": "cordova-plugin-advanced-http",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-appversion/www/app-version.js",
+        "id": "cordova-plugin-appversion.RareloopAppVersion",
+        "pluginId": "cordova-plugin-appversion",
+        "clobbers": [
+            "AppVersion"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -415,7 +423,8 @@ module.exports.metadata =
     "cordova-plugin-media": "2.2.0",
     "cordova-plugin-crosswalk-webview": "2.4.0",
     "cordova-plugin-ionic-webview": "2.1.0",
-    "cordova-plugin-advanced-http": "1.11.1"
+    "cordova-plugin-advanced-http": "1.11.1",
+    "cordova-plugin-appversion": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

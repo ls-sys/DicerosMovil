@@ -48,6 +48,9 @@
         },
         "cordova-plugin-advanced-http": {
             "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-appversion": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         }
     },
     "dependent_plugins": {

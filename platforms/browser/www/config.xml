@@ -22,25 +22,11 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <gap:config-file parent="/manifest" platform="android">
-        <application android:hardwareAccelerated="true" />
-        <supports-screens android:largeScreens="true" android:smallScreens="true" android:xlargeScreens="true" />
-        <application android:theme="@style/Theme.Default" />
-    </gap:config-file>
-    <gap:config-file mode="delete" parent="/manifest" platform="android">
-        <uses-permission android:name="android.permission.RECORD_AUDIO" />
-        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-        <uses-permission android:name="android.permission.READ_CONTACTS" />
-        <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    </gap:config-file>
-    <gap:config-file parent="/manifest/application" platform="android">
-        <activity android:launchMode="singleTask" />
-    </gap:config-file>
     <preference name="phonegap-version" value="cli-8.0.0" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
-    <preference name="StatusBarBackgroundColor" value="#0267b9" />
     <preference name="StatusBarStyle" value="blackopaque" />
+    <preference name="StatusBarBackgroundColor" value="#0267b9" />
     <preference name="BackgroundColor" value="#E4F1FB" />
     <preference name="android-build-tool" value="gradle" />
     <preference name="KeyboardShrinksView" value="true" />
