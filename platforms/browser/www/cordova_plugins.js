@@ -339,6 +339,14 @@ module.exports = [
         "clobbers": [
             "window.Media"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-ionic-webview/src/www/util.js",
+        "id": "cordova-plugin-ionic-webview.IonicWebView",
+        "pluginId": "cordova-plugin-ionic-webview",
+        "clobbers": [
+            "Ionic.WebView"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -356,7 +364,8 @@ module.exports.metadata =
     "cordova-plugin-globalization": "1.0.9",
     "cordova-plugin-inappbrowser": "1.3.0",
     "cordova-plugin-media": "2.2.0",
-    "cordova-plugin-crosswalk-webview": "2.4.0"
+    "cordova-plugin-crosswalk-webview": "2.4.0",
+    "cordova-plugin-ionic-webview": "2.1.0"
 }
 // BOTTOM OF METADATA
 });

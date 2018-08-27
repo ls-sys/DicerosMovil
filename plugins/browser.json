@@ -42,6 +42,9 @@
         },
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-ionic-webview": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         }
     },
     "dependent_plugins": {
