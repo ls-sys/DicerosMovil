@@ -81,6 +81,4 @@
     <plugin name="cordova-plugin-file-transfer" source="npm" />
     <plugin name="cordova-plugin-device" source="npm"/>
     <plugin name="cordova-plugin-dialogs" source="npm"/>
-    <plugin name="cordova-plugin-ionic-webview" source="npm"/>
-    <plugin name="cordova-plugin-advanced-http" source="npm"/>
 </widget>
