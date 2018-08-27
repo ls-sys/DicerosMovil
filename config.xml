@@ -15,17 +15,8 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
-        <resource-file src="google-services.json" target="google-services.json" />
-        
+        <resource-file src="google-services.json" target="google-services.json" />        
         <allow-intent href="market:*" />
-
-        <edit-config file="AndroidManifest.xml" target="/manifest">
-            <application android:hardwareAccelerated="true"/>  
-        </edit-config>
-        <edit-config file="AndroidManifest.xml" target="/manifest/application">
-            <activity android:launchMode="singleTask"/>  
-        </edit-config>
-
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="www/res/icon/android/drawable-hdpi-icon.png" />
