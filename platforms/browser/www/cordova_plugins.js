@@ -355,7 +355,8 @@ module.exports.metadata =
     "cordova-plugin-geolocation": "2.1.0",
     "cordova-plugin-globalization": "1.0.9",
     "cordova-plugin-inappbrowser": "1.3.0",
-    "cordova-plugin-media": "2.2.0"
+    "cordova-plugin-media": "2.2.0",
+    "cordova-plugin-crosswalk-webview": "2.4.0"
 }
 // BOTTOM OF METADATA
 });

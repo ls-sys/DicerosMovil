@@ -6,7 +6,9 @@ var _PW = "$marfil$";
 var myApp = new Framework7
 ({
     modalTitle: "Diceros",
-    material: true,
+	material: true,
+	fastClicks: false,
+	animateNavBackIcon: true,
     materialPageLoadDelay: 0,
     smartSelectBackText: "Atras",
     smartSelectPopupCloseText: "Cerrar",
@@ -16,7 +18,7 @@ var myApp = new Framework7
 	uniqueHistory: true,
 	template7Pages: true,
 	precompileTemplates: true,
-	cacheIgnore:[URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2"]
+	cacheIgnore:[URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2", , URLBASE+"/MovilDiceros?js=3"]
 	//cache:false
 });
 
@@ -169,10 +171,20 @@ Template7.registerHelper('ReportBM', function(s, p, t, options)
 {
 	$$("#DyScriptReport").remove();
 
-	var url_JS = URLBASE + "/MovilDiceros?js=3";
+	/*var url_CSS = URLBASE + "/MovilDiceros?css=1";
+	var dyCss = document.createAttribute('link');
+	dyCss.id = "dyCSSReprt";
+	dyCss.rel="stylesheet";
+	dyCss.href = url_CSS;
+
+	document.body.appendChild(dyCss);*/
+
+	var url_JS = URLBASE + "/MovilDiceros?js=3&t="+Date.now();
 	var DyScript = document.createElement('script');
 	DyScript.id = "DyScriptReport";
 	DyScript.src = url_JS;
+
+	//<link rel="stylesheet" href="css/styles.css">
 
 	document.body.appendChild(DyScript);
 
@@ -421,58 +433,9 @@ function QuitarPnU()
 }
 
 $$(document).on('deviceready', function() {
-	console.clear();
 	console.log("Device is ready! " + URLBASE);
 	PingServer();
 	savedPnU();
-	console.log("Init Push");
-	NoticeMeSempai = PushNotification.init(
-	{
-		android: {},
-		browser:
-		{
-			pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-		},
-		ios:
-		{
-			alert: "true",
-			badge: "true",
-			sound: "true"
-		},
-		windows: {}
-	});
-
-	NoticeMeSempai.on('registration', function(data)
-	{
-		console.log('registration event: ' + data.registrationId);
-		console.log("registration type: " + data.registrationType);
-
-		var SempaiName = window.localStorage.getItem("SNameID");
-		if (SempaiName !== data.registrationId)
-		{
-			window.localStorage.setItem("SNameID", data.registrationId);
-			window.localStorage.setItem("STypeID", data.registrationType);
-		}
-	});
-
-	NoticeMeSempai.on('error', function(e) 
-	{
-		alert("push error = " + e.message);
-	});
-
-	NoticeMeSempai.on('notification', function(data) 
-	{
-		console.log('notification event');
-		navigator.notification.alert
-		(
-			data.message,         // message
-			null,                 // callback
-			data.title,           // title
-			'Ok'                  // buttonName
-		);
-   });
-
-
 });
 
 $$(document).on('pageInit', function (e) 
@@ -567,7 +530,7 @@ $$(document).on('pageInit', function (e)
 
 			
 
-			var url_JS = URLBASE + "/MovilDiceros?js=2";
+			var url_JS = URLBASE + "/MovilDiceros?js=2&t="+Date.now();
 			var DyScript = document.createElement('script');
 			DyScript.id = "DyScriptAfter";
 			DyScript.src = url_JS;
@@ -614,7 +577,7 @@ $$(document).on('pageInit', function (e)
 				$$(ele).trigger("change");
 			});
 
-			var url_JS = URLBASE + "/MovilDiceros?js=2";
+			var url_JS = URLBASE + "/MovilDiceros?js=2&t="+Date.now();
 			var DyScript = document.createElement('script');
 			DyScript.id = "DyScriptAfter";
 			DyScript.src = url_JS;
@@ -717,7 +680,7 @@ function CallMantenimiento(p, o, url)
 
 	$$.get(FullUrl,{},function(data)
 	{
-		var url_JS = URLBASE + "/MovilDiceros?js=1";
+		var url_JS = URLBASE + "/MovilDiceros?js=1&t="+Date.now();
 		var DyScript = document.createElement('script');
 		DyScript.onload = function ()
 		{
@@ -1292,7 +1255,7 @@ function btn_click_saveSettings()
 	URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
 	"://" + window.localStorage.getItem("URL_HOST") + "/Sistema";
 
-	myApp.params.cacheIgnore = [URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2"];
+	myApp.params.cacheIgnore = [URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2" , URLBASE+"/MovilDiceros?js=3"];
 
 	PingServer();
 

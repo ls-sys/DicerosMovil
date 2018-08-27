@@ -39,6 +39,9 @@
         },
         "cordova-plugin-media": {
             "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         }
     },
     "dependent_plugins": {
