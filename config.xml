@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.lssys.dicerosmovil" version="0.9.14" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.lssys.dicerosmovil" version="0.9.15" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>DicerosMovil</name>
     <description>
         Diceros ERP, version movil.
@@ -92,4 +92,7 @@
     <plugin name="cordova-plugin-file-transfer" source="npm" spec="1.7.1" />
     <plugin name="cordova-plugin-statusbar" source="npm" spec="1.0.1" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.2" />
+    <plugin name="cordova-plugin-window-background" source="npm">
+        <variable name="WINDOW_BACKGROUND_COLOR" value="#005AA3" />
+    </plugin>
 </widget>
