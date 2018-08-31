@@ -6,9 +6,6 @@
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
-    <feature name="CordovaHttpPlugin">
-        <param name="browser-package" value="CordovaHttpPlugin" />
-    </feature>
     <name>DicerosMovil</name>
     <description>
         Diceros ERP, version movil.
@@ -23,11 +20,25 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="phonegap-version" value="cli-8.0.0" />
+    <preference name="android-build-tool" value="gradle" />
+    <preference name="orientation" value="default" />
+    <preference name="fullscreen" value="false" />
+    <preference name="target-device" value="universal" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="stay-in-webview" value="true" />
+    <preference name="ios-statusbarstyle" value="black-transparent" />
+    <preference name="detect-data-types" value="true" />
+    <preference name="exit-on-suspend" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarStyle" value="blackopaque" />
-    <preference name="StatusBarBackgroundColor" value="#0267b9" />
+    <preference name="StatusBarBackgroundColor" value="#0267B9" />
     <preference name="BackgroundColor" value="#E4F1FB" />
-    <preference name="android-build-tool" value="gradle" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    <preference name="KeyboardShrinksView " value="true" />
+    <preference name="HideKeyboardFormAccessoryBar" value="true" />
+    <preference name="SuppressesIncrementalRendering" value="false" />
     <preference name="KeyboardShrinksView" value="true" />
+    <preference name="android-minSdkVersion" value="16" />
 </widget>

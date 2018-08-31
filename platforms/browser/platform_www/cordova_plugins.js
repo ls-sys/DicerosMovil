@@ -1,11 +1,11 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
-        "id": "cordova-plugin-statusbar.statusbar",
-        "pluginId": "cordova-plugin-statusbar",
+        "file": "plugins/cordova-plugin-appversion/www/app-version.js",
+        "id": "cordova-plugin-appversion.RareloopAppVersion",
+        "pluginId": "cordova-plugin-appversion",
         "clobbers": [
-            "window.StatusBar"
+            "AppVersion"
         ]
     },
     {
@@ -37,6 +37,36 @@ module.exports = [
         "id": "cordova-plugin-camera.CameraProxy",
         "pluginId": "cordova-plugin-camera",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "pluginId": "cordova-plugin-device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/src/browser/DeviceProxy.js",
+        "id": "cordova-plugin-device.DeviceProxy",
+        "pluginId": "cordova-plugin-device",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/browser/notification.js",
+        "id": "cordova-plugin-dialogs.notification_browser",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
     },
     {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -242,36 +272,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "id": "cordova-plugin-device.device",
-        "pluginId": "cordova-plugin-device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-device/src/browser/DeviceProxy.js",
-        "id": "cordova-plugin-device.DeviceProxy",
-        "pluginId": "cordova-plugin-device",
-        "runs": true
-    },
-    {
-        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
-        "id": "cordova-plugin-dialogs.notification",
-        "pluginId": "cordova-plugin-dialogs",
-        "merges": [
-            "navigator.notification"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-dialogs/www/browser/notification.js",
-        "id": "cordova-plugin-dialogs.notification_browser",
-        "pluginId": "cordova-plugin-dialogs",
-        "merges": [
-            "navigator.notification"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-globalization/www/GlobalizationError.js",
         "id": "cordova-plugin-globalization.GlobalizationError",
         "pluginId": "cordova-plugin-globalization",
@@ -341,90 +341,30 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-ionic-webview/src/www/util.js",
-        "id": "cordova-plugin-ionic-webview.IonicWebView",
-        "pluginId": "cordova-plugin-ionic-webview",
+        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+        "id": "cordova-plugin-statusbar.statusbar",
+        "pluginId": "cordova-plugin-statusbar",
         "clobbers": [
-            "Ionic.WebView"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/www/lodash.js",
-        "id": "cordova-plugin-advanced-http.lodash",
-        "pluginId": "cordova-plugin-advanced-http"
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
-        "id": "cordova-plugin-advanced-http.tough-cookie",
-        "pluginId": "cordova-plugin-advanced-http"
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/www/messages.js",
-        "id": "cordova-plugin-advanced-http.messages",
-        "pluginId": "cordova-plugin-advanced-http"
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/www/local-storage-store.js",
-        "id": "cordova-plugin-advanced-http.local-storage-store",
-        "pluginId": "cordova-plugin-advanced-http"
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/www/cookie-handler.js",
-        "id": "cordova-plugin-advanced-http.cookie-handler",
-        "pluginId": "cordova-plugin-advanced-http"
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/www/angular-integration.js",
-        "id": "cordova-plugin-advanced-http.angular-integration",
-        "pluginId": "cordova-plugin-advanced-http"
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
-        "id": "cordova-plugin-advanced-http.helpers",
-        "pluginId": "cordova-plugin-advanced-http"
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/www/advanced-http.js",
-        "id": "cordova-plugin-advanced-http.http",
-        "pluginId": "cordova-plugin-advanced-http",
-        "clobbers": [
-            "cordova.plugin.http"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-advanced-http/src/browser/cordova-http-plugin.js",
-        "id": "cordova-plugin-advanced-http.http-proxy",
-        "pluginId": "cordova-plugin-advanced-http",
-        "runs": true
-    },
-    {
-        "file": "plugins/cordova-plugin-appversion/www/app-version.js",
-        "id": "cordova-plugin-appversion.RareloopAppVersion",
-        "pluginId": "cordova-plugin-appversion",
-        "clobbers": [
-            "AppVersion"
+            "window.StatusBar"
         ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-whitelist": "1.2.2",
-    "cordova-plugin-console": "1.0.7",
-    "cordova-plugin-statusbar": "1.0.1",
+    "cordova-plugin-appversion": "1.0.0",
     "cordova-plugin-camera": "4.0.3",
-    "cordova-plugin-file": "6.0.1",
-    "cordova-plugin-file-transfer": "1.7.1",
+    "cordova-plugin-console": "1.0.7",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-dialogs": "1.2.1",
+    "cordova-plugin-file": "6.0.1",
+    "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-geolocation": "2.1.0",
     "cordova-plugin-globalization": "1.0.9",
     "cordova-plugin-inappbrowser": "1.3.0",
     "cordova-plugin-media": "2.2.0",
-    "cordova-plugin-crosswalk-webview": "2.4.0",
-    "cordova-plugin-ionic-webview": "2.1.0",
-    "cordova-plugin-advanced-http": "1.11.1",
-    "cordova-plugin-appversion": "1.0.0"
+    "cordova-plugin-statusbar": "1.0.1",
+    "cordova-plugin-whitelist": "1.2.2"
 }
 // BOTTOM OF METADATA
 });

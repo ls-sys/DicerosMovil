@@ -432,7 +432,18 @@ function QuitarPnU()
 	}
 }
 
-$$(document).on('deviceready', function() {
+$$(document).on('deviceready', function() 
+{
+	try
+	{
+		console.log(AppVersion.version);
+		console.log(AppVersion.build); 
+		$$("#chipVercion").html("Ver: " + AppVersion.version + "Build: " + AppVersion.build);
+	}
+	catch(error)
+	{
+		
+	}
 	console.log("Device is ready! " + URLBASE);
 	PingServer();
 	savedPnU();

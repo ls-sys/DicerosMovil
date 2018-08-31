@@ -7,25 +7,22 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.lssys.dicerosand"
-        },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.lssys.dicerosand"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.lssys.dicerosand"
+        "cordova-plugin-appversion": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         },
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.ls-sys.dicerosmovil"
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         },
-        "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "com.ls-sys.dicerosmovil"
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.lssys.dicerosmovil"
         },
         "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.lssys.dicerosmovil"
         },
         "cordova-plugin-geolocation": {
@@ -39,23 +36,17 @@
         },
         "cordova-plugin-media": {
             "PACKAGE_NAME": "com.lssys.dicerosmovil"
-        },
-        "cordova-plugin-crosswalk-webview": {
-            "PACKAGE_NAME": "com.lssys.dicerosmovil"
-        },
-        "cordova-plugin-ionic-webview": {
-            "PACKAGE_NAME": "com.lssys.dicerosmovil"
-        },
-        "cordova-plugin-advanced-http": {
-            "PACKAGE_NAME": "com.lssys.dicerosmovil"
-        },
-        "cordova-plugin-appversion": {
-            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.ls-sys.dicerosmovil"
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         }
     }
 }
