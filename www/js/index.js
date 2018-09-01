@@ -438,7 +438,7 @@ $$(document).on('deviceready', function()
 	{
 		console.log(AppVersion.version);
 		console.log(AppVersion.build); 
-		$$("#chipVercion").html("Ver: " + AppVersion.version + "Build: " + AppVersion.build);
+		$$("#chipVercion").html("Ver: " + AppVersion.version);
 	}
 	catch(error)
 	{

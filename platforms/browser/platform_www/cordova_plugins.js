@@ -347,6 +347,14 @@ module.exports = [
         "clobbers": [
             "window.StatusBar"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-headercolor/www/HeaderColor.js",
+        "id": "cordova-plugin-headercolor.HeaderColor",
+        "pluginId": "cordova-plugin-headercolor",
+        "clobbers": [
+            "cordova.plugins.headerColor"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -364,7 +372,8 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "1.3.0",
     "cordova-plugin-media": "2.2.0",
     "cordova-plugin-statusbar": "1.0.1",
-    "cordova-plugin-whitelist": "1.2.2"
+    "cordova-plugin-whitelist": "1.2.2",
+    "cordova-plugin-headercolor": "1.0"
 }
 // BOTTOM OF METADATA
 });
