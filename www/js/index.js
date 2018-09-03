@@ -436,13 +436,23 @@ $$(document).on('deviceready', function()
 {
 	try
 	{
+		console.log("cordova: "+device.cordova);
+		console.log("model: "+device.model);
+		console.log("platfrom: "+device.platform);
+		console.log("UUID: "+device.uuid);
+		console.log("version: "+device.version);
+		console.log("manufacter: "+device.manufacturer);
+		console.log("iV: "+device.isVirtual);
+		console.log("serial: "+device.serial);
+		
 		console.log(AppVersion.version);
 		console.log(AppVersion.build); 
 		$$("#chipVercion").html("Ver: " + AppVersion.version);
+		
 	}
 	catch(error)
 	{
-		
+		alert(error);
 	}
 	console.log("Device is ready! " + URLBASE);
 	PingServer();
