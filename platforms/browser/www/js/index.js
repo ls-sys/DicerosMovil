@@ -444,6 +444,10 @@ $$(document).on('deviceready', function()
 		console.log("manufacter: "+device.manufacturer);
 		console.log("iV: "+device.isVirtual);
 		console.log("serial: "+device.serial);
+
+		cordova.plugins.firebase.messaging.getToken().then(function(token) {
+			console.log("Got device token: ", token);
+		});
 		
 		console.log(AppVersion.version);
 		console.log(AppVersion.build); 
