@@ -47,7 +47,7 @@
         <icon density="xxhdpi" src="www/res/icon/android/drawable-xxhdpi-icon.png" />
         <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" />
     </platform>
-    <engine name="ios" spec="~4.0.0" />
+    
     <platform name="ios">
         <resource-file src="GoogleService-Info.plist" />
         
