@@ -446,7 +446,11 @@ $$(document).on('deviceready', function()
 		console.log("serial: "+device.serial);
 
 		cordova.plugins.firebase.messaging.getToken().then(function(token) {
-			console.log("Got device token: ", token);
+			alert("Got device token: ", token);
+		});
+
+		cordova.plugins.firebase.messaging.onMessage(function(payload) {
+			alert("New foreground FCM message: ", payload);
 		});
 		
 		console.log(AppVersion.version);
