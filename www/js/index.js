@@ -445,13 +445,7 @@ $$(document).on('deviceready', function()
 		console.log("iV: "+device.isVirtual);
 		console.log("serial: "+device.serial);
 
-		cordova.plugins.firebase.messaging.getToken().then(function(token) {
-			alert("Got device token: ", token);
-		});
-
-		cordova.plugins.firebase.messaging.onMessage(function(payload) {
-			alert("New foreground FCM message: ", payload);
-		});
+		
 		
 		console.log(AppVersion.version);
 		console.log(AppVersion.build); 

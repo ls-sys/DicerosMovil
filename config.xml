@@ -38,7 +38,7 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <preference name="HeaderColor" value="#005AA3" />
-        <resource-file src="google-services.json" target="app/google-services.json" />        
+        <!--<resource-file src="google-services.json" target="app/google-services.json" />-->
         <allow-intent href="market:*" />
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
@@ -49,9 +49,9 @@
     </platform>
     
     <platform name="ios">
-        <!--<hook type="before_compile" src="hooks/beforeCompileCocoapodsHotfix.js" />-->
-        <resource-file src="GoogleService-Info.plist" />
-        <!--<preference name="phonegap-version" value="4.4.0" />-->
+        <!--<hook type="before_compile" src="hooks/beforeCompileCocoapodsHotfix.js" />
+        <resource-file src="GoogleService-Info.plist" />-->
+        <preference name="phonegap-version" value="4.4.0" />
         <preference name="pods_ios_min_version" value="8.0"/>
         <!-- add use_frameworks! to Podfile, this also disabled bridging headers -->
         <preference name="pods_use_frameworks" value="true"/>
@@ -103,7 +103,6 @@
     <plugin name="cordova-plugin-statusbar" source="npm" spec="1.0.1" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.2" />
     <plugin name="cordova-plugin-headercolor" source="npm"/>
-    <plugin name="cordova-support-google-services" source="npm"/>
     <plugin name="cordova-plugin-fcm" source="npm"/>
     
 </widget>
