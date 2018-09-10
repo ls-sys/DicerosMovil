@@ -104,6 +104,6 @@
     <plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.2" />
     <plugin name="cordova-plugin-headercolor" source="npm"/>
     <plugin name="cordova-support-google-services" source="npm"/>
-    <plugin name="cordova-plugin-firebase-messaging" source="npm"/>
+    <plugin name="cordova-plugin-fcm" source="npm"/>
     
 </widget>

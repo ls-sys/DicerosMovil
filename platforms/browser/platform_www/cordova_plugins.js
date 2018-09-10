@@ -355,6 +355,14 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.headerColor"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-fcm/www/FCMPlugin.js",
+        "id": "cordova-plugin-fcm.FCMPlugin",
+        "pluginId": "cordova-plugin-fcm",
+        "clobbers": [
+            "FCMPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -374,7 +382,9 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "1.0.1",
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-headercolor": "1.0",
-    "cordova-support-google-services": "1.2.1"
+    "cordova-support-google-services": "1.2.1",
+    "cordova-plugin-cocoapod-support": "1.6.0",
+    "cordova-plugin-fcm": "2.1.2"
 }
 // BOTTOM OF METADATA
 });

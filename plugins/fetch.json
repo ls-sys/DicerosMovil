@@ -119,10 +119,18 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-firebase-messaging": {
+    "cordova-plugin-cocoapod-support": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-firebase-messaging"
+            "id": "cordova-plugin-cocoapod-support"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-fcm": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-fcm"
         },
         "is_top_level": true,
         "variables": {}
