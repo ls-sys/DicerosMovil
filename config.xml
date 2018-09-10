@@ -38,6 +38,7 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <preference name="HeaderColor" value="#005AA3" />
+        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <resource-file src="google-services.json" target="app/google-services.json" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />

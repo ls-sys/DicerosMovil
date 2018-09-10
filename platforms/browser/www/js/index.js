@@ -445,7 +445,9 @@ $$(document).on('deviceready', function()
 		console.log("iV: "+device.isVirtual);
 		console.log("serial: "+device.serial);
 
-		
+		FCMPlugin.getToken(function(token){
+			alert(token);
+		});
 		
 		console.log(AppVersion.version);
 		console.log(AppVersion.build); 
