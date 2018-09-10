@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>654560580377-p6if527ebaf4cb3qrulr07fl53fmlpsj.apps.googleusercontent.com</string>
+	<string>116554461187-gee6j8qecgj62cnrj50llb6u00509dcp.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.654560580377-p6if527ebaf4cb3qrulr07fl53fmlpsj</string>
+	<string>com.googleusercontent.apps.116554461187-gee6j8qecgj62cnrj50llb6u00509dcp</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAZym1obmTriSk43f3T6AOWa8xpB5SERWU</string>
+	<string>AIzaSyBWPru4zO-xL5OXaQm7crduxWIn5K5BbfQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>654560580377</string>
+	<string>116554461187</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ls-sys.dicerosmovil</string>
+	<string>com.lssys.dicerosmovil</string>
 	<key>PROJECT_ID</key>
-	<string>dicerosmovil</string>
+	<string>diceros-movil</string>
 	<key>STORAGE_BUCKET</key>
-	<string>dicerosmovil.appspot.com</string>
+	<string>diceros-movil.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:654560580377:ios:79e04a0c635a0ba1</string>
+	<string>1:116554461187:ios:54d06b230c806f4b</string>
 	<key>DATABASE_URL</key>
-	<string>https://dicerosmovil.firebaseio.com</string>
+	<string>https://diceros-movil.firebaseio.com</string>
 </dict>
 </plist>

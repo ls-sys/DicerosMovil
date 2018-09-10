@@ -373,7 +373,8 @@ module.exports.metadata =
     "cordova-plugin-media": "2.2.0",
     "cordova-plugin-statusbar": "1.0.1",
     "cordova-plugin-whitelist": "1.2.2",
-    "cordova-plugin-headercolor": "1.0"
+    "cordova-plugin-headercolor": "1.0",
+    "cordova-support-google-services": "1.2.1"
 }
 // BOTTOM OF METADATA
 });

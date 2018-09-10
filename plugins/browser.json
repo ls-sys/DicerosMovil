@@ -39,6 +39,9 @@
         },
         "cordova-plugin-headercolor": {
             "PACKAGE_NAME": "com.lssys.dicerosmovil"
+        },
+        "cordova-support-google-services": {
+            "PACKAGE_NAME": "com.lssys.dicerosmovil"
         }
     },
     "dependent_plugins": {
