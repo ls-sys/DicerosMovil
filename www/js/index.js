@@ -445,15 +445,20 @@ $$(document).on('deviceready', function()
 		console.log("iV: "+device.isVirtual);
 		console.log("serial: "+device.serial);
 
-		FCMPlugin.getToken(function(token){
-			alert(token);
+		FCMPlugin.getToken(function(token)
+		{
+			window.sessionStorage.setItem("FBT", token);
 		});
 		
-		FCMPlugin.onNotification(function(data){
-			if(data.wasTapped){
+		FCMPlugin.onNotification(function(data)
+		{
+			if(data.wasTapped)
+			{
 			  //Notification was received on device tray and tapped by the user.
 			  alert( JSON.stringify(data) );
-			}else{
+			}
+			else
+			{
 			  //Notification was received in foreground. Maybe the user needs to be notified.
 			  alert( JSON.stringify(data) );
 			}
@@ -1110,6 +1115,7 @@ function LogOut()
 	{
 		savedPnU();
 		//mainView.router.reloadPage('#index');
+		$$("#chipVercion").html("Ver: " + AppVersion.version);
 		mainView.router.back({
 			url:"#index"
 		});
@@ -1274,6 +1280,14 @@ function btn_click_btnLogIn()
 					window.localStorage.setItem("MP", 1);
 				}
 				mainView.router.loadContent(data);
+				var tempTK = window.sessionStorage.getItem("FBT");
+				if (tempTK == "" || tempTK == null || tempTK == undefined)
+				{
+					FCMPlugin.getToken(function(token)
+					{
+						window.sessionStorage.setItem("FBT", token);
+					});
+				}
 			}
 			
 			myApp.hidePreloader();
