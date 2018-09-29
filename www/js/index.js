@@ -473,6 +473,9 @@ $$(document).on('deviceready', function()
 		alert(error);
 	}
 	
+	$$("div[data-page='settings'] #hostURL").val("diceros.ls-sys.com");
+	$$("div[data-page='settings'] #SSLConn").prop('checked', true);
+
 	window.localStorage.setItem("URL_HOST", $$("div[data-page='settings'] #hostURL").val());
 	window.localStorage.setItem("HOST_SSL", $$("div[data-page='settings'] #SSLConn").prop('checked')?"1":"0");
 
