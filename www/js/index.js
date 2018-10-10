@@ -1124,7 +1124,12 @@ function LogOut()
 	{
 		savedPnU();
 		//mainView.router.reloadPage('#index');
-		$$("#chipVercion").html("Ver: " + AppVersion.version);
+		try
+		{
+			$$("#chipVercion").html("Ver: " + AppVersion.version);
+		}
+		catch(er)
+		{}
 		mainView.router.back({
 			url:"#index"
 		});
@@ -1264,7 +1269,7 @@ function btn_click_btnLogIn()
 			movil: "android"
 		},
 		function (data)
-		{			
+		{
 			if (data.indexOf("E101%") >= 0)
 			{
 				var errorStr = data.split("|");
@@ -1278,6 +1283,10 @@ function btn_click_btnLogIn()
 				
 				myApp.alert(salida);
 			}
+			if (data.indexOf("Usuario no existe o esta bloqueado. Consulte con el Administrador") > 0)
+			{
+				myApp.alert("Error... \nRevise su nombre de usuario y clave de acceso y reintente de nuevo");
+			}
 			else
 			{
 				var mp = window.localStorage.getItem("MP");
@@ -1290,12 +1299,38 @@ function btn_click_btnLogIn()
 				}
 				mainView.router.loadContent(data);
 				var tempTK = window.sessionStorage.getItem("FBT");
-				if (tempTK == "" || tempTK == null || tempTK == undefined)
+				try
 				{
-					FCMPlugin.getToken(function(token)
+
+					$$.post(URLBASE + "/MovilDiceros",
 					{
-						window.sessionStorage.setItem("FBT", token);
+						cmd: "saveMovilInfo",
+						uuid: device.uuid,
+						model: device.model,
+						platform: device.platform,
+						ver: device.version,
+						serialNo: device.serial,
+						FBMToken: tempTK
+					},
+					function(responce)
+					{
+						if (responce != "OK")
+						{
+							myApp.alert(responce);
+						}
 					});
+
+					if (tempTK == "" || tempTK == null || tempTK == undefined)
+					{
+						FCMPlugin.getToken(function(token)
+						{
+							window.sessionStorage.setItem("FBT", token);
+						});
+					}	
+				}
+				catch(ex)
+				{
+					alert(ex);
 				}
 			}
 			
