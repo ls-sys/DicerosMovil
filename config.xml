@@ -104,6 +104,6 @@
     <plugin name="cordova-plugin-statusbar" source="npm" spec="1.0.1" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.2" />
     <plugin name="cordova-plugin-headercolor" source="npm"/>
-    <plugin name="cordova-plugin-fcm-with-dependecy-updated" source="npm"/>
+    <plugin name="phonegap-plugin-push" spec="2.0.0" source="npm" />
     
 </widget>

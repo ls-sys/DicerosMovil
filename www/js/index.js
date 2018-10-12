@@ -470,13 +470,13 @@ $$(document).on('deviceready', function()
 		},
 		function(d)
 		{
-			alert(d)
+			alert(d + "s")
 		}, 
 		function(er)
 		{
-			alert(er)
+			alert(er+"er")
 		});
-		
+
 		console.log(AppVersion.version);
 		$$("#chipVercion").html("Ver: " + AppVersion.version);
 		
