@@ -445,8 +445,13 @@ $$(document).on('deviceready', function()
 		console.log("iV: "+device.isVirtual);
 		console.log("serial: "+device.serial);
 
-		FCMPlugin.getToken(function(token)
+		/*FCMPlugin.getToken(function(token)
 		{
+			window.sessionStorage.setItem("FBT", token);
+		});*/
+
+		FCMPlugin.onTokenRefresh(function(token){
+			alert( token );
 			window.sessionStorage.setItem("FBT", token);
 		});
 		
@@ -462,9 +467,17 @@ $$(document).on('deviceready', function()
 			  //Notification was received in foreground. Maybe the user needs to be notified.
 			  alert( JSON.stringify(data) );
 			}
+		},
+		function(d)
+		{
+			alert(d)
+		}, 
+		function(er)
+		{
+			alert(er)
 		});
+		
 		console.log(AppVersion.version);
-		console.log(AppVersion.build); 
 		$$("#chipVercion").html("Ver: " + AppVersion.version);
 		
 	}
@@ -1303,11 +1316,32 @@ function btn_click_btnLogIn()
 				{
 					if (tempTK == "" || tempTK == null || tempTK == undefined)
 					{
+						/*FCMPlugin.onTokenRefresh(function(token){
+						});*/
 						FCMPlugin.getToken(function(token)
 						{
+							alert( token );
 							window.sessionStorage.setItem("FBT", token);
+
+							$$.post(URLBASE + "/MovilDiceros",
+							{
+								cmd: "saveMovilInfo",
+								uuid: device.uuid,
+								model: device.model,
+								platform: device.platform,
+								ver: device.version,
+								serialNo: device.serial,
+								FBMToken: token
+							},
+							function(responce)
+							{
+								if (responce != "OK")
+								{
+									myApp.alert(responce);
+								}
+							});
 						});
-					}
+					}		
 				}
 				catch(ex)
 				{
