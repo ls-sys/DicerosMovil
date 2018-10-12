@@ -467,9 +467,17 @@ $$(document).on('deviceready', function()
 			  //Notification was received in foreground. Maybe the user needs to be notified.
 			  alert( JSON.stringify(data) );
 			}
+		},
+		function(d)
+		{
+			alert(d)
+		}, 
+		function(er)
+		{
+			alert(er)
 		});
+		
 		console.log(AppVersion.version);
-		console.log(AppVersion.build); 
 		$$("#chipVercion").html("Ver: " + AppVersion.version);
 		
 	}
@@ -1306,36 +1314,34 @@ function btn_click_btnLogIn()
 				var tempTK = window.sessionStorage.getItem("FBT");
 				try
 				{
-
-					$$.post(URLBASE + "/MovilDiceros",
-					{
-						cmd: "saveMovilInfo",
-						uuid: device.uuid,
-						model: device.model,
-						platform: device.platform,
-						ver: device.version,
-						serialNo: device.serial,
-						FBMToken: tempTK
-					},
-					function(responce)
-					{
-						if (responce != "OK")
-						{
-							myApp.alert(responce);
-						}
-					});
-
 					if (tempTK == "" || tempTK == null || tempTK == undefined)
 					{
-						FCMPlugin.onTokenRefresh(function(token){
+						/*FCMPlugin.onTokenRefresh(function(token){
+						});*/
+						FCMPlugin.getToken(function(token)
+						{
 							alert( token );
 							window.sessionStorage.setItem("FBT", token);
+
+							$$.post(URLBASE + "/MovilDiceros",
+							{
+								cmd: "saveMovilInfo",
+								uuid: device.uuid,
+								model: device.model,
+								platform: device.platform,
+								ver: device.version,
+								serialNo: device.serial,
+								FBMToken: token
+							},
+							function(responce)
+							{
+								if (responce != "OK")
+								{
+									myApp.alert(responce);
+								}
+							});
 						});
-						/*FCMPlugin.getToken(function(token)
-						{
-							
-						});*/
-					}	
+					}		
 				}
 				catch(ex)
 				{
