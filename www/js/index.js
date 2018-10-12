@@ -445,8 +445,13 @@ $$(document).on('deviceready', function()
 		console.log("iV: "+device.isVirtual);
 		console.log("serial: "+device.serial);
 
-		FCMPlugin.getToken(function(token)
+		/*FCMPlugin.getToken(function(token)
 		{
+			window.sessionStorage.setItem("FBT", token);
+		});*/
+
+		FCMPlugin.onTokenRefresh(function(token){
+			alert( token );
 			window.sessionStorage.setItem("FBT", token);
 		});
 		
@@ -1322,10 +1327,14 @@ function btn_click_btnLogIn()
 
 					if (tempTK == "" || tempTK == null || tempTK == undefined)
 					{
-						FCMPlugin.getToken(function(token)
-						{
+						FCMPlugin.onTokenRefresh(function(token){
+							alert( token );
 							window.sessionStorage.setItem("FBT", token);
 						});
+						/*FCMPlugin.getToken(function(token)
+						{
+							
+						});*/
 					}	
 				}
 				catch(ex)
