@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.lssys.dicerosmovil" version="0.10.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.lssys.dicerosmovil" version="0.10.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Diceros Movil</name>
     <description>
         Diceros ERP, version movil.
@@ -104,6 +104,6 @@
     <plugin name="cordova-plugin-statusbar" source="npm" spec="1.0.1" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.2" />
     <plugin name="cordova-plugin-headercolor" source="npm"/>
-    <plugin spec="https://github.com/ostownsville/cordova-plugin-fcm" source="git"/>
+    <plugin name="onesignal-cordova-plugin" source="npm"/>
     
 </widget>

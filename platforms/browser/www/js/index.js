@@ -445,10 +445,20 @@ $$(document).on('deviceready', function()
 		console.log("iV: "+device.isVirtual);
 		console.log("serial: "+device.serial);
 
+		var notificationOpenedCallback = function(jsonData) 
+		{
+			alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+		};
+
+		window.plugins.OneSignal
+			.startInit("6838c945-0d7c-446b-b96f-adae5eba6795")
+			.handleNotificationOpened(notificationOpenedCallback)
+			.endInit();
+
 		/*FCMPlugin.getToken(function(token)
 		{
 			window.sessionStorage.setItem("FBT", token);
-		});*/
+		});
 
 		FCMPlugin.onTokenRefresh(function(token){
 			alert( token );
@@ -470,13 +480,13 @@ $$(document).on('deviceready', function()
 		},
 		function(d)
 		{
-			alert(d)
+			alert(d + "s")
 		}, 
 		function(er)
 		{
-			alert(er)
-		});
-		
+			alert(er+"er")
+		});*/
+
 		console.log(AppVersion.version);
 		$$("#chipVercion").html("Ver: " + AppVersion.version);
 		
@@ -1317,7 +1327,7 @@ function btn_click_btnLogIn()
 					if (tempTK == "" || tempTK == null || tempTK == undefined)
 					{
 						/*FCMPlugin.onTokenRefresh(function(token){
-						});*/
+						});
 						FCMPlugin.getToken(function(token)
 						{
 							alert( token );
@@ -1340,7 +1350,7 @@ function btn_click_btnLogIn()
 									myApp.alert(responce);
 								}
 							});
-						});
+						});*/
 					}		
 				}
 				catch(ex)
