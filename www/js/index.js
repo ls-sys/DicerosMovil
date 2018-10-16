@@ -455,38 +455,6 @@ $$(document).on('deviceready', function()
 			.handleNotificationOpened(notificationOpenedCallback)
 			.endInit();
 
-		/*FCMPlugin.getToken(function(token)
-		{
-			window.sessionStorage.setItem("FBT", token);
-		});
-
-		FCMPlugin.onTokenRefresh(function(token){
-			alert( token );
-			window.sessionStorage.setItem("FBT", token);
-		});
-		
-		FCMPlugin.onNotification(function(data)
-		{
-			if(data.wasTapped)
-			{
-			  //Notification was received on device tray and tapped by the user.
-			  alert( JSON.stringify(data) );
-			}
-			else
-			{
-			  //Notification was received in foreground. Maybe the user needs to be notified.
-			  alert( JSON.stringify(data) );
-			}
-		},
-		function(d)
-		{
-			alert(d + "s")
-		}, 
-		function(er)
-		{
-			alert(er+"er")
-		});*/
-
 		console.log(AppVersion.version);
 		$$("#chipVercion").html("Ver: " + AppVersion.version);
 		
@@ -1326,6 +1294,17 @@ function btn_click_btnLogIn()
 				{
 					if (tempTK == "" || tempTK == null || tempTK == undefined)
 					{
+						window.plugins.OneSignal.getPermissionSubscriptionState(function(status) 
+						{
+							/*status.permissionStatus.hasPrompted; // Bool
+							status.permissionStatus.status; // iOS only: Integer: 0 = Not Determined, 1 = Denied, 2 = Authorized
+							status.permissionStatus.state; //Android only: Integer: 1 = Authorized, 2 = Denied
+						  
+							status.subscriptionStatus.subscribed; // Bool
+							status.subscriptionStatus.userSubscriptionSetting; // Bool*/
+							alert (status.subscriptionStatus.userId + status.subscriptionStatus.pushToken); // String: OneSignal Player ID
+							
+						});
 						/*FCMPlugin.onTokenRefresh(function(token){
 						});
 						FCMPlugin.getToken(function(token)
