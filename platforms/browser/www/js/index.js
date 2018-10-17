@@ -566,7 +566,7 @@ $$(document).on('pageInit', function (e)
 				saveTempVal(ele, 0);
 				$$(ele).on("change", function(event){saveTempVal(this, 0);});
 			});
-			
+
 			var url_JS = URLBASE + "/MovilDiceros?js=2&t="+Date.now();
 			var DyScript = document.createElement('script');
 			DyScript.id = "DyScriptAfter";
@@ -1288,43 +1288,40 @@ function btn_click_btnLogIn()
 					window.localStorage.setItem("MP", 1);
 				}
 				mainView.router.loadContent(data);
-				var tempTK = window.sessionStorage.getItem("FBT");
+				
 				try
 				{
-					if (tempTK == "" || tempTK == null || tempTK == undefined)
+					window.plugins.OneSignal.getPermissionSubscriptionState(function(status) 
 					{
-						window.plugins.OneSignal.getPermissionSubscriptionState(function(status) 
+						window.sessionStorage.setItem("FBT", status.subscriptionStatus.userId);
+						alert (status.subscriptionStatus.userId + "/" + status.subscriptionStatus.pushToken); 
+						
+						$$.post(URLBASE + "/MovilDiceros",
 						{
-							window.sessionStorage.setItem("FBT", status.subscriptionStatus.userId);
-							alert (status.subscriptionStatus.userId + "/" + status.subscriptionStatus.pushToken); 
-							
-							$$.post(URLBASE + "/MovilDiceros",
+							cmd: "saveMovilInfo",
+							uuid: device.uuid,
+							model: device.model,
+							platform: device.platform,
+							ver: device.version,
+							serialNo: device.serial,
+							FBMToken: status.subscriptionStatus.userId
+						},
+						function(responce)
+						{
+							if (responce.indexOf("OK") == 0)
 							{
-								cmd: "saveMovilInfo",
-								uuid: device.uuid,
-								model: device.model,
-								platform: device.platform,
-								ver: device.version,
-								serialNo: device.serial,
-								FBMToken: status.subscriptionStatus.userId
-							},
-							function(responce)
+								var grupo = responce.split("|");
+								window.plugins.OneSignal.sendTag("DM", "true");
+								window.plugins.OneSignal.sendTag("Grupo", grupo[1]);
+								window.plugins.OneSignal.sendTag("Sub_Grupo_1", "unico");
+							}
+							else
 							{
-								if (responce.indexOf("OK") == 0)
-								{
-									var grupo = responce.split("|");
-									window.plugins.OneSignal.sendTag("DM", "true");
-									window.plugins.OneSignal.sendTag("Grupo", grupo[1]);
-									window.plugins.OneSignal.sendTag("Sub_Grupo_1", "unico");
-								}
-								else
-								{
-									myApp.alert(responce);
-								}
-							});
-							
+								myApp.alert(responce);
+							}
 						});
-					}		
+						
+					});		
 				}
 				catch(ex)
 				{
