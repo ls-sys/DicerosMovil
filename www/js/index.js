@@ -1302,7 +1302,33 @@ function btn_click_btnLogIn()
 						  
 							status.subscriptionStatus.subscribed; // Bool
 							status.subscriptionStatus.userSubscriptionSetting; // Bool*/
-							alert (status.subscriptionStatus.userId + status.subscriptionStatus.pushToken); // String: OneSignal Player ID
+							window.sessionStorage.setItem("FBT", status.subscriptionStatus.userId);
+							alert (status.subscriptionStatus.userId + "/" + status.subscriptionStatus.pushToken); 
+							
+							$$.post(URLBASE + "/MovilDiceros",
+							{
+								cmd: "saveMovilInfo",
+								uuid: device.uuid,
+								model: device.model,
+								platform: device.platform,
+								ver: device.version,
+								serialNo: device.serial,
+								FBMToken: status.subscriptionStatus.userId
+							},
+							function(responce)
+							{
+								if (responce != "OK")
+								{
+									myApp.alert(responce);
+								}
+								else
+								{
+									window.plugins.OneSignal.sendTag("DM", "true");
+									window.plugins.OneSignal.sendTag("Grupo", "300");
+									window.plugins.OneSignal.sendTag("Sub_Grupo_1", "unico");
+
+								}
+							});
 							
 						});
 						/*FCMPlugin.onTokenRefresh(function(token){
@@ -1312,23 +1338,6 @@ function btn_click_btnLogIn()
 							alert( token );
 							window.sessionStorage.setItem("FBT", token);
 
-							$$.post(URLBASE + "/MovilDiceros",
-							{
-								cmd: "saveMovilInfo",
-								uuid: device.uuid,
-								model: device.model,
-								platform: device.platform,
-								ver: device.version,
-								serialNo: device.serial,
-								FBMToken: token
-							},
-							function(responce)
-							{
-								if (responce != "OK")
-								{
-									myApp.alert(responce);
-								}
-							});
 						});*/
 					}		
 				}
