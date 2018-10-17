@@ -566,9 +566,7 @@ $$(document).on('pageInit', function (e)
 				saveTempVal(ele, 0);
 				$$(ele).on("change", function(event){saveTempVal(this, 0);});
 			});
-
 			
-
 			var url_JS = URLBASE + "/MovilDiceros?js=2&t="+Date.now();
 			var DyScript = document.createElement('script');
 			DyScript.id = "DyScriptAfter";
@@ -1297,12 +1295,6 @@ function btn_click_btnLogIn()
 					{
 						window.plugins.OneSignal.getPermissionSubscriptionState(function(status) 
 						{
-							/*status.permissionStatus.hasPrompted; // Bool
-							status.permissionStatus.status; // iOS only: Integer: 0 = Not Determined, 1 = Denied, 2 = Authorized
-							status.permissionStatus.state; //Android only: Integer: 1 = Authorized, 2 = Denied
-						  
-							status.subscriptionStatus.subscribed; // Bool
-							status.subscriptionStatus.userSubscriptionSetting; // Bool*/
 							window.sessionStorage.setItem("FBT", status.subscriptionStatus.userId);
 							alert (status.subscriptionStatus.userId + "/" + status.subscriptionStatus.pushToken); 
 							
@@ -1318,17 +1310,16 @@ function btn_click_btnLogIn()
 							},
 							function(responce)
 							{
-								if (responce != "OK")
-								{
-									myApp.alert(responce);
-								}
-								else
+								if (responce.indexOf("OK") == 0)
 								{
 									var grupo = responce.split("|");
 									window.plugins.OneSignal.sendTag("DM", "true");
 									window.plugins.OneSignal.sendTag("Grupo", grupo[1]);
 									window.plugins.OneSignal.sendTag("Sub_Grupo_1", "unico");
-
+								}
+								else
+								{
+									myApp.alert(responce);
 								}
 							});
 							
