@@ -1274,6 +1274,7 @@ function btn_click_btnLogIn()
 				
 				myApp.alert(salida);
 			}
+
 			if (data.indexOf("Usuario no existe o esta bloqueado. Consulte con el Administrador") > 0)
 			{
 				myApp.alert("Error... \nRevise su nombre de usuario y clave de acceso y reintente de nuevo");
@@ -1323,22 +1324,15 @@ function btn_click_btnLogIn()
 								}
 								else
 								{
+									var grupo = responce.split("|");
 									window.plugins.OneSignal.sendTag("DM", "true");
-									window.plugins.OneSignal.sendTag("Grupo", "300");
+									window.plugins.OneSignal.sendTag("Grupo", grupo[1]);
 									window.plugins.OneSignal.sendTag("Sub_Grupo_1", "unico");
 
 								}
 							});
 							
 						});
-						/*FCMPlugin.onTokenRefresh(function(token){
-						});
-						FCMPlugin.getToken(function(token)
-						{
-							alert( token );
-							window.sessionStorage.setItem("FBT", token);
-
-						});*/
 					}		
 				}
 				catch(ex)
