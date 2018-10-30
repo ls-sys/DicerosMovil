@@ -1330,7 +1330,7 @@ function btn_click_btnLogIn()
 					window.plugins.OneSignal.getPermissionSubscriptionState(function(status) 
 					{
 						window.sessionStorage.setItem("FBT", status.subscriptionStatus.userId);
-						alert (status.subscriptionStatus.userId + "/" + status.subscriptionStatus.pushToken); 
+						//alert (status.subscriptionStatus.userId + "/" + status.subscriptionStatus.pushToken); 
 						
 						$$.post(URLBASE + "/MovilDiceros",
 						{
@@ -1353,7 +1353,7 @@ function btn_click_btnLogIn()
 							}
 							else
 							{
-								myApp.alert(responce);
+								//myApp.alert(responce);
 							}
 						});
 						
