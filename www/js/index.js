@@ -401,6 +401,7 @@ function handleTouchMove(evt)
 function savedPnU()
 {
 	var mp = window.localStorage.getItem("MP");
+	var ALog = window.localStorage.getItem("ALogin");
 
 	if (mp == 1)
 	{
@@ -412,10 +413,24 @@ function savedPnU()
 
 		$$("#cb_PASS").prop('checked', true);
 	}
+
+	if (ALog == 1)
+	{
+		$$("#cb_AutoLog").prop('checked', true);
+		btn_click_btnLogIn();
+	}
+	else
+		$$("#cb_AutoLog").prop('checked', false);
 }
 
 function QuitarPnU()
 {
+
+	if ($$("#cb_PASS").is(":checked"))
+		$$("#cb_AutoLog").prop('checked', true);
+	else
+		$$("#cb_AutoLog").prop('checked', false);
+
 	var mp = window.localStorage.getItem("MP");
 
 	if (mp == 1 && !$$("#cb_PASS").is(":checked"))
@@ -430,6 +445,7 @@ function QuitarPnU()
 		window.localStorage.removeItem("usr");
 		window.localStorage.removeItem("MP");
 	}
+	
 }
 
 $$(document).on('deviceready', function() 
@@ -1111,6 +1127,8 @@ function LogOut()
 		state: "10"
 	},function (d)
 	{
+		window.localStorage.removeItem("ALogin");
+
 		savedPnU();
 		//mainView.router.reloadPage('#index');
 		try
@@ -1280,12 +1298,30 @@ function btn_click_btnLogIn()
 			else
 			{
 				var mp = window.localStorage.getItem("MP");
+				var ALog = window.localStorage.getItem("ALogin");
 
+				
 				if ($$("#cb_PASS").is(":checked") && mp != 1)
 				{
 					window.localStorage.setItem("pass", $$("#fLogin input[name='passwd']").val());
 					window.localStorage.setItem("usr", $$("#fLogin input[name='name']").val());
 					window.localStorage.setItem("MP", 1);
+				}
+
+				if ($$("#cb_AutoLog").is(":checked") && ALog != 1)
+				{
+					var u = $$("#fLogin input[name='passwd']").val();
+					var p = $$("#fLogin input[name='name']").val();
+
+					if (u.length > 0 && p.length >0)
+					{
+						window.localStorage.setItem("pass", $$("#fLogin input[name='passwd']").val());
+						window.localStorage.setItem("usr", $$("#fLogin input[name='name']").val());
+						window.localStorage.setItem("MP", 1);
+						window.localStorage.setItem("ALogin", 1);
+					}
+					else
+						myApp.alert("Usuario y Password Son campos requeridos");
 				}
 				mainView.router.loadContent(data);
 				
