@@ -490,21 +490,26 @@ $$(document).on('deviceready', function()
 
 	console.log("Device is ready! " + URLBASE);
 	
+	document.addEventListener("backbutton", function(e)
+	{
+		var ap = GetSValue("ACTUAL_PAGE");
+		if (ap == "index")
+		{
+			e.preventDefault();
+			navigator.app.exitApp();
+		}
+		else
+			backToMenu();
+	}, false);
+
 	PingServer();
 	savedPnU();
 });
 
-function tempBack()
-{
-	alert ("atras");
-}
-
-
-
-
 $$(document).on('pageInit', function (e) 
 {
 	var page = e.detail.page;
+	SetSessionValue ("ACTUAL_PAGE", page);
 	SetSessionValue ("SWIPE_MODE", "0");
 	window.sessionStorage.removeItem("ONCE_HIT");
 	
