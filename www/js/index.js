@@ -489,9 +489,18 @@ $$(document).on('deviceready', function()
 	myApp.params.cacheIgnore = [URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2" , URLBASE+"/MovilDiceros?js=3"];
 
 	console.log("Device is ready! " + URLBASE);
+	
 	PingServer();
 	savedPnU();
 });
+
+function tempBack()
+{
+	alert ("atras");
+}
+
+
+
 
 $$(document).on('pageInit', function (e) 
 {
@@ -536,7 +545,6 @@ $$(document).on('pageInit', function (e)
 			});
 			break;
 		case 'index':
-			savedPnU(); 
 			if(GetSValue("SERVER_CONN") == 1)
 				$$("#btnLogIn").removeClass("disabled");
 			break;
@@ -1115,9 +1123,12 @@ function checkAll(sender)
 
 function backToMenu()
 {
-	mainView.router.back({
+	/*mainView.router.back({
 		url: "#Pantalla-MainMenu"
-	});
+	});*/
+
+	mainView.router.back();
+
 }
 
 function LogOut()
