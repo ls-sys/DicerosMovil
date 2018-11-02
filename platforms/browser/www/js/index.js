@@ -554,34 +554,59 @@ $$(document).on('pageInit', function (e)
 				$$("#btnLogIn").removeClass("disabled");
 			break;
 		case 'MainMenu':
+
 			$$.post( URLBASE + "/MovilDiceros",
 			{
-				cmd: "Menu"
+				cmd: "getUSRMenu"
 			},
-			function (data)
+			function (dataRes)
 			{
-				$$("#CuerpoMenu").html(data)
-				
-				$$('.accordion-item').on('opened', function (e) {
-					myApp.showPreloader();
-					var projectIDObj = $$(this).children('.accordion-item-content').attr('id');
-					var projectID = projectIDObj.replace("proy", "");
-					
-					$$.post(URLBASE + "/MovilDiceros",
+				if (dataRes == "NO_DEFAULT")
+				{
+					$$.post( URLBASE + "/MovilDiceros",
 					{
-						cmd: "ItemsModulo",
-						proy: projectID
+						cmd: "Menu"
 					},
-					function (htmlData)
+					function (data)
 					{
-						var idMod = "#"+projectIDObj
+						$$("#CuerpoMenu").html(data);
 						
-						$$(idMod).html(htmlData);
-						myApp.hidePreloader();
+						$$('.accordion-item').on('opened', function (e) {
+							myApp.showPreloader();
+							var projectIDObj = $$(this).children('.accordion-item-content').attr('id');
+							var projectID = projectIDObj.replace("proy", "");
+							
+							$$.post(URLBASE + "/MovilDiceros",
+							{
+								cmd: "ItemsModulo",
+								proy: projectID
+							},
+							function (htmlData)
+							{
+								var idMod = "#"+projectIDObj
+								
+								$$(idMod).html(htmlData);
+								myApp.hidePreloader();
+							});
+							
+						});
 					});
-					
-				});
+				}
+				else
+				{
+					var req = JSON.parse(dataRes);
+					var tempUSR = window.localStorage.getItem("usr").toString().toUpperCase();
+
+					req["USR"] = tempUSR;
+
+					window.sessionStorage.setItem("REQ_HOME", JSON.stringify(req));
+
+					CallMantenimiento(req["project"], req["object"], "NO_REPARTIR");
+				}
 			});
+
+
+			
 			break;
 		case 'SearchTable':
 			//$$(".card-content").css("overflow","scroll");
@@ -737,9 +762,56 @@ function ForceBack(namePageURL)
 	});
 }
 
+function reportFrontPage(request)
+{
+	try
+	{
+		$$.post(URLBASE + "/motor", 
+		{
+			"N_S_H_VO_ROW_STATUS": 5,
+			"N_S_H_VO_INTERNAL_USER": request["USR"],
+			"N_S_H_VO_PROJECT_ID": request["project"],
+			"N_S_H_VO_OBJECT_ID": request["object"],
+			"destino":"HTML"
+		},
+		function (data)
+		{
+			obj = JSON.parse(data);
+
+			var url_JS = URLBASE + "/MovilDiceros?js=3&t="+Date.now();
+			var DyScript = document.createElement('script');
+			DyScript.id = "DyScriptReport";
+			DyScript.src = url_JS;
+			
+			document.body.appendChild(DyScript);
+
+			$$.post(URLBASE + "/" + obj.servlet,
+			{
+				Template: obj.template,
+				ContentType: obj.type,
+				d:10
+			},
+			function(dataHTML)
+			{
+				$$("#CuerpoMenu").html(dataHTML);
+			});
+			myApp.hidePreloader();
+		});
+	}
+	catch(err1)
+	{
+		alert(err1);
+	}
+}
+
 function CallMantenimiento(p, o, url)
 {
-	var FullUrl = URLBASE.replace("Sistema","") + url;
+	var FullUrl = "";
+	if (url == "NO_USAR" || url == "NO_REPARTIR")
+		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o;
+	else
+		FullUrl = URLBASE.replace("Sistema","") + url;
+
 	myApp.showPreloader();
 	
 	$$("#DyScript").remove();
@@ -748,40 +820,49 @@ function CallMantenimiento(p, o, url)
 	{
 		var url_JS = URLBASE + "/MovilDiceros?js=1&t="+Date.now();
 		var DyScript = document.createElement('script');
-		DyScript.onload = function ()
+		if (url == "NO_REPARTIR")
 		{
-			try
+			var obj = JSON.parse(window.sessionStorage.getItem("REQ_HOME"));
+
+			reportFrontPage(obj);
+		}
+		else
+		{
+			DyScript.onload = function ()
 			{
-				var textVal = "*T7Forms*";
-				if (data.indexOf(textVal) != -1)
+				try
 				{
-					
-					var tempData = data.split("~");
-					var urlTemplate = tempData[0];
-					var jsonDataTemplate = tempData[1];
-					/*urlTemplate = urlTemplate.replace("*T7Forms*", "");
-					urlTemplate = URLBASE + "/" + urlTemplate;*/
-					var timestamp = Date.now();
+					var textVal = "*T7Forms*";
+					if (data.indexOf(textVal) != -1)
+					{
+						
+						var tempData = data.split("~");
+						var urlTemplate = tempData[0];
+						var jsonDataTemplate = tempData[1];
+						/*urlTemplate = urlTemplate.replace("*T7Forms*", "");
+						urlTemplate = URLBASE + "/" + urlTemplate;*/
+						var timestamp = Date.now();
 
-					urlTemplate = URLBASE + "/MovilDiceros?t7html=1&t=" + timestamp;
-					jsonDataTemplate = JSON.parse(jsonDataTemplate);
-					
-					mainView.router.load(
-						{
-							url: urlTemplate,
-							context: jsonDataTemplate
-						});				
+						urlTemplate = URLBASE + "/MovilDiceros?t7html=1&t=" + timestamp;
+						jsonDataTemplate = JSON.parse(jsonDataTemplate);
+						
+						mainView.router.load(
+							{
+								url: urlTemplate,
+								context: jsonDataTemplate
+							});				
+					}
+					else
+						mainView.router.loadContent(data);
 				}
-				else
-					mainView.router.loadContent(data);
-			}
-			catch( err)
-			{
-				myApp.alert(err);
-			}
+				catch( err)
+				{
+					myApp.alert(err);
+				}
 
-			myApp.hidePreloader();	
-		};
+				myApp.hidePreloader();	
+			};
+		}
 
 		DyScript.id = "DyScript";
 		DyScript.src = url_JS;
