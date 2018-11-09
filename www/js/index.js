@@ -808,7 +808,7 @@ function CallMantenimiento(p, o, url)
 {
 	var FullUrl = "";
 	if (url == "NO_USAR" || url == "NO_REPARTIR")
-		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o;
+		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o + "&t="+Date.now();
 	else
 		FullUrl = URLBASE.replace("Sistema","") + url;
 
@@ -1209,11 +1209,11 @@ function checkAll(sender)
 
 function backToMenu()
 {
-	/*mainView.router.back({
+	mainView.router.back({
 		url: "#Pantalla-MainMenu"
-	});*/
+	});
 
-	mainView.router.back();
+	//mainView.router.back();
 
 }
 
