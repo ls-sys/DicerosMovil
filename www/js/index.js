@@ -1210,8 +1210,7 @@ function checkAll(sender)
 function backToMenu()
 {
 	mainView.router.back({
-		url: "#Pantalla-{{MainMenu}}",
-		force : true
+		url: "#Pantalla-{{MainMenu}}"
 	});
 
 	//mainView.router.back();
