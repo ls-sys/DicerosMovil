@@ -934,7 +934,7 @@ function MotorMovil(a)
 					
 				mainView.router.load(
 					{
-						url: 'RHTML.html',
+						url: 'RHTML.html?t='+Date.now(),
 						context: obj
 					});
 				myApp.hidePreloader();
