@@ -1209,11 +1209,11 @@ function checkAll(sender)
 
 function backToMenu()
 {
-	mainView.router.back({
+	/*mainView.router.back({
 		url: "#Pantalla-MainMenu"
-	});
+	});*/
 
-	//mainView.router.back();
+	mainView.router.back();
 
 }
 
