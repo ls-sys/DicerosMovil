@@ -18,6 +18,7 @@ var myApp = new Framework7
 	uniqueHistory: true,
 	template7Pages: true,
 	precompileTemplates: true,
+	preloadPreviousPage: false,
 	cacheIgnore:[URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2", , URLBASE+"/MovilDiceros?js=3"]
 	//cache:false
 });
@@ -1209,11 +1210,24 @@ function checkAll(sender)
 
 function backToMenu()
 {
-	mainView.router.back({
-		url: "#Pantalla-{{MainMenu}}"
-	});
+	try
+	{
+		mainView.router.back({
+			url: "#Pantalla-MainMenu"
+		});
+	}
+	catch(ext)
+	{
+		console.log(ext);
+		console.log (mainView.history);
 
-	//mainView.router.back();
+		//mainView.router.back();
+
+		console.log (mainView.history);
+
+	}
+
+	
 
 }
 
