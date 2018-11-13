@@ -1435,6 +1435,7 @@ function btn_click_btnLogIn()
 						myApp.alert("Usuario y Password Son campos requeridos");
 				}
 				mainView.router.loadContent(data);
+				window.localStorage.setItem("usr", $$("#fLogin input[name='name']").val());
 				
 				try
 				{
