@@ -19,8 +19,8 @@ var myApp = new Framework7
 	template7Pages: true,
 	precompileTemplates: true,
 	preloadPreviousPage: false,
-	cacheIgnore:[URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2", , URLBASE+"/MovilDiceros?js=3"]
-	//cache:false
+	cacheIgnore:[URLBASE+"/MovilDiceros?t7html=1", URLBASE+"/MovilDiceros?t7html=2", URLBASE+"/MovilDiceros?js=1", URLBASE+"/MovilDiceros?js=2", , URLBASE+"/MovilDiceros?js=3"],
+	cache:false
 });
 
 var $$ = Dom7;
@@ -37,7 +37,6 @@ var mainView = myApp.addView('.view-main');
 
 function PingServer()
 {
-
 	var p = new Ping();
 	var url = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + "://" + window.localStorage.getItem("URL_HOST");
 	p.ping(url, function(err, data)
