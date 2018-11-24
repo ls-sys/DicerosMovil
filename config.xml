@@ -41,6 +41,9 @@
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <resource-file src="google-services.json" target="app/google-services.json" />
         <allow-intent href="market:*" />
+
+        
+
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="www/res/icon/android/drawable-hdpi-icon.png" />
@@ -83,6 +86,7 @@
         <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
             <string>need photo library access to save pictures there</string>
         </edit-config>
+        
         <icon height="57" platform="ios" src="www/res/icon/ios/icon.png" width="57" />
         <icon height="114" platform="ios" src="www/res/icon/ios/icon@2x.png" width="114" />
         <icon height="40" platform="ios" src="www/res/icon/ios/icon-40.png" width="40" />

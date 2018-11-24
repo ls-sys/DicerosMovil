@@ -361,6 +361,18 @@ Template7.registerHelper('objectBuilder', function(name, content_type, visible, 
 
 /*	Fin de Helper */
 
+var onSuccessShare = function(result) 
+{
+	alert("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+	console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+};
+   
+var onErrorShare = function(msg)
+{
+	alert("Sharing failed with message: " + msg);
+};
+
+
 function handleTouchStart(evt) 
 {                                         
     xDown = evt.touches[0].clientX;                                      
@@ -448,6 +460,17 @@ function QuitarPnU()
 	
 }
 
+function ShareMSG(msg)
+{
+	var options = 
+	{
+		message: msg, // not supported on some apps (Facebook, Instagram)
+		subject: 'Diceros Movil'
+	};
+
+	window.plugins.socialsharing.shareWithOptions(options, onSuccessShare, onErrorShare);
+}
+
 $$(document).on('deviceready', function() 
 {
 	try
@@ -463,7 +486,7 @@ $$(document).on('deviceready', function()
 
 		var notificationOpenedCallback = function(jsonData) 
 		{
-			alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+			console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
 		};
 
 		window.plugins.OneSignal
@@ -1225,9 +1248,6 @@ function backToMenu()
 		console.log (mainView.history);
 
 	}
-
-	
-
 }
 
 function LogOut()
@@ -1237,12 +1257,13 @@ function LogOut()
 		state: "10"
 	},function (d)
 	{
-		window.localStorage.removeItem("ALogin");
-
-		savedPnU();
-		//mainView.router.reloadPage('#index');
 		try
 		{
+			window.localStorage.removeItem("ALogin");
+
+			savedPnU();
+			//mainView.router.reloadPage('#index');
+		
 			$$("#chipVercion").html("Ver: " + AppVersion.version);
 		}
 		catch(er)
