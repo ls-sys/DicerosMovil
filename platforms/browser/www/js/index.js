@@ -363,13 +363,13 @@ Template7.registerHelper('objectBuilder', function(name, content_type, visible, 
 
 var onSuccessShare = function(result) 
 {
-	alert("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+	//alert("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
 	console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
 };
    
 var onErrorShare = function(msg)
 {
-	alert("Sharing failed with message: " + msg);
+	alert("No se pudo enviar el mensaje: " + msg);
 };
 
 
@@ -467,6 +467,17 @@ function ShareMSG(msg)
 		message: msg, // not supported on some apps (Facebook, Instagram)
 		subject: 'Diceros Movil'
 	};
+
+	window.plugins.socialsharing.shareWithOptions(options, onSuccessShare, onErrorShare);
+}
+
+function ShareMSG_options(options)
+{
+	/* options = 
+	{
+		message: msg, // not supported on some apps (Facebook, Instagram)
+		subject: 'Diceros Movil'
+	};*/
 
 	window.plugins.socialsharing.shareWithOptions(options, onSuccessShare, onErrorShare);
 }

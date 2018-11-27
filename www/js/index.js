@@ -170,14 +170,15 @@ var printWBObj = function(objList, index, options)
 Template7.registerHelper('ReportBM', function(s, p, t, options)
 {
 	$$("#DyScriptReport").remove();
+	$$("#dyCSSReprt").remove();
 
-	/*var url_CSS = URLBASE + "/MovilDiceros?css=1";
-	var dyCss = document.createAttribute('link');
+	var url_CSS = URLBASE + "/MovilDiceros?css=1&t="+Date.now();;
+	var dyCss = document.createElement('link');
 	dyCss.id = "dyCSSReprt";
 	dyCss.rel="stylesheet";
 	dyCss.href = url_CSS;
 
-	document.body.appendChild(dyCss);*/
+	document.head.appendChild(dyCss);
 
 	var url_JS = URLBASE + "/MovilDiceros?js=3&t="+Date.now();
 	var DyScript = document.createElement('script');
@@ -363,13 +364,13 @@ Template7.registerHelper('objectBuilder', function(name, content_type, visible, 
 
 var onSuccessShare = function(result) 
 {
-	alert("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+	//alert("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
 	console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
 };
    
 var onErrorShare = function(msg)
 {
-	alert("Sharing failed with message: " + msg);
+	alert("No se pudo enviar el mensaje: " + msg);
 };
 
 
@@ -467,6 +468,17 @@ function ShareMSG(msg)
 		message: msg, // not supported on some apps (Facebook, Instagram)
 		subject: 'Diceros Movil'
 	};
+
+	window.plugins.socialsharing.shareWithOptions(options, onSuccessShare, onErrorShare);
+}
+
+function ShareMSG_options(options)
+{
+	/* options = 
+	{
+		message: msg, // not supported on some apps (Facebook, Instagram)
+		subject: 'Diceros Movil'
+	};*/
 
 	window.plugins.socialsharing.shareWithOptions(options, onSuccessShare, onErrorShare);
 }
@@ -928,7 +940,7 @@ function getBase64Image(img)
 
 function MotorMovil(a)
 {
-	var playload = {};
+	let playload = {};
 	switch(a)
 	{
 		case "ViewReport":
