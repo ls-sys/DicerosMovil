@@ -587,6 +587,30 @@ $$(document).on('pageInit', function (e)
 		case 'index':
 			if(GetSValue("SERVER_CONN") == 1)
 				$$("#btnLogIn").removeClass("disabled");
+
+			var mp = window.localStorage.getItem("MP");
+			var ALog = window.localStorage.getItem("ALogin");
+		
+			if (mp == 1)
+			{
+				$$("#fLogin input[name='passwd']").val(window.localStorage.getItem("pass"));
+				$$("#fLogin input[name='name']").val(window.localStorage.getItem("usr"));
+		
+				$$("#fLogin input[name='passwd']").attr("disabled","disabled");
+				$$("#fLogin input[name='name']").attr("disabled","disabled");
+		
+				$$("#cb_PASS").prop('checked', true);
+			}
+		
+			if (ALog == 1)
+			{
+				$$("#cb_AutoLog").prop('checked', true);
+				btn_click_btnLogIn();
+			}
+			else
+				$$("#cb_AutoLog").prop('checked', false);
+
+			$$("#chipVercion").html("Ver: " + AppVersion.version);
 			break;
 		case 'MainMenu':
 
