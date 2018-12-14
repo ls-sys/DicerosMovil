@@ -373,7 +373,6 @@ var onErrorShare = function(msg)
 	alert("No se pudo enviar el mensaje: " + msg);
 };
 
-
 function handleTouchStart(evt) 
 {                                         
     xDown = evt.touches[0].clientX;                                      
@@ -869,7 +868,7 @@ function CallMantenimiento(p, o, url)
 	if (url == "NO_USAR" || url == "NO_REPARTIR")
 		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o + "&t="+Date.now();
 	else
-		FullUrl = URLBASE.replace("Sistema","") + url;
+		FullUrl = URLBASE.replace("Sistema","") + url  + "&t="+Date.now();
 
 	myApp.showPreloader();
 	
@@ -960,7 +959,7 @@ function getBase64Image(img)
 	var dataURL = canvas.toDataURL("image/png");
 
 	return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-  }
+}
 
 function MotorMovil(a)
 {
@@ -1552,5 +1551,3 @@ function btn_click_saveSettings()
 
 	mainView.router.back();
 }
-
-
