@@ -26,6 +26,7 @@ var myApp = new Framework7
 var $$ = Dom7;
 
 var NoticeMeSempai = null;
+var playload = {};
 
 var xDown = null;                                                        
 var yDown = null;
@@ -963,7 +964,7 @@ function getBase64Image(img)
 
 function MotorMovil(a)
 {
-	let playload = {};
+	playload = {};
 	switch(a)
 	{
 		case "ViewReport":
