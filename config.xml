@@ -29,6 +29,7 @@
 	<preference name="KeyboardShrinksView" value="true" />
 	<preference name="android-minSdkVersion" value="16" />
     <preference name="android-compileSdkVersion" value="27" />
+    <preference name="android-targetSdkVersion"  value="27" />
     
 	
     <access origin="*" />
