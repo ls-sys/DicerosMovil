@@ -26,6 +26,7 @@ var myApp = new Framework7
 var $$ = Dom7;
 
 var NoticeMeSempai = null;
+var playload = {};
 
 var xDown = null;                                                        
 var yDown = null;
@@ -170,14 +171,15 @@ var printWBObj = function(objList, index, options)
 Template7.registerHelper('ReportBM', function(s, p, t, options)
 {
 	$$("#DyScriptReport").remove();
+	$$("#dyCSSReprt").remove();
 
-	/*var url_CSS = URLBASE + "/MovilDiceros?css=1";
-	var dyCss = document.createAttribute('link');
+	var url_CSS = URLBASE + "/MovilDiceros?css=1&t="+Date.now();;
+	var dyCss = document.createElement('link');
 	dyCss.id = "dyCSSReprt";
 	dyCss.rel="stylesheet";
 	dyCss.href = url_CSS;
 
-	document.body.appendChild(dyCss);*/
+	document.head.appendChild(dyCss);
 
 	var url_JS = URLBASE + "/MovilDiceros?js=3&t="+Date.now();
 	var DyScript = document.createElement('script');
@@ -371,7 +373,6 @@ var onErrorShare = function(msg)
 {
 	alert("No se pudo enviar el mensaje: " + msg);
 };
-
 
 function handleTouchStart(evt) 
 {                                         
@@ -586,6 +587,30 @@ $$(document).on('pageInit', function (e)
 		case 'index':
 			if(GetSValue("SERVER_CONN") == 1)
 				$$("#btnLogIn").removeClass("disabled");
+
+			var mp = window.localStorage.getItem("MP");
+			var ALog = window.localStorage.getItem("ALogin");
+		
+			if (mp == 1)
+			{
+				$$("#fLogin input[name='passwd']").val(window.localStorage.getItem("pass"));
+				$$("#fLogin input[name='name']").val(window.localStorage.getItem("usr"));
+		
+				$$("#fLogin input[name='passwd']").attr("disabled","disabled");
+				$$("#fLogin input[name='name']").attr("disabled","disabled");
+		
+				$$("#cb_PASS").prop('checked', true);
+			}
+		
+			if (ALog == 1)
+			{
+				$$("#cb_AutoLog").prop('checked', true);
+				btn_click_btnLogIn();
+			}
+			else
+				$$("#cb_AutoLog").prop('checked', false);
+
+			$$("#chipVercion").html("Ver: " + AppVersion.version);
 			break;
 		case 'MainMenu':
 
@@ -841,10 +866,11 @@ function reportFrontPage(request)
 function CallMantenimiento(p, o, url)
 {
 	var FullUrl = "";
+	console.log("entras");
 	if (url == "NO_USAR" || url == "NO_REPARTIR")
 		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o + "&t="+Date.now();
 	else
-		FullUrl = URLBASE.replace("Sistema","") + url;
+		FullUrl = URLBASE.replace("Sistema","") + url  + "&t="+Date.now();
 
 	myApp.showPreloader();
 	
@@ -935,11 +961,11 @@ function getBase64Image(img)
 	var dataURL = canvas.toDataURL("image/png");
 
 	return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-  }
+}
 
 function MotorMovil(a)
 {
-	var playload = {};
+	playload = {};
 	switch(a)
 	{
 		case "ViewReport":
@@ -1111,6 +1137,12 @@ function MotorMovil(a)
 
 				reloadT7Page(data, 0);
 				myApp.hidePreloader();	
+			},
+			function (x, est) 
+			{
+				console.log(x.responseText);
+				console.log(est);
+				myApp.hidePreloader();
 			});
 			break;
 		case "Reload":
@@ -1527,5 +1559,3 @@ function btn_click_saveSettings()
 
 	mainView.router.back();
 }
-
-
