@@ -28,6 +28,7 @@
 	<preference name="SuppressesIncrementalRendering" value="false" />	
 	<preference name="KeyboardShrinksView" value="true" />
 	<preference name="android-minSdkVersion" value="16" />
+    <preference name="android-compileSdkVersion" value="26" />
 	
     <access origin="*" />
     <allow-intent href="http://*/*" />
