@@ -47,12 +47,12 @@
 
         
 
-        <icon density="ldpi" src="www/res/icon/android/ldpi-icon.png" />
-        <icon density="mdpi" src="www/res/icon/android/mdpi-icon.png" />
-        <icon density="hdpi" src="www/res/icon/android/hdpi-icon.png" />
-        <icon density="xhdpi" src="www/res/icon/android/xhdpi-icon.png" />
-        <icon density="xxhdpi" src="www/res/icon/android/xxhdpi-icon.png" />
-        <icon density="xxxhdpi" src="www/res/icon/android/xxxhdpi-icon.png" />
+        <icon density="ldpi" src="www/res/icon/android/drawable-ldpi.png" />
+        <icon density="mdpi" src="www/res/icon/android/drawable-mdpi.png" />
+        <icon density="hdpi" src="www/res/icon/android/drawable-hdpi.png" />
+        <icon density="xhdpi" src="www/res/icon/android/drawable-xhdpi.png" />
+        <icon density="xxhdpi" src="www/res/icon/android/drawable-xxhdpi.png" />
+        <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi.png" />
 
         <resource-file src="locales/android/drawable-mdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-mdpi/ic_stat_onesignal_default.png" />
         <resource-file src="locales/android/drawable-hdpi/ic_stat_onesignal_default.png" target="app/src/main/res/drawable-hdpi/ic_stat_onesignal_default.png" />
