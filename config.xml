@@ -122,5 +122,6 @@
     <plugin name="cordova-plugin-headercolor" source="npm"/>
     <plugin name="onesignal-cordova-plugin" spec="2.4.0" source="npm"/>
     <plugin name="cordova-plugin-x-socialsharing" source="npm"/>
+    <plugin name="cordova-plugin-sim" source="npm"/>
     
 </widget>

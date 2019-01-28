@@ -496,6 +496,19 @@ $$(document).on('deviceready', function()
 		console.log("iV: "+device.isVirtual);
 		console.log("serial: "+device.serial);
 
+		var sSim = function(res)
+		{
+			console.log(res);
+			alert(JSON.stringify(res));
+		}
+
+		var eSim = function(error)
+		{
+			myApp.alert(error);
+		}
+
+		window.plugins.sim.getSimInfo(sSim,eSim);
+
 		var notificationOpenedCallback = function(jsonData) 
 		{
 			console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
