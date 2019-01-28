@@ -511,7 +511,7 @@ $$(document).on('deviceready', function()
 
 		var notificationOpenedCallback = function(jsonData) 
 		{
-			console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+			myApp.alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
 		};
 
 		window.plugins.OneSignal
