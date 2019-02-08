@@ -498,8 +498,8 @@ $$(document).on('deviceready', function()
 
 		var notificationOpenedCallback = function(jsonData) 
 		{
-			alert(jsonData.notificationID);
-			alert(jsonData.title + "\n" + jsonData.body);
+			alert(jsonData["notificationID"]);
+			alert(jsonData["title"] + "\n" + jsonData["body"]);
 			alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
 		};
 
