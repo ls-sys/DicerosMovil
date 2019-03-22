@@ -498,7 +498,7 @@ $$(document).on('deviceready', function()
 
 		var notificationOpenedCallback = function(jsonData) 
 		{
-			alert(jsonData["notification"]["payload"]["notificationID"]);
+			alert(device.uuid);
 			alert(jsonData["notification"]["payload"]["title"] + "\n" + jsonData["notification"]["payload"]["body"]);
 			alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
 		};
@@ -549,6 +549,8 @@ $$(document).on('pageInit', function (e)
 	SetSessionValue ("ACTUAL_PAGE", page);
 	SetSessionValue ("SWIPE_MODE", "0");
 	window.sessionStorage.removeItem("ONCE_HIT");
+
+	console.log(page.name);
 	
 	$$("#DyScriptAfter").remove();
 
@@ -665,18 +667,16 @@ $$(document).on('pageInit', function (e)
 					CallMantenimiento(req["project"], req["object"], "NO_REPARTIR");
 				}
 			});
-
-
-			
 			break;
 		case 'SearchTable':
 			//$$(".card-content").css("overflow","scroll");
 			break;
+		case "ReportForm":
 		case "FormDataI":
 			//window.sessionStorage.clear();
 			//clearTempVal();
 			SetSessionValue ("SWIPE_MODE", "0");
-			$$("div[data-page='FormDataI'] div.item-input input[name*='_'], div[data-page='FormDataI'] div.item-input select[name*='_'], div[data-page='FormDataI'] div.item-input textarea[name*='_']").each(function(i, ele)
+			$$("div[data-page='"+page.name+"'] div.item-input input[name*='_'], div[data-page='"+page.name+"'] div.item-input select[name*='_'], div[data-page='"+page.name+"'] div.item-input textarea[name*='_']").each(function(i, ele)
 			{
 				saveTempVal(ele, 0);
 				$$(ele).on("change", function(event){saveTempVal(this, 0);});
@@ -868,7 +868,6 @@ function reportFrontPage(request)
 function CallMantenimiento(p, o, url)
 {
 	var FullUrl = "";
-	console.log("entras");
 	if (url == "NO_USAR" || url == "NO_REPARTIR")
 		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o + "&t="+Date.now();
 	else

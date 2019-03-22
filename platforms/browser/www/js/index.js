@@ -498,7 +498,9 @@ $$(document).on('deviceready', function()
 
 		var notificationOpenedCallback = function(jsonData) 
 		{
-			console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+			alert(device.uuid);
+			alert(jsonData["notification"]["payload"]["title"] + "\n" + jsonData["notification"]["payload"]["body"]);
+			alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
 		};
 
 		window.plugins.OneSignal
@@ -547,6 +549,8 @@ $$(document).on('pageInit', function (e)
 	SetSessionValue ("ACTUAL_PAGE", page);
 	SetSessionValue ("SWIPE_MODE", "0");
 	window.sessionStorage.removeItem("ONCE_HIT");
+
+	console.log(page.name);
 	
 	$$("#DyScriptAfter").remove();
 
@@ -663,18 +667,16 @@ $$(document).on('pageInit', function (e)
 					CallMantenimiento(req["project"], req["object"], "NO_REPARTIR");
 				}
 			});
-
-
-			
 			break;
 		case 'SearchTable':
 			//$$(".card-content").css("overflow","scroll");
 			break;
+		case "ReportForm":
 		case "FormDataI":
 			//window.sessionStorage.clear();
 			//clearTempVal();
 			SetSessionValue ("SWIPE_MODE", "0");
-			$$("div[data-page='FormDataI'] div.item-input input[name*='_'], div[data-page='FormDataI'] div.item-input select[name*='_']").each(function(i, ele)
+			$$("div[data-page='"+page.name+"'] div.item-input input[name*='_'], div[data-page='"+page.name+"'] div.item-input select[name*='_'], div[data-page='"+page.name+"'] div.item-input textarea[name*='_']").each(function(i, ele)
 			{
 				saveTempVal(ele, 0);
 				$$(ele).on("change", function(event){saveTempVal(this, 0);});
@@ -692,7 +694,7 @@ $$(document).on('pageInit', function (e)
 			
 			//window.sessionStorage.clear();
 			//clearTempVal();
-			$$("div[data-page='FormDataU'] div.item-input input[name*='_'], div[data-page='FormDataU'] div.item-input select[name*='_']").each(function(i, ele)
+			$$("div[data-page='FormDataU'] div.item-input input[name*='_'], div[data-page='FormDataU'] div.item-input select[name*='_'], div[data-page='FormDataU'] div.item-input textarea[name*='_']").each(function(i, ele)
 			{
 				saveTempVal(ele, 0);
 				$$(ele).on("change", function(event){saveTempVal(this, 0);});
@@ -866,7 +868,6 @@ function reportFrontPage(request)
 function CallMantenimiento(p, o, url)
 {
 	var FullUrl = "";
-	console.log("entras");
 	if (url == "NO_USAR" || url == "NO_REPARTIR")
 		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o + "&t="+Date.now();
 	else
@@ -1003,7 +1004,7 @@ function MotorMovil(a)
 			break;
 		case "Buscar":
 			myApp.showPreloader();
-			var listInput = $$("div[data-page='FormDataI'] div.item-input input[name*='_'], div[data-page='FormDataI'] div.item-input select[name*='_']");
+			var listInput = $$("div[data-page='FormDataI'] div.item-input input[name*='_'], div[data-page='FormDataI'] div.item-input select[name*='_'], div[data-page='FormDataI'] div.item-input textarea[name*='_']");
 			console.log(listInput.length);
 
 			for (var i = 0; i < listInput.length; i++)
@@ -1031,7 +1032,7 @@ function MotorMovil(a)
 		case "SaveT":
 			myApp.showPreloader();
 
-			$$("div[data-page='FormDataU'] input.HidenParams, div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select").each(function(i, ele)
+			$$("div[data-page='FormDataU'] input.HidenParams, div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select, , div[data-page='FormDataU'] div.item-input textarea").each(function(i, ele)
 			{
 				var ItemName = $$(ele).attr("name");
 				var tipoInput = $$(ele).attr("type");
@@ -1119,7 +1120,7 @@ function MotorMovil(a)
 		case "NewReg":
 			myApp.showPreloader();
 			
-			$$("div[data-page='FormDataI'] input.HidenParams, div[data-page='FormDataI'] div.item-input input, div[data-page='FormDataI'] div.item-input select").each(function(i, ele)
+			$$("div[data-page='FormDataI'] input.HidenParams, div[data-page='FormDataI'] div.item-input input, div[data-page='FormDataI'] div.item-input select, div[data-page='FormDataI'] div.item-input textarea").each(function(i, ele)
 			{
 				var ItemName = $$(ele).attr("name");
 				var ItemValue = $$(ele).val();
