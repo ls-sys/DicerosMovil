@@ -486,7 +486,7 @@ function ShareMSG_options(options)
 
 function ShowNotify(uuid) 
 {
-	myApp.showPreloader();
+	//myApp.showPreloader();
 	console.log("Notes me sempai");
 	$$.ajax({
 		url: "https://diceros.ls-sys.com/ws/Sistema/api/controlDeCondominio/getNotificaciones.php",
@@ -516,7 +516,7 @@ function ShowNotify(uuid)
 				context: obj
 			});
 
-			myApp.hidePreloader();
+			//myApp.hidePreloader();
 		}
 	});
 }
@@ -536,10 +536,22 @@ $$(document).on('deviceready', function()
 
 		var notificationOpenedCallback = function(jsonData) 
 		{
+			if (jsonData["notification"]["displayType"] == 1)
+			{
+				myApp.confirm("Ir al centro de Notificaciones?",function()
+				{
+					ShowNotify(device.uuid);
+				});
+			}
+			else
+			{
+				ShowNotify(device.uuid);
+				myApp.alert(jsonData["notification"]["payload"]["title"] + "\n" + jsonData["notification"]["payload"]["body"]);
+			}
 			//alert(device.uuid);
-			myApp.alert(jsonData["notification"]["payload"]["title"] + "\n" + jsonData["notification"]["payload"]["body"]);
+			
 			//alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-			ShowNotify(device.uuid);
+			
 		};
 
 		window.plugins.OneSignal
