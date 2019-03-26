@@ -495,7 +495,7 @@ function ShowNotify(uuid)
 		cache: false,
 		data:{
 			UUID: uuid,
-			limit: 10
+			limit: 100
 		},
 		crossDomain:true,
 		headers:{
@@ -549,9 +549,7 @@ $$(document).on('deviceready', function()
 				myApp.alert(jsonData["notification"]["payload"]["title"] + "\n" + jsonData["notification"]["payload"]["body"]);
 			}
 			//alert(device.uuid);
-			
 			//alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
-			
 		};
 
 		window.plugins.OneSignal
