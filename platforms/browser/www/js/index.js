@@ -2,6 +2,7 @@
 var URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
 	"://" + window.localStorage.getItem("URL_HOST") + "/Sistema";
 var _PW = "$marfil$";
+var KEYapi = "840f2c7b6563a36c69073b8bef8a2cf7";
 
 var myApp = new Framework7
 ({
@@ -483,6 +484,39 @@ function ShareMSG_options(options)
 	window.plugins.socialsharing.shareWithOptions(options, onSuccessShare, onErrorShare);
 }
 
+function ShowNotify(uuid) 
+{
+	myApp.showPreloader();
+	$$.ajax({
+		url: "https://"+window.localStorage.getItem("URL_HOST")+"/ws/Sistema/api/controlDeCondominio/getNotificaciones.php",
+		method: "GET",
+		cache: false,
+		data:{
+			UUID: uuid
+		},
+		crossDomain:true,
+		headers:{
+			"Diceros-API-Key": KEYapi 
+		},
+		error: function (x,s,t)
+		{
+			myApp.alert("Error #" + s + "\n" + t);
+		},
+		success: function(data,s,x)
+		{
+			obj = JSON.parse(data);	
+
+			mainView.router.load(
+			{
+				url: 'NotifyPage.html',
+				context: obj
+			});
+
+			myApp.hidePreloader();
+		}
+	});
+}
+
 $$(document).on('deviceready', function() 
 {
 	try
@@ -498,9 +532,10 @@ $$(document).on('deviceready', function()
 
 		var notificationOpenedCallback = function(jsonData) 
 		{
-			alert(device.uuid);
-			alert(jsonData["notification"]["payload"]["title"] + "\n" + jsonData["notification"]["payload"]["body"]);
-			alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+			//alert(device.uuid);
+			myApp.alert(jsonData["notification"]["payload"]["title"] + "\n" + jsonData["notification"]["payload"]["body"]);
+			//alert('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+			ShowNotify(device.uuid);
 		};
 
 		window.plugins.OneSignal
@@ -966,7 +1001,7 @@ function getBase64Image(img)
 
 function MotorMovil(a)
 {
-	playload = {};
+	var playload = {};
 	switch(a)
 	{
 		case "ViewReport":
