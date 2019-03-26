@@ -487,12 +487,15 @@ function ShareMSG_options(options)
 function ShowNotify(uuid) 
 {
 	myApp.showPreloader();
+	console.log("Notes me sempai");
 	$$.ajax({
-		url: "https://"+window.localStorage.getItem("URL_HOST")+"/ws/Sistema/api/controlDeCondominio/getNotificaciones.php",
+		url: "https://diceros.ls-sys.com/ws/Sistema/api/controlDeCondominio/getNotificaciones.php",
 		method: "GET",
+		async: false,
 		cache: false,
 		data:{
-			UUID: uuid
+			UUID: uuid,
+			limit: 10
 		},
 		crossDomain:true,
 		headers:{
@@ -501,6 +504,7 @@ function ShowNotify(uuid)
 		error: function (x,s,t)
 		{
 			myApp.alert("Error #" + s + "\n" + t);
+			myApp.hidePreloader();
 		},
 		success: function(data,s,x)
 		{
