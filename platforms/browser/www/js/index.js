@@ -486,7 +486,7 @@ function ShareMSG_options(options)
 
 function ShowNotify(uuid) 
 {
-	//myApp.showPreloader();
+	myApp.showPreloader();
 	console.log("Notes me sempai");
 	$$.ajax({
 		url: "https://diceros.ls-sys.com/ws/Sistema/api/controlDeCondominio/getNotificaciones.php",
@@ -516,9 +516,10 @@ function ShowNotify(uuid)
 				context: obj
 			});
 
-			//myApp.hidePreloader();
+			
 		}
 	});
+	myApp.hidePreloader();
 }
 
 $$(document).on('deviceready', function() 

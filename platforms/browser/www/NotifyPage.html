@@ -2,15 +2,15 @@
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
-                <a href="javascript:{backToMenu();}" class="link"><i class="f7-icons">Atras</i></a>
+                <a href="javascript:{backToMenu();}" class="link"><i class="f7-icons">arrow_left</i></a>
             </div>
             <div class="center">Centro de Notificaciones</div>
         </div>
     </div>
 
     <div class="page-content">
-        <div class="content-block-title">Notificaciones</div>
-        <div class="list-block accordion-list">
+        <div class="content-block-title">Notificaciones de {{MES_NOMBRE}}</div>
+        <div class="list-block accordion-list MenuModulos inset">
             <ul>
                 {{#each lista}}
                 <li class="accordion-item">
@@ -19,7 +19,7 @@
                             <div class="item-title">{{titulo}}</div>
                         </div>
                     </a>
-                    <div class="accordion-item-content">
+                    <div class="accordion-item-content" style="background-color: beige; color: black; padding-left: 20px;">
                         <div class="content-block">
                             <h4>{{fecha}}</h4>
                             <p>{{msg}}</p>
