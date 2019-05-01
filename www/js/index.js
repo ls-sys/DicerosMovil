@@ -495,7 +495,8 @@ function ShowNotify(uuid)
 		cache: false,
 		data:{
 			UUID: uuid,
-			limit: 100
+			limit: 100,
+			t: Date.now()
 		},
 		crossDomain:true,
 		headers:{
@@ -512,7 +513,7 @@ function ShowNotify(uuid)
 
 			mainView.router.load(
 			{
-				url: 'NotifyPage.html',
+				url: 'NotifyPage.html?t='+Date.now(),
 				context: obj
 			});
 
