@@ -842,6 +842,21 @@ function ModificarAll()
 
 }
 
+function ScanCodeBarInfo()
+{
+	cordova.plugins.barcodeScanner.scan(
+		function (result) {
+			alert("We got a barcode\n" +
+				  "Result: " + result.text + "\n" +
+				  "Format: " + result.format + "\n" +
+				  "Cancelled: " + result.cancelled);
+		},
+		function (error) {
+			alert("Scanning failed: " + error);
+		}
+	 );
+}
+
 function TakePhotoMD(idImage)
 {
 	function onSuccess(imgData)
@@ -918,6 +933,7 @@ function reportFrontPage(request)
 
 function CallMantenimiento(p, o, url)
 {
+	
 	var FullUrl = "";
 	if (url == "NO_USAR" || url == "NO_REPARTIR")
 		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o + "&t="+Date.now();
@@ -925,6 +941,8 @@ function CallMantenimiento(p, o, url)
 		FullUrl = URLBASE.replace("Sistema","") + url  + "&t="+Date.now();
 
 	myApp.showPreloader();
+
+	//console.log(FullUrl);
 	
 	$$("#DyScript").remove();
 

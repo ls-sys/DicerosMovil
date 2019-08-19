@@ -123,5 +123,6 @@
     <plugin name="onesignal-cordova-plugin" spec="2.4.0" source="npm"/>
     <plugin name="cordova-plugin-x-socialsharing" source="npm"/>
     <plugin name="cordova-plugin-sim" source="npm"/>
+    <plugin name="phonegap-plugin-barcodescanner" />
     
 </widget>
