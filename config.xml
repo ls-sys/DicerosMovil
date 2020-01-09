@@ -27,7 +27,7 @@
 	<preference name="HideKeyboardFormAccessoryBar" value="true" />
 	<preference name="SuppressesIncrementalRendering" value="false" />	
 	<preference name="KeyboardShrinksView" value="true" />
-	<preference name="android-minSdkVersion" value="16" />
+	<preference name="android-minSdkVersion" value="19" />
     <preference name="android-compileSdkVersion" value="28" />
     <preference name="android-targetSdkVersion"  value="28" />
     
