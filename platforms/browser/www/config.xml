@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.lssys.dicerosmovil" version="1.11.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.lssys.kannelmovil" version="1.12.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Camera">
         <param name="browser-package" value="Camera" />
     </feature>
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
-    <name>Diceros Movil</name>
+    <name>Kannel Movil</name>
     <description>
-        Diceros ERP, version movil.
+        Kannel ERP, version movil.
     </description>
     <author email="gs@ls-sy.com" href="http://ls-sys.com">ls-sys</author>
     <content src="index.html" />
@@ -41,6 +41,6 @@
     <preference name="SuppressesIncrementalRendering" value="false" />
     <preference name="KeyboardShrinksView" value="true" />
     <preference name="android-minSdkVersion" value="16" />
-    <preference name="android-compileSdkVersion" value="27" />
-    <preference name="android-targetSdkVersion" value="27" />
+    <preference name="android-compileSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="28" />
 </widget>

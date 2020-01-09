@@ -495,7 +495,8 @@ function ShowNotify(uuid)
 		cache: false,
 		data:{
 			UUID: uuid,
-			limit: 100
+			limit: 100,
+			t: Date.now()
 		},
 		crossDomain:true,
 		headers:{
@@ -512,7 +513,7 @@ function ShowNotify(uuid)
 
 			mainView.router.load(
 			{
-				url: 'NotifyPage.html',
+				url: 'NotifyPage.html?t='+Date.now(),
 				context: obj
 			});
 
@@ -567,8 +568,8 @@ $$(document).on('deviceready', function()
 		alert(error);
 	}
 
-	window.localStorage.setItem("URL_HOST", "diceros.ls-sys.com");
-	window.localStorage.setItem("HOST_SSL", "1");
+	window.localStorage.setItem("URL_HOST", "192.168.20.250");
+	window.localStorage.setItem("HOST_SSL", "0");
 
 	URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
 	"://" + window.localStorage.getItem("URL_HOST") + "/Sistema";
@@ -841,6 +842,21 @@ function ModificarAll()
 
 }
 
+function ScanCodeBarInfo()
+{
+	cordova.plugins.barcodeScanner.scan(
+		function (result) {
+			alert("We got a barcode\n" +
+				  "Result: " + result.text + "\n" +
+				  "Format: " + result.format + "\n" +
+				  "Cancelled: " + result.cancelled);
+		},
+		function (error) {
+			alert("Scanning failed: " + error);
+		}
+	 );
+}
+
 function TakePhotoMD(idImage)
 {
 	function onSuccess(imgData)
@@ -917,6 +933,7 @@ function reportFrontPage(request)
 
 function CallMantenimiento(p, o, url)
 {
+	
 	var FullUrl = "";
 	if (url == "NO_USAR" || url == "NO_REPARTIR")
 		FullUrl = URLBASE + "/repartidor?project=" + p + "&object=" + o + "&t="+Date.now();
@@ -924,6 +941,8 @@ function CallMantenimiento(p, o, url)
 		FullUrl = URLBASE.replace("Sistema","") + url  + "&t="+Date.now();
 
 	myApp.showPreloader();
+
+	//console.log(FullUrl);
 	
 	$$("#DyScript").remove();
 

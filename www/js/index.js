@@ -6,7 +6,7 @@ var KEYapi = "840f2c7b6563a36c69073b8bef8a2cf7";
 
 var myApp = new Framework7
 ({
-    modalTitle: "Diceros",
+    modalTitle: "Kannel",
 	material: true,
 	fastClicks: false,
 	animateNavBackIcon: true,
@@ -467,7 +467,7 @@ function ShareMSG(msg)
 	var options = 
 	{
 		message: msg, // not supported on some apps (Facebook, Instagram)
-		subject: 'Diceros Movil'
+		subject: 'Kannel Movil'
 	};
 
 	window.plugins.socialsharing.shareWithOptions(options, onSuccessShare, onErrorShare);
@@ -568,8 +568,8 @@ $$(document).on('deviceready', function()
 		alert(error);
 	}
 
-	window.localStorage.setItem("URL_HOST", "diceros.ls-sys.com");
-	window.localStorage.setItem("HOST_SSL", "1");
+	window.localStorage.setItem("URL_HOST", "192.168.20.250");
+	window.localStorage.setItem("HOST_SSL", "0");
 
 	URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
 	"://" + window.localStorage.getItem("URL_HOST") + "/Sistema";
