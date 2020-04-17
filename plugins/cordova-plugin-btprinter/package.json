@@ -1,0 +1,103 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+        "spec": "git+https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:CesarBalzer/Cordova-Plugin-BTPrinter.git",
+          "sshUrl": "git+ssh://git@github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+          "httpsUrl": "git+https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+          "gitUrl": "git://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+          "shortcut": "github:CesarBalzer/Cordova-Plugin-BTPrinter",
+          "directUrl": "https://raw.githubusercontent.com/CesarBalzer/Cordova-Plugin-BTPrinter/master/package.json"
+        }
+      },
+      "E:\\Movil\\DicerosMovil"
+    ]
+  ],
+  "_from": "git+https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+  "_id": "cordova-plugin-btprinter@0.0.1-dev",
+  "_inCache": true,
+  "_location": "/cordova-plugin-btprinter",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+    "spec": "git+https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:CesarBalzer/Cordova-Plugin-BTPrinter.git",
+      "sshUrl": "git+ssh://git@github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+      "httpsUrl": "git+https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+      "gitUrl": "git://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+      "shortcut": "github:CesarBalzer/Cordova-Plugin-BTPrinter",
+      "directUrl": "https://raw.githubusercontent.com/CesarBalzer/Cordova-Plugin-BTPrinter/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git#21009486dc6390a7b7bfe543c8d980c33a10e6dc",
+  "_shasum": "5960a5920c393ab0a72492bd4d33359d3d574883",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+  "_where": "E:\\Movil\\DicerosMovil",
+  "author": {
+    "name": "Cesar E. Balzer"
+  },
+  "bugs": {
+    "url": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-btprinter",
+    "platforms": [
+      "android"
+    ]
+  },
+  "dependencies": {},
+  "description": "A cordova plugin for bluetooth printer for android platform.",
+  "devDependencies": {},
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "gitHead": "21009486dc6390a7b7bfe543c8d980c33a10e6dc",
+  "homepage": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter#readme",
+  "keywords": [
+    "cordova",
+    "bluetooth",
+    "printer",
+    "pos",
+    "text",
+    "barcode",
+    "image",
+    "base64",
+    "qrcode",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-btprinter",
+  "optionalDependencies": {},
+  "readme": "# Cordova-Plugin-BTPrinter\r\n\r\nA cordova plugin for bluetooth printer for android platform.\r\n\r\nThis code is being adapted from a fork of [Cordova-Plugin-Bluetooth-Printer](https://github.com/srehanuddin/Cordova-Plugin-Bluetooth-Printer), of free use and modifications that will arise for the improvement of the plugin.\r\n\r\nSuggestions, critiques are welcome, participate and send a commit helping to improve the plugin for the community.\r\n\r\nThank's!\r\n\r\n## Support\r\n\r\n- [ Text simple](#Print-simple-text)\r\n- [ Print text with size and align](#Print-text-with-size-and-align)\r\n- [ Print image from path with align](#Print-image-from-path-with-align)\r\n- [ Print image from base64 with align](#Print-image-from-base64-with-align)\r\n- [ Print title with size and align](#Print-title-with-size-and-align)\r\n- [ POS printing](#POS-printing)\r\n- [ Print QRCode ](#Print-QRCode)\r\n\r\n## Install\r\n\r\nUsing the Cordova CLI and NPM, run:\r\n\r\n```\r\ncordova plugin add https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git\r\n```\r\n\r\n## Usage\r\n\r\nGet list of paired bluetooth printers\r\n\r\n```\r\nBTPrinter.list(function(data){\r\n        console.log(\"Success\");\r\n        console.log(data); //list of printer in data array\r\n    },function(err){\r\n        console.log(\"Error\");\r\n        console.log(err);\r\n    });\r\n```\r\n\r\nReturn:\r\n\r\n```\r\ndata[0] Printer name\r\ndata[1] Printer address\r\ndata[2] Printer type\r\n```\r\n\r\n### Check Bluetooth status\r\n\r\n```\r\nBTPrinter.status(function(data){\r\n\tconsole.log(\"Success\");\r\n\tconsole.log(data) // bt status: true or false\r\n},function(err){\r\n\tconsole.log(\"Error\");\r\n\tconsole.log(err)\r\n});\r\n```\r\n\r\n### Connect printer\r\n\r\n```\r\nBTPrinter.connect(function(data){\r\n\tconsole.log(\"Success\");\r\n\tconsole.log(data)\r\n},function(err){\r\n\tconsole.log(\"Error\");\r\n\tconsole.log(err)\r\n}, \"PrinterName\");\r\n```\r\n\r\n### Disconnect printer\r\n\r\n```\r\nBTPrinter.disconnect(function(data){\r\n\tconsole.log(\"Success\");\r\n\tconsole.log(data)\r\n},function(err){\r\n\tconsole.log(\"Error\");\r\n\tconsole.log(err)\r\n}, \"PrinterName\");\r\n```\r\n\r\n#### Obs:\r\n\r\nI thought it best to create the function within a timeout\r\n\r\n```\r\nsetTimeout(function(){\r\n    BTPrinter.disconnect(function(data){\r\n\tconsole.log(\"Success\");\r\n\tconsole.log(data)\r\n    },function(err){\r\n\tconsole.log(\"Error\");\r\n\tconsole.log(err)\r\n    }, \"PrinterName\")\r\n}, 1500);\r\n```\r\n\r\n### Print simple text\r\n\r\n```\r\nBTPrinter.printText(function(data){\r\n    console.log(\"Success\");\r\n    console.log(data)\r\n},function(err){\r\n    console.log(\"Error\");\r\n    console.log(err)\r\n}, \"String to Print\")\r\n```\r\n\r\n### Print text with size and align\r\n\r\n```\r\nBTPrinter.printTextSizeAlign(function(data){\r\n    console.log(\"Success\");\r\n    console.log(data)\r\n},function(err){\r\n    console.log(\"Error\");\r\n    console.log(err)\r\n}, \"String to Print\",'0','0')//string, size, align\r\n```\r\n\r\n### Print image from path with align\r\n\r\n```\r\nBTPrinter.printImageUrl(function(data){\r\n    console.log(\"Success\");\r\n    console.log(data);\r\n},function(err){\r\n    console.log(\"Error\");\r\n    console.log(err);\r\n}, \"Path String\",'0');//path image, align\r\n```\r\n\r\nIn android tests with /storage/emulated/0/Pictures/myfolder/myimage.jpg - size max: 300x300px.\r\n\r\n### Print image from base64 with align\r\n\r\n- with align still in tests not work alignment)\r\n\r\n```\r\nBTPrinter.printBase64(function(data){\r\n    console.log(\"Success\");\r\n    console.log(data);\r\n},function(err){\r\n    console.log(\"Error\");\r\n    console.log(err);\r\n}, \"Image Base64 String\",'0');//base64 string, align\r\n```\r\n\r\n### Print title with size and align\r\n\r\n- with align still in tests not work alignment)\r\n\r\n```\r\nBTPrinter.printTitle(function(data){\r\n    console.log(\"Success\");\r\n    console.log(data);\r\n},function(err){\r\n    console.log(\"Error\");\r\n    console.log(err);\r\n}, \"String text\",'0');//string, size, align\r\n```\r\n\r\n### POS printing\r\n\r\n```\r\nBTPrinter.printPOSCommand(function(data){\r\n    console.log(\"Success\");\r\n    console.log(data)\r\n},function(err){\r\n    console.log(\"Error\");\r\n    console.log(err)\r\n}, \"0C\");//OC is a POS command for page feed\r\n```\r\n\r\n### Print QRCode\r\n\r\n- not working\r\n\r\n```\r\nBTPrinter.printQRCode(function(data){\r\n    console.log(\"Success\");\r\n    console.log(data)\r\n},function(err){\r\n    console.log(\"Error\");\r\n    console.log(err)\r\n}, \"https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter\");//string to qrcode\r\n```\r\n\r\nThe best option I found was to use this [albertorcf](https://github.com/srehanuddin/Cordova-Plugin-Bluetooth-Printer/issues/24#issue-201362448):\r\n\r\n```\r\n    var justify_center = '\\x1B\\x61\\x01';\r\n    var justify_left   = '\\x1B\\x61\\x00';\r\n    var qr_model       = '\\x32';          // 31 or 32\r\n    var qr_size        = '\\x08';          // size\r\n    var qr_eclevel     = '\\x33';          // error correction level (30, 31, 32, 33 - higher)\r\n    var qr_data        = 'https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter';\r\n    var qr_pL          = String.fromCharCode((qr_data.length + 3) % 256);\r\n    var qr_pH          = String.fromCharCode((qr_data.length + 3) / 256);\r\n    //\r\n    BTPrinter.printText(null,null, justify_center +\r\n       '\\x1D\\x28\\x6B\\x04\\x00\\x31\\x41' + qr_model + '\\x00' +        // Select the model\r\n       '\\x1D\\x28\\x6B\\x03\\x00\\x31\\x43' + qr_size +                  // Size of the model\r\n       '\\x1D\\x28\\x6B\\x03\\x00\\x31\\x45' + qr_eclevel +               // Set n for error correction\r\n       '\\x1D\\x28\\x6B' + qr_pL + qr_pH + '\\x31\\x50\\x30' + qr_data + // Store data\r\n       '\\x1D\\x28\\x6B\\x03\\x00\\x31\\x51\\x30' +                        // Print\r\n       '\\n\\n\\n' +\r\n       justify_left,'1','0');\r\n```\r\n\r\n## Size options\r\n\r\n```\r\n     0 = CHAR_SIZE_01 // equivalent 0x1B, 0x21, 0x00\r\n     8 = CHAR_SIZE_08 // equivalent 0x1B, 0x21, 0x08\r\n    10 = CHAR_SIZE_10 // equivalent 0x1B, 0x21, 0x10\r\n    11 = CHAR_SIZE_11 // equivalent 0x1B, 0x21, 0x11\r\n    20 = CHAR_SIZE_20 // equivalent 0x1B, 0x21, 0x20\r\n    30 = CHAR_SIZE_30 // equivalent 0x1B, 0x21, 0x30\r\n    31 = CHAR_SIZE_31 // equivalent 0x1B, 0x21, 0x31\r\n    51 = CHAR_SIZE_51 // equivalent 0x1B, 0x21, 0x51\r\n    61 = CHAR_SIZE_61 // equivalent 0x1B, 0x21, 0x61\r\n```\r\n\r\n## Align options\r\n\r\n```\r\n    0 = ESC_ALIGN_LEFT // equivalent 0x1B, 0x61, 0x00\r\n    1 = ESC_ALIGN_CENTER // equivalent 0x1B, 0x61, 0x01\r\n    2 = ESC_ALIGN_RIGHT // equivalent 0x1B, 0x61, 0x02\r\n```\r\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git"
+  },
+  "version": "0.0.1-dev"
+}

@@ -166,5 +166,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-btprinter": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
