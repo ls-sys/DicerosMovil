@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.lssys.kannelmovil" version="1.12.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.lssys.kannelmovil" version="1.12.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Camera">
         <param name="browser-package" value="Camera" />
     </feature>
@@ -19,7 +19,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="phonegap-version" value="cli-8.0.0" />
+    <preference name="phonegap-version" value="cli-9.0.0" />
     <preference name="android-build-tool" value="gradle" />
     <preference name="orientation" value="default" />
     <preference name="fullscreen" value="false" />
@@ -40,7 +40,7 @@
     <preference name="HideKeyboardFormAccessoryBar" value="true" />
     <preference name="SuppressesIncrementalRendering" value="false" />
     <preference name="KeyboardShrinksView" value="true" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="19" />
     <preference name="android-compileSdkVersion" value="28" />
     <preference name="android-targetSdkVersion" value="28" />
 </widget>

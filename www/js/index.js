@@ -40,7 +40,11 @@ var mainView = myApp.addView('.view-main');
 function PingServer()
 {
 	var p = new Ping();
+
+	console.log( window.localStorage.getItem("URL_HOST"));
+
 	var url = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + "://" + window.localStorage.getItem("URL_HOST");
+	console.log(url);
 	p.ping(url, function(err, data)
 	{
 		if (err)
@@ -56,7 +60,7 @@ function PingServer()
 				}
 			});
 			$$("#btnLogIn").addClass("disabled");
-			console.error('Could not ping remote URL', err);
+			alert('Could not ping remote URL' + err);
 			SetSessionValue("SERVER_CONN", 0);
 		}
 		else
