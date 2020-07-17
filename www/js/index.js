@@ -59,8 +59,8 @@ function PingServer()
 					close: true
 				}
 			});
-			$$("#btnLogIn").addClass("disabled");
-			alert('Could not ping remote URL' + err);
+			//$$("#btnLogIn").addClass("disabled");
+			alert('Could not ping remote URL ' + err + ' ' + url);
 			SetSessionValue("SERVER_CONN", 0);
 		}
 		else
