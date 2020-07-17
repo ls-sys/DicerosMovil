@@ -45,6 +45,8 @@ function PingServer()
 
 	var url = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + "://" + window.localStorage.getItem("URL_HOST");
 	console.log(url);
+	$$("#btnLogIn").removeClass("disabled");
+	SetSessionValue("SERVER_CONN", 1);
 	p.ping(url, function(err, data)
 	{
 		if (err)
