@@ -44,9 +44,7 @@ function PingServer()
 	console.log( window.localStorage.getItem("URL_HOST"));
 
 	var url = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + "://" + window.localStorage.getItem("URL_HOST");
-	console.log(url);
-	$$("#btnLogIn").removeClass("disabled");
-	SetSessionValue("SERVER_CONN", 1);
+	
 	p.ping(url, function(err, data)
 	{
 		if (err)
@@ -61,7 +59,7 @@ function PingServer()
 					close: true
 				}
 			});
-			//$$("#btnLogIn").addClass("disabled");
+			$$("#btnLogIn").addClass("disabled");
 			alert('Could not ping remote URL ' + err + ' ' + url);
 			SetSessionValue("SERVER_CONN", 0);
 		}
@@ -574,7 +572,7 @@ $$(document).on('deviceready', function()
 		alert(error);
 	}
 
-	window.localStorage.setItem("URL_HOST", "192.168.20.250");
+	window.localStorage.setItem("URL_HOST", "192.168.20.110");
 	window.localStorage.setItem("HOST_SSL", "0");
 
 	URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
@@ -1576,7 +1574,7 @@ function btn_click_btnLogIn()
 				mainView.router.loadContent(data);
 				window.localStorage.setItem("usr", $$("#fLogin input[name='name']").val());
 				
-				try
+				/*try
 				{
 					window.plugins.OneSignal.getPermissionSubscriptionState(function(status) 
 					{
@@ -1613,7 +1611,7 @@ function btn_click_btnLogIn()
 				catch(ex)
 				{
 					alert(ex);
-				}
+				}*/
 			}
 			
 			myApp.hidePreloader();

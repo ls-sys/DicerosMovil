@@ -44,7 +44,7 @@ function PingServer()
 	console.log( window.localStorage.getItem("URL_HOST"));
 
 	var url = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + "://" + window.localStorage.getItem("URL_HOST");
-	console.log(url);
+	
 	p.ping(url, function(err, data)
 	{
 		if (err)
@@ -60,7 +60,7 @@ function PingServer()
 				}
 			});
 			$$("#btnLogIn").addClass("disabled");
-			alert('Could not ping remote URL' + err);
+			alert('Could not ping remote URL ' + err + ' ' + url);
 			SetSessionValue("SERVER_CONN", 0);
 		}
 		else
@@ -572,7 +572,7 @@ $$(document).on('deviceready', function()
 		alert(error);
 	}
 
-	window.localStorage.setItem("URL_HOST", "192.168.20.250");
+	window.localStorage.setItem("URL_HOST", "192.168.20.110");
 	window.localStorage.setItem("HOST_SSL", "0");
 
 	URLBASE = "http" + ((window.localStorage.getItem("HOST_SSL") == 1)?"s":"") + 
