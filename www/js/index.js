@@ -1101,7 +1101,7 @@ function MotorMovil(a)
 		case "SaveT":
 			myApp.showPreloader();
 
-			$$("div[data-page='FormDataU'] input.HidenParams, div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select, , div[data-page='FormDataU'] div.item-input textarea").each(function(i, ele)
+			$$("div[data-page='FormDataU'] input.HidenParams, div[data-page='FormDataU'] div.item-input input, div[data-page='FormDataU'] div.item-input select, div[data-page='FormDataU'] div.item-input textarea").each(function(i, ele)
 			{
 				var ItemName = $$(ele).attr("name");
 				var tipoInput = $$(ele).attr("type");
